@@ -12,242 +12,243 @@
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/skill-seekers.svg)](https://pypi.org/project/skill-seekers/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/skill-seekers.svg)](https://pypi.org/project/skill-seekers/)
 
-**Automatically convert documentation websites, GitHub repositories, and PDFs into Claude AI skills in minutes.**
+**数分钟内即可把文档站点、GitHub 仓库与 PDF 自动转成可直接上传 Claude 的 AI 技能。**
 
-> 📋 **[View Development Roadmap & Tasks](https://github.com/users/yusufkaraaslan/projects/2)** - 134 tasks across 10 categories, pick any to contribute!
+> 📋 **[查看开发路线图与任务](https://github.com/users/yusufkaraaslan/projects/2)** —— 10 个类别共 134 个任务，欢迎挑一个参与贡献！
 
-## What is Skill Seeker?
+## Skill Seeker 是什么？
 
-Skill Seeker is an automated tool that transforms documentation websites, GitHub repositories, and PDF files into production-ready [Claude AI skills](https://www.anthropic.com/news/skills). Instead of manually reading and summarizing documentation, Skill Seeker:
+Skill Seeker 是一个自动化工具，能把文档网站、GitHub 仓库与 PDF 文件转换为可投入生产的 [Claude AI 技能](https://www.anthropic.com/news/skills)。不再需要逐字阅读、手动总结文档，Skill Seeker 会：
 
-1. **Scrapes** multiple sources (docs, GitHub repos, PDFs) automatically
-2. **Analyzes** code repositories with deep AST parsing
-3. **Detects** conflicts between documentation and code implementation
-4. **Organizes** content into categorized reference files
-5. **Enhances** with AI to extract best examples and key concepts
-6. **Packages** everything into an uploadable `.zip` file for Claude
+1. **抓取** 多种来源（文档、GitHub 仓库、PDF）
+2. **分析** 代码仓库并执行 AST 深度解析
+3. **检测** 文档与真实代码实现的冲突
+4. **整理** 内容为分类参考文件
+5. **强化** 使用 AI 挖掘最佳示例与关键概念
+6. **打包** 生成可直接上传到 Claude 的 `.zip`
 
-**Result:** Get comprehensive Claude skills for any framework, API, or tool in 20-40 minutes instead of hours of manual work.
+**效果：** 20-40 分钟即可为任意框架、API 或工具生成完整技能，省去数小时的人工整理。
 
-## Why Use This?
+## 为什么值得用？
 
-- 🎯 **For Developers**: Create skills from documentation + GitHub repos with conflict detection
-- 🎮 **For Game Devs**: Generate skills for game engines (Godot docs + GitHub, Unity, etc.)
-- 🔧 **For Teams**: Combine internal docs + code repositories into single source of truth
-- 📚 **For Learners**: Build comprehensive skills from docs, code examples, and PDFs
-- 🔍 **For Open Source**: Analyze repos to find documentation gaps and outdated examples
+- 🎯 **开发者：** 从文档和 GitHub 仓库生成技能并自动检测冲突
+- 🎮 **游戏团队：** 为 Godot、Unity 等引擎制作技能
+- 🔧 **公司/团队：** 把内部文档与代码仓库整合成唯一事实源
+- 📚 **学习者：** 结合文档、示例与 PDF 构建完整知识
+- 🔍 **开源维护者：** 审视仓库，发现文档缺口与过时示例
 
-## Key Features
+## 关键特性
 
-### 🌐 Documentation Scraping
-- ✅ **llms.txt Support** - Automatically detects and uses LLM-ready documentation files (10x faster)
-- ✅ **Universal Scraper** - Works with ANY documentation website
-- ✅ **Smart Categorization** - Automatically organizes content by topic
-- ✅ **Code Language Detection** - Recognizes Python, JavaScript, C++, GDScript, etc.
-- ✅ **8 Ready-to-Use Presets** - Godot, React, Vue, Django, FastAPI, and more
+### 🌐 文档抓取
 
-### 📄 PDF Support (**v1.2.0**)
-- ✅ **Basic PDF Extraction** - Extract text, code, and images from PDF files
-- ✅ **OCR for Scanned PDFs** - Extract text from scanned documents
-- ✅ **Password-Protected PDFs** - Handle encrypted PDFs
-- ✅ **Table Extraction** - Extract complex tables from PDFs
-- ✅ **Parallel Processing** - 3x faster for large PDFs
-- ✅ **Intelligent Caching** - 50% faster on re-runs
+- ✅ **llms.txt 支持** —— 自动识别并使用面向 LLM 的文档（提速约 10 倍）
+- ✅ **通用抓取器** —— 适配任意文档网站
+- ✅ **智能分类** —— 自动按主题分区
+- ✅ **代码语言识别** —— 支持 Python、JavaScript、C++、GDScript 等
+- ✅ **8 个内置预设** —— Godot、React、Vue、Django、FastAPI 等
 
-### 🐙 GitHub Repository Scraping (**v2.0.0**)
-- ✅ **Deep Code Analysis** - AST parsing for Python, JavaScript, TypeScript, Java, C++, Go
-- ✅ **API Extraction** - Functions, classes, methods with parameters and types
-- ✅ **Repository Metadata** - README, file tree, language breakdown, stars/forks
-- ✅ **GitHub Issues & PRs** - Fetch open/closed issues with labels and milestones
-- ✅ **CHANGELOG & Releases** - Automatically extract version history
-- ✅ **Conflict Detection** - Compare documented APIs vs actual code implementation
-- ✅ **MCP Integration** - Natural language: "Scrape GitHub repo facebook/react"
+### 📄 PDF 支持（**v1.2.0**）
 
-### 🔄 Unified Multi-Source Scraping (**NEW - v2.0.0**)
-- ✅ **Combine Multiple Sources** - Mix documentation + GitHub + PDF in one skill
-- ✅ **Conflict Detection** - Automatically finds discrepancies between docs and code
-- ✅ **Intelligent Merging** - Rule-based or AI-powered conflict resolution
-- ✅ **Transparent Reporting** - Side-by-side comparison with ⚠️ warnings
-- ✅ **Documentation Gap Analysis** - Identifies outdated docs and undocumented features
-- ✅ **Single Source of Truth** - One skill showing both intent (docs) and reality (code)
-- ✅ **Backward Compatible** - Legacy single-source configs still work
+- ✅ **文本/代码/图片提取**
+- ✅ **扫描件 OCR**
+- ✅ **加密 PDF**
+- ✅ **复杂表格抽取**
+- ✅ **并行处理** —— 大文件快 3 倍
+- ✅ **智能缓存** —— 复跑提速 50%
 
-### 🤖 AI & Enhancement
-- ✅ **AI-Powered Enhancement** - Transforms basic templates into comprehensive guides
-- ✅ **No API Costs** - FREE local enhancement using Claude Code Max
-- ✅ **MCP Server for Claude Code** - Use directly from Claude Code with natural language
+### 🐙 GitHub 仓库抓取（**v2.0.0**）
 
-### ⚡ Performance & Scale
-- ✅ **Async Mode** - 2-3x faster scraping with async/await (use `--async` flag)
-- ✅ **Large Documentation Support** - Handle 10K-40K+ page docs with intelligent splitting
-- ✅ **Router/Hub Skills** - Intelligent routing to specialized sub-skills
-- ✅ **Parallel Scraping** - Process multiple skills simultaneously
-- ✅ **Checkpoint/Resume** - Never lose progress on long scrapes
-- ✅ **Caching System** - Scrape once, rebuild instantly
+- ✅ **深度代码分析** —— Python、JavaScript、TypeScript、Java、C++、Go AST
+- ✅ **API 提取** —— 函数、类、方法及参数/类型
+- ✅ **仓库元数据** —— README、文件树、语言占比、Star/Fork
+- ✅ **Issues 与 PR** —— 包含标签、里程碑
+- ✅ **CHANGELOG 与版本** —— 自动读取
+- ✅ **冲突检测** —— 比对文档与真实实现
+- ✅ **MCP 集成** —— 例如直接说 “Scrape GitHub repo facebook/react”
 
-### ✅ Quality Assurance
-- ✅ **Fully Tested** - 379 tests with comprehensive coverage
+### 🔄 统一多来源抓取（**v2.0.0** 新增）
+
+- ✅ 文档 + GitHub + PDF 三合一
+- ✅ 文档/代码冲突自动标记
+- ✅ 规则或 AI 驱动的冲突合并
+- ✅ ⚠️ 告警报告并排呈现
+- ✅ 文档缺口分析
+- ✅ 意图（文档）与现实（代码）同屏
+- ✅ 兼容旧版单来源配置
+
+### 🤖 AI 与内容增强
+
+- ✅ **AI 增强** —— 把模板升级成完整指南
+- ✅ **零 API 成本** —— 借助 Claude Code Max 本地增强
+- ✅ **Claude Code MCP 服务** —— 在 Claude Code 里直接自然语言调用
+
+### ⚡ 性能与规模
+
+- ✅ **异步模式** —— `--async` 提升 2-3 倍抓取速度
+- ✅ **超大文档支持** —— 1 万～4 万+ 页智能拆分
+- ✅ **路由/枢纽技能** —— 自动把问题导向子技能
+- ✅ **并行抓取** —— 同时处理多个技能
+- ✅ **断点续跑** —— 长时间任务不丢进度
+- ✅ **缓存** —— 一次抓取，多次秒级重建
+
+### ✅ 质量保证
+
+- ✅ **379 个测试** 全量覆盖
 
 ---
 
-## 📦 Now Available on PyPI!
+## 📦 已发布至 PyPI
 
-**Skill Seekers is now published on the Python Package Index!** Install with a single command:
+**Skill Seekers 已登陆 PyPI！** 一条命令即可安装：
 
 ```bash
 pip install skill-seekers
 ```
 
-Get started in seconds. No cloning, no setup - just install and run. See installation options below.
+几秒即可开始，无需克隆仓库或复杂配置。更多安装方式见下文。
 
 ---
 
-## Quick Start
+## 快速开始
 
-### Option 1: Install from PyPI (Recommended)
+### 方案 1：从 PyPI 安装（推荐）
 
 ```bash
-# Install from PyPI (easiest method!)
+# 从 PyPI 安装（最简单）
 pip install skill-seekers
 
-# Use the unified CLI
+# 使用统一 CLI
 skill-seekers scrape --config configs/react.json
 skill-seekers github --repo facebook/react
 skill-seekers enhance output/react/
 skill-seekers package output/react/
 ```
 
-**Time:** ~25 minutes | **Quality:** Production-ready | **Cost:** Free
+**耗时：**约 25 分钟｜**质量：**可用于生产｜**成本：**免费
 
-📖 **New to Skill Seekers?** Check out our [Quick Start Guide](QUICKSTART.md) or [Bulletproof Guide](BULLETPROOF_QUICKSTART.md)
+📖 **新手？** 优先阅读 [QUICKSTART.md](QUICKSTART.md) 或 [BULLETPROOF_QUICKSTART.md](BULLETPROOF_QUICKSTART.md)。
 
-### Option 2: Install via uv (Modern Python Tool)
+### 方案 2：使用 uv（现代 Python 工具）
 
 ```bash
-# Install with uv (fast, modern alternative)
+# 使用 uv 安装（更快）
 uv tool install skill-seekers
 
-# Or run directly without installing
+# 或者免安装直接运行
 uv tool run --from skill-seekers skill-seekers scrape --config https://raw.githubusercontent.com/yusufkaraaslan/Skill_Seekers/main/configs/react.json
 
-# Unified CLI - simple commands
+# 统一 CLI
 skill-seekers scrape --config configs/react.json
 skill-seekers github --repo facebook/react
 skill-seekers package output/react/
 ```
 
-**Time:** ~25 minutes | **Quality:** Production-ready | **Cost:** Free
+**耗时：**约 25 分钟｜**质量：**可用于生产｜**成本：**免费
 
-### Option 3: Development Install (From Source)
+### 方案 3：开发者模式（源码安装）
 
 ```bash
-# Clone and install in editable mode
 git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
 cd Skill_Seekers
 pip install -e .
 
-# Use the unified CLI
 skill-seekers scrape --config configs/react.json
 ```
 
-### Option 4: Use from Claude Code (MCP Integration)
+### 方案 4：Claude Code（MCP 集成）
 
 ```bash
-# One-time setup (5 minutes)
+# 一次性配置（5 分钟）
 ./setup_mcp.sh
 
-# Then in Claude Code, just ask:
+# 然后在 Claude Code 里直接提问：
 "Generate a React skill from https://react.dev/"
 "Scrape PDF at docs/manual.pdf and create skill"
 ```
 
-**Time:** Automated | **Quality:** Production-ready | **Cost:** Free
+**耗时：**自动化｜**质量：**可用于生产｜**成本：**免费
 
-### Option 5: Legacy CLI (Backwards Compatible)
+### 方案 5：旧版 CLI（向后兼容）
 
 ```bash
-# Install dependencies
 pip3 install requests beautifulsoup4
-
-# Run scripts directly (old method)
 python3 src/skill_seekers/cli/doc_scraper.py --config configs/react.json
-
-# Upload output/react.zip to Claude - Done!
+# 把 output/react.zip 上传到 Claude 即可
 ```
 
-**Time:** ~25 minutes | **Quality:** Production-ready | **Cost:** Free
+**耗时：**约 25 分钟｜**质量：**可用于生产｜**成本：**免费
 
-## Usage Examples
+## 使用示例
 
-### Documentation Scraping
+### 文档抓取
 
 ```bash
-# Scrape documentation website
+# 抓取文档站
 skill-seekers scrape --config configs/react.json
 
-# Quick scrape without config
+# 无配置快速抓取
 skill-seekers scrape --url https://react.dev --name react
 
-# With async mode (3x faster)
+# 异步模式（≈3 倍提速）
 skill-seekers scrape --config configs/godot.json --async --workers 8
 ```
 
-### PDF Extraction
+### PDF 提取
 
 ```bash
-# Basic PDF extraction
+# 基础 PDF 抽取
 skill-seekers pdf --pdf docs/manual.pdf --name myskill
 
-# Advanced features
+# 高级功能
 skill-seekers pdf --pdf docs/manual.pdf --name myskill \
-    --extract-tables \        # Extract tables
-    --parallel \              # Fast parallel processing
-    --workers 8               # Use 8 CPU cores
+    --extract-tables \        # 抽取表格
+    --parallel \              # 并行处理
+    --workers 8               # 使用 8 核
 
-# Scanned PDFs (requires: pip install pytesseract Pillow)
+# 扫描件（需 pip install pytesseract Pillow）
 skill-seekers pdf --pdf docs/scanned.pdf --name myskill --ocr
 
-# Password-protected PDFs
+# 加密 PDF
 skill-seekers pdf --pdf docs/encrypted.pdf --name myskill --password mypassword
 ```
 
-**Time:** ~5-15 minutes (or 2-5 minutes with parallel) | **Quality:** Production-ready | **Cost:** Free
+**耗时：**约 5-15 分钟（并行 2-5 分钟）｜**质量：**可用于生产｜**成本：**免费
 
-### GitHub Repository Scraping
+### GitHub 仓库抓取
 
 ```bash
-# Basic repository scraping
+# 基础仓库抓取
 skill-seekers github --repo facebook/react
 
-# Using a config file
+# 使用配置文件
 skill-seekers github --config configs/react_github.json
 
-# With authentication (higher rate limits)
+# 搭配 Token（更高速）
 export GITHUB_TOKEN=ghp_your_token_here
 skill-seekers github --repo facebook/react
 
-# Customize what to include
+# 自定义采集范围
 skill-seekers github --repo django/django \
-    --include-issues \        # Extract GitHub Issues
-    --max-issues 100 \        # Limit issue count
-    --include-changelog \     # Extract CHANGELOG.md
-    --include-releases        # Extract GitHub Releases
+    --include-issues \        # Issues
+    --max-issues 100 \        # 限制数量
+    --include-changelog \     # CHANGELOG.md
+    --include-releases        # GitHub Releases
 ```
 
-**Time:** ~5-10 minutes | **Quality:** Production-ready | **Cost:** Free
+**耗时：**约 5-10 分钟｜**质量：**可用于生产｜**成本：**免费
 
-### Unified Multi-Source Scraping (**NEW - v2.0.0**)
+### 统一多来源抓取（**v2.0.0 新功能**）
 
-**The Problem:** Documentation and code often drift apart. Docs might be outdated, missing features that exist in code, or documenting features that were removed.
+**问题：** 文档与代码经常不同步，文档可能过时、缺功能，或描述已删除的特性。
 
-**The Solution:** Combine documentation + GitHub + PDF into one unified skill that shows BOTH what's documented AND what actually exists, with clear warnings about discrepancies.
+**解决：** 把文档 + GitHub + PDF 合并成一个技能，同时展示“文档描述”与“实际实现”，并对差异明确警示。
 
 ```bash
-# Use existing unified configs
+# 使用内置统一配置
 skill-seekers unified --config configs/react_unified.json
 skill-seekers unified --config configs/django_unified.json
 
-# Or create unified config (mix documentation + GitHub)
+# 自定义统一配置
 cat > configs/myframework_unified.json << 'EOF'
 {
   "name": "myframework",
@@ -270,56 +271,59 @@ cat > configs/myframework_unified.json << 'EOF'
 }
 EOF
 
-# Run unified scraper
 skill-seekers unified --config configs/myframework_unified.json
-
-# Package and upload
 skill-seekers package output/myframework/
-# Upload output/myframework.zip to Claude - Done!
+# 上传 output/myframework.zip 到 Claude
 ```
 
-**Time:** ~30-45 minutes | **Quality:** Production-ready with conflict detection | **Cost:** Free
+**耗时：**约 30-45 分钟｜**质量：**含冲突检测的生产级输出｜**成本：**免费
 
-**What Makes It Special:**
+**独特之处：**
 
-✅ **Conflict Detection** - Automatically finds 4 types of discrepancies:
-- 🔴 **Missing in code** (high): Documented but not implemented
-- 🟡 **Missing in docs** (medium): Implemented but not documented
-- ⚠️ **Signature mismatch**: Different parameters/types
-- ℹ️ **Description mismatch**: Different explanations
+✅ **冲突检测** —— 自动发现 4 种差异：
 
-✅ **Transparent Reporting** - Shows both versions side-by-side:
+- 🔴 **代码缺失**：文档有而代码无
+- 🟡 **文档缺失**：代码有而文档无
+- ⚠️ **签名不匹配**：参数/类型不同
+- ℹ️ **描述不一致**：说明不同
+
+✅ **透明报告** —— 双栏显示：
+
 ```markdown
 #### `move_local_x(delta: float)`
 
-⚠️ **Conflict**: Documentation signature differs from implementation
+⚠️ **冲突**：文档签名与实现不一致
 
-**Documentation says:**
+**文档记载：**
 ```
+
 def move_local_x(delta: float)
+
 ```
 
-**Code implementation:**
+**代码实现：**
 ```python
 def move_local_x(delta: float, snap: bool = False) -> None
 ```
+
 ```
 
-✅ **Advantages:**
-- **Identifies documentation gaps** - Find outdated or missing docs automatically
-- **Catches code changes** - Know when APIs change without docs being updated
-- **Single source of truth** - One skill showing intent (docs) AND reality (code)
-- **Actionable insights** - Get suggestions for fixing each conflict
-- **Development aid** - See what's actually in the codebase vs what's documented
+✅ **优势**
 
-**Example Unified Configs:**
-- `configs/react_unified.json` - React docs + GitHub repo
-- `configs/django_unified.json` - Django docs + GitHub repo
-- `configs/fastapi_unified.json` - FastAPI docs + GitHub repo
+- 自动定位文档缺口
+- 实时感知 API 改动
+- 单一事实源（意图 vs 实际）
+- 每个冲突附带修复建议
+- 研发排查效率高
 
-**Full Guide:** See [docs/UNIFIED_SCRAPING.md](docs/UNIFIED_SCRAPING.md) for complete documentation.
+**示例统一配置：**
+- `configs/react_unified.json`
+- `configs/django_unified.json`
+- `configs/fastapi_unified.json`
 
-## How It Works
+详见 [docs/UNIFIED_SCRAPING.md](docs/UNIFIED_SCRAPING.md)。
+
+## 工作原理
 
 ```mermaid
 graph LR
@@ -334,233 +338,177 @@ graph LR
     G --> H[Upload to Claude AI]
 ```
 
-0. **Detect llms.txt** - Checks for llms-full.txt, llms.txt, llms-small.txt first
-1. **Scrape**: Extracts all pages from documentation
-2. **Categorize**: Organizes content into topics (API, guides, tutorials, etc.)
-3. **Enhance**: AI analyzes docs and creates comprehensive SKILL.md with examples
-4. **Package**: Bundles everything into a Claude-ready `.zip` file
+0. **检测 llms.txt** —— 先查找 llms-full.txt、llms.txt、llms-small.txt  
+1. **抓取** —— 把所有页面拉回本地  
+2. **分类** —— 按主题整理（API、指南、教程等）  
+3. **增强** —— AI 分析并撰写高质量 SKILL.md  
+4. **打包** —— 产出 Claude 可直接上传的 `.zip`
 
-## 📋 Prerequisites
+## 📋 先决条件
 
-**Before you start, make sure you have:**
+确保你已具备：
 
-1. **Python 3.10 or higher** - [Download](https://www.python.org/downloads/) | Check: `python3 --version`
-2. **Git** - [Download](https://git-scm.com/) | Check: `git --version`
-3. **15-30 minutes** for first-time setup
+1. **Python 3.10+** —— [下载](https://www.python.org/downloads/)｜`python3 --version`
+2. **Git** —— [下载](https://git-scm.com/)｜`git --version`
+3. **15-30 分钟** 首次配置时间
 
-**First time user?** → **[Start Here: Bulletproof Quick Start Guide](BULLETPROOF_QUICKSTART.md)** 🎯
-
-This guide walks you through EVERYTHING step-by-step (Python install, git clone, first skill creation).
+第一次使用？请先看 **[BULLETPROOF_QUICKSTART.md](BULLETPROOF_QUICKSTART.md)** 🎯 —— 手把手教你安装 Python、克隆仓库、完成首个技能。
 
 ---
 
-## 🚀 Quick Start
+## 🚀 快速工作流
 
-### Method 1: MCP Server for Claude Code (Easiest)
+### 方法 1：Claude Code 的 MCP Server（最省心）
 
-Use Skill Seeker directly from Claude Code with natural language!
+直接在 Claude Code 中用自然语言驱动 Skill Seeker。
 
 ```bash
-# Clone repository
 git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
 cd Skill_Seekers
-
-# One-time setup (5 minutes)
 ./setup_mcp.sh
-
-# Restart Claude Code, then just ask:
+# 重启 Claude Code 后就能开口即用
 ```
 
-**In Claude Code:**
+**在 Claude Code 输入：**
+
 ```
-List all available configs
-Generate config for Tailwind at https://tailwindcss.com/docs
-Scrape docs using configs/react.json
-Package skill at output/react/
+列出所有可用的配置
+为 https://tailwindcss.com/docs 生成 Tailwind 配置
+使用 configs/react.json 抓取文档
+打包 output/react/ 中的技能
 ```
 
-**Benefits:**
-- ✅ No manual CLI commands
-- ✅ Natural language interface
-- ✅ Integrated with your workflow
-- ✅ 9 tools available instantly (includes automatic upload!)
-- ✅ **Tested and working** in production
+**优势：**
 
-**Full guides:**
-- 📘 [MCP Setup Guide](docs/MCP_SETUP.md) - Complete installation instructions
-- 🧪 [MCP Testing Guide](docs/TEST_MCP_IN_CLAUDE_CODE.md) - Test all 9 tools
-- 📦 [Large Documentation Guide](docs/LARGE_DOCUMENTATION.md) - Handle 10K-40K+ pages
-- 📤 [Upload Guide](docs/UPLOAD_GUIDE.md) - How to upload skills to Claude
+- ✅ 零命令行
+- ✅ 自然语言交互
+- ✅ 与 IDE 工作流融合
+- ✅ 9 个工具即可用（含自动上传）
+- ✅ 已在生产环境验证
 
-### Method 2: CLI (Traditional)
+**完整指南：**
 
-#### One-Time Setup: Create Virtual Environment
+- 📘 [docs/MCP_SETUP.md](docs/MCP_SETUP.md) —— 安装
+- 🧪 [docs/TEST_MCP_IN_CLAUDE_CODE.md](docs/TEST_MCP_IN_CLAUDE_CODE.md) —— 测试 9 个工具
+- 📦 [docs/LARGE_DOCUMENTATION.md](docs/LARGE_DOCUMENTATION.md) —— 处理 1-4 万页
+- 📤 [docs/UPLOAD_GUIDE.md](docs/UPLOAD_GUIDE.md) —— 上传技能
+
+### 方法 2：传统 CLI
+
+#### 一次性步骤：创建虚拟环境
 
 ```bash
-# Clone repository
 git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
 cd Skill_Seekers
-
-# Create virtual environment
 python3 -m venv venv
-
-# Activate virtual environment
 source venv/bin/activate  # macOS/Linux
-# OR on Windows: venv\Scripts\activate
-
-# Install dependencies
+# Windows: venv\Scripts\activate
 pip install requests beautifulsoup4 pytest
-
-# Save dependencies
 pip freeze > requirements.txt
-
-# Optional: Install anthropic for API-based enhancement (not needed for LOCAL enhancement)
-# pip install anthropic
+# 可选：pip install anthropic
 ```
 
-**Always activate the virtual environment before using Skill Seeker:**
-```bash
-source venv/bin/activate  # Run this each time you start a new terminal session
-```
-
-#### Easiest: Use a Preset
+**每次使用前先激活虚拟环境：**
 
 ```bash
-# Make sure venv is activated (you should see (venv) in your prompt)
 source venv/bin/activate
+```
 
-# Optional: Estimate pages first (fast, 1-2 minutes)
-skill-seekers estimate configs/godot.json
+#### 最简单：使用预设
 
-# Use Godot preset
+```bash
+source venv/bin/activate
+skill-seekers estimate configs/godot.json  # 预估页数
 skill-seekers scrape --config configs/godot.json
-
-# Use React preset
 skill-seekers scrape --config configs/react.json
-
-# See all presets
 ls configs/
 ```
 
-### Interactive Mode
+### 交互模式
 
 ```bash
 skill-seekers scrape --interactive
 ```
 
-### Quick Mode
+### 快速模式
 
 ```bash
 skill-seekers scrape \
   --name react \
   --url https://react.dev/ \
-  --description "React framework for UIs"
+  --description "用于构建 UI 的 React 框架"
 ```
 
-## 📤 Uploading Skills to Claude
+## 📤 上传到 Claude
 
-Once your skill is packaged, you need to upload it to Claude:
+完成技能后需上传：
 
-### Option 1: Automatic Upload (API-based)
+### 选项 1：自动上传（需 API Key）
 
 ```bash
-# Set your API key (one-time)
 export ANTHROPIC_API_KEY=sk-ant-...
-
-# Package and upload automatically
 skill-seekers package output/react/ --upload
-
-# OR upload existing .zip
 skill-seekers upload output/react.zip
 ```
 
-**Benefits:**
-- ✅ Fully automatic
-- ✅ No manual steps
-- ✅ Works from command line
+**优势：** 全自动、无需手动操作、命令行即可。  
+**前提：** 在 https://console.anthropic.com/ 申请 Key。
 
-**Requirements:**
-- Anthropic API key (get from https://console.anthropic.com/)
-
-### Option 2: Manual Upload (No API Key)
+### 选项 2：手动上传（无需 API Key）
 
 ```bash
-# Package skill
 skill-seekers package output/react/
-
-# This will:
-# 1. Create output/react.zip
-# 2. Open the output/ folder automatically
-# 3. Show upload instructions
-
-# Then manually upload:
-# - Go to https://claude.ai/skills
-# - Click "Upload Skill"
-# - Select output/react.zip
-# - Done!
+# 将自动创建 output/react.zip 并打开文件夹
+# 根据提示到 https://claude.ai/skills 上传
 ```
 
-**Benefits:**
-- ✅ No API key needed
-- ✅ Works for everyone
-- ✅ Folder opens automatically
+**优势：** 人人可用、无 Key、自动打开文件夹。
 
-### Option 3: Claude Code (MCP) - Smart & Automatic
+### 选项 3：Claude Code（MCP）
 
 ```
-In Claude Code, just ask:
-"Package and upload the React skill"
-
-# With API key set:
-# - Packages the skill
-# - Uploads to Claude automatically
-# - Done! ✅
-
-# Without API key:
-# - Packages the skill
-# - Shows where to find the .zip
-# - Provides manual upload instructions
+"打包并上传 React 技能"
 ```
 
-**Benefits:**
-- ✅ Natural language
-- ✅ Smart auto-detection (uploads if API key available)
-- ✅ Works with or without API key
-- ✅ No errors or failures
+- 有 API Key：打包+上传全自动  
+- 无 Key：打包后告诉你 zip 的位置和手动上传步骤
 
 ---
 
-## 📁 Simple Structure
+## 📁 目录结构
 
 ```
 doc-to-skill/
 ├── cli/
-│   ├── doc_scraper.py      # Main scraping tool
-│   ├── package_skill.py    # Package to .zip
-│   ├── upload_skill.py     # Auto-upload (API)
-│   └── enhance_skill.py    # AI enhancement
-├── mcp/                    # MCP server for Claude Code
-│   └── server.py           # 9 MCP tools
-├── configs/                # Preset configurations
-│   ├── godot.json         # Godot Engine
-│   ├── react.json         # React
-│   ├── vue.json           # Vue.js
-│   ├── django.json        # Django
-│   └── fastapi.json       # FastAPI
-└── output/                 # All output (auto-created)
-    ├── godot_data/        # Scraped data
-    ├── godot/             # Built skill
-    └── godot.zip          # Packaged skill
+│   ├── doc_scraper.py      # 主抓取工具
+│   ├── package_skill.py    # 打包 zip
+│   ├── upload_skill.py     # API 上传
+│   └── enhance_skill.py    # AI 增强
+├── mcp/
+│   └── server.py           # Claude Code 的 9 个 MCP 工具
+├── configs/                # 预设配置
+│   ├── godot.json
+│   ├── react.json
+│   ├── vue.json
+│   ├── django.json
+│   └── fastapi.json
+└── output/
+    ├── godot_data/         # 抓取数据
+    ├── godot/              # 构建好的技能
+    └── godot.zip           # 打包结果
 ```
 
-## ✨ Features
+## ✨ 功能亮点
 
-### 1. Fast Page Estimation (NEW!)
+### 1. 极速页数预估（NEW）
 
 ```bash
 skill-seekers estimate configs/react.json
+```
 
-# Output:
+示例输出：
+
+```
 📊 ESTIMATION RESULTS
 ✅ Pages Discovered: 180
 📈 Estimated Total: 230
@@ -568,177 +516,103 @@ skill-seekers estimate configs/react.json
 💡 Recommended max_pages: 280
 ```
 
-**Benefits:**
-- Know page count BEFORE scraping (saves time)
-- Validates URL patterns work correctly
-- Estimates total scraping time
-- Recommends optimal `max_pages` setting
-- Fast (1-2 minutes vs 20-40 minutes full scrape)
+优势：预判页数、省时、验证 URL 模式、估算耗时、推荐 `max_pages`，1-2 分钟搞定。
 
-### 2. Auto-Detect Existing Data
+### 2. 自动检测已有数据
 
 ```bash
 skill-seekers scrape --config configs/godot.json
-
-# If data exists:
-✓ Found existing data: 245 pages
-Use existing data? (y/n): y
-⏭️  Skipping scrape, using existing data
+# 检测到旧数据会询问是否复用
 ```
 
-### 3. Knowledge Generation
+### 3. 知识生成
 
-**Automatic pattern extraction:**
-- Extracts common code patterns from docs
-- Detects programming language
-- Creates quick reference with real examples
-- Smarter categorization with scoring
+- 自动抽取常见代码模式
+- 识别语言并生成快速参考
+- 更聪明的分类打分
+- SKILL.md 包含真实示例、常见模式、语言标签
 
-**Enhanced SKILL.md:**
-- Real code examples from documentation
-- Language-annotated code blocks
-- Common patterns section
-- Quick reference from actual usage examples
+### 4. 智能分类
 
-### 4. Smart Categorization
+根据 URL、标题和关键词自动推断类别并评分。
 
-Automatically infers categories from:
-- URL structure
-- Page titles
-- Content keywords
-- With scoring for better accuracy
-
-### 5. Code Language Detection
+### 5. 代码语言检测
 
 ```python
-# Automatically detects:
+# 自动识别：
 - Python (def, import, from)
 - JavaScript (const, let, =>)
 - GDScript (func, var, extends)
 - C++ (#include, int main)
-- And more...
+- 等等
 ```
 
-### 5. Skip Scraping
+### 5. 跳过抓取
 
 ```bash
-# Scrape once
 skill-seekers scrape --config configs/react.json
-
-# Later, just rebuild (instant)
 skill-seekers scrape --config configs/react.json --skip-scrape
 ```
 
-### 6. Async Mode for Faster Scraping (2-3x Speed!)
+### 6. 异步模式（2-3 倍提速）
 
 ```bash
-# Enable async mode with 8 workers (recommended for large docs)
 skill-seekers scrape --config configs/react.json --async --workers 8
-
-# Small docs (~100-500 pages)
 skill-seekers scrape --config configs/mydocs.json --async --workers 4
-
-# Large docs (2000+ pages) with no rate limiting
 skill-seekers scrape --config configs/largedocs.json --async --workers 8 --no-rate-limit
 ```
 
-**Performance Comparison:**
-- **Sync mode (threads):** ~18 pages/sec, 120 MB memory
-- **Async mode:** ~55 pages/sec, 40 MB memory
-- **Result:** 3x faster, 66% less memory!
+- 同步：18 页/秒，120 MB
+- 异步：55 页/秒，40 MB
 
-**When to use:**
-- ✅ Large documentation (500+ pages)
-- ✅ Network latency is high
-- ✅ Memory is constrained
-- ❌ Small docs (< 100 pages) - overhead not worth it
+适用于：500+ 页文档、高延迟网络、内存紧张。
 
-**See full guide:** [ASYNC_SUPPORT.md](ASYNC_SUPPORT.md)
+详见 [ASYNC_SUPPORT.md](ASYNC_SUPPORT.md)。
 
-### 7. AI-Powered SKILL.md Enhancement
+### 7. AI 增强 SKILL.md
 
 ```bash
-# Option 1: During scraping (API-based, requires API key)
 pip3 install anthropic
 export ANTHROPIC_API_KEY=sk-ant-...
 skill-seekers scrape --config configs/react.json --enhance
-
-# Option 2: During scraping (LOCAL, no API key - uses Claude Code Max)
 skill-seekers scrape --config configs/react.json --enhance-local
-
-# Option 3: After scraping (API-based, standalone)
-skill-seekers enhance output/react/
-
-# Option 4: After scraping (LOCAL, no API key, standalone)
 skill-seekers enhance output/react/
 ```
 
-**What it does:**
-- Reads your reference documentation
-- Uses Claude to generate an excellent SKILL.md
-- Extracts best code examples (5-10 practical examples)
-- Creates comprehensive quick reference
-- Adds domain-specific key concepts
-- Provides navigation guidance for different skill levels
-- Automatically backs up original
-- **Quality:** Transforms 75-line templates into 500+ line comprehensive guides
+作用：
 
-**LOCAL Enhancement (Recommended):**
-- Uses your Claude Code Max plan (no API costs)
-- Opens new terminal with Claude Code
-- Analyzes reference files automatically
-- Takes 30-60 seconds
-- Quality: 9/10 (comparable to API version)
+- 读取参考文档
+- 用 Claude 生成优质 SKILL.md
+- 提取 5-10 个真实示例
+- 汇总关键概念与导航建议
+- 自动备份原文件
 
-### 7. Large Documentation Support (10K-40K+ Pages)
+**本地增强（推荐）：** 使用 Claude Code Max，无 API 成本，自动分析参考文件，30-60 秒完成，质量接近云端。
 
-**For massive documentation sites like Godot (40K pages), AWS, or Microsoft Docs:**
+### 7. 超大文档（1-4 万+ 页）
+
+以 Godot/AWS/Microsoft 为例：
 
 ```bash
-# 1. Estimate first (discover page count)
 skill-seekers estimate configs/godot.json
-
-# 2. Auto-split into focused sub-skills
 python3 -m skill_seekers.cli.split_config configs/godot.json --strategy router
-
-# Creates:
-# - godot-scripting.json (5K pages)
-# - godot-2d.json (8K pages)
-# - godot-3d.json (10K pages)
-# - godot-physics.json (6K pages)
-# - godot-shaders.json (11K pages)
-
-# 3. Scrape all in parallel (4-8 hours instead of 20-40!)
 for config in configs/godot-*.json; do
   skill-seekers scrape --config $config &
 done
 wait
-
-# 4. Generate intelligent router/hub skill
 python3 -m skill_seekers.cli.generate_router configs/godot-*.json
-
-# 5. Package all skills
 python3 -m skill_seekers.cli.package_multi output/godot*/
-
-# 6. Upload all .zip files to Claude
-# Users just ask questions naturally!
-# Router automatically directs to the right sub-skill!
 ```
 
-**Split Strategies:**
-- **auto** - Intelligently detects best strategy based on page count
-- **category** - Split by documentation categories (scripting, 2d, 3d, etc.)
-- **router** - Create hub skill + specialized sub-skills (RECOMMENDED)
-- **size** - Split every N pages (for docs without clear categories)
+**拆分策略：**
 
-**Benefits:**
-- ✅ Faster scraping (parallel execution)
-- ✅ More focused skills (better Claude performance)
-- ✅ Easier maintenance (update one topic at a time)
-- ✅ Natural user experience (router handles routing)
-- ✅ Avoids context window limits
+- `auto` 自动选择
+- `category` 按分类
+- `router` 枢纽 + 子技能（推荐）
+- `size` 按页数
 
-**Configuration:**
+示例配置：
+
 ```json
 {
   "name": "godot",
@@ -752,150 +626,96 @@ python3 -m skill_seekers.cli.package_multi output/godot*/
 }
 ```
 
-**Full Guide:** [Large Documentation Guide](docs/LARGE_DOCUMENTATION.md)
+详见 [docs/LARGE_DOCUMENTATION.md](docs/LARGE_DOCUMENTATION.md)。
 
-### 8. Checkpoint/Resume for Long Scrapes
-
-**Never lose progress on long-running scrapes:**
+### 8. 长任务断点续跑
 
 ```bash
-# Enable in config
 {
   "checkpoint": {
     "enabled": true,
-    "interval": 1000  // Save every 1000 pages
+    "interval": 1000
   }
 }
-
-# If scrape is interrupted (Ctrl+C or crash)
 skill-seekers scrape --config configs/godot.json --resume
-
-# Resume from last checkpoint
-✅ Resuming from checkpoint (12,450 pages scraped)
-⏭️  Skipping 12,450 already-scraped pages
-🔄 Continuing from where we left off...
-
-# Start fresh (clear checkpoint)
 skill-seekers scrape --config configs/godot.json --fresh
 ```
 
-**Benefits:**
-- ✅ Auto-saves every 1000 pages (configurable)
-- ✅ Saves on interruption (Ctrl+C)
-- ✅ Resume with `--resume` flag
-- ✅ Never lose hours of scraping progress
+自动定期保存，崩溃/中断后 `--resume` 继续。
 
-## 🎯 Complete Workflows
+## 🎯 完整工作流
 
-### First Time (With Scraping + Enhancement)
+### 首次使用（抓取 + 增强）
 
 ```bash
-# 1. Scrape + Build + AI Enhancement (LOCAL, no API key)
 skill-seekers scrape --config configs/godot.json --enhance-local
-
-# 2. Wait for new terminal to close (enhancement completes)
-# Check the enhanced SKILL.md:
 cat output/godot/SKILL.md
-
-# 3. Package
 skill-seekers package output/godot/
-
-# 4. Done! You have godot.zip with excellent SKILL.md
 ```
 
-**Time:** 20-40 minutes (scraping) + 60 seconds (enhancement) = ~21-41 minutes
+**耗时：**抓取 20-40 分钟 + 增强 1 分钟。
 
-### Using Existing Data (Fast!)
+### 复用已有数据
 
 ```bash
-# 1. Use cached data + Local Enhancement
 skill-seekers scrape --config configs/godot.json --skip-scrape
 skill-seekers enhance output/godot/
-
-# 2. Package
 skill-seekers package output/godot/
-
-# 3. Done!
 ```
 
-**Time:** 1-3 minutes (build) + 60 seconds (enhancement) = ~2-4 minutes total
+**耗时：**2-4 分钟。
 
-### Without Enhancement (Basic)
+### 基础流程（无增强）
 
 ```bash
-# 1. Scrape + Build (no enhancement)
 skill-seekers scrape --config configs/godot.json
-
-# 2. Package
 skill-seekers package output/godot/
-
-# 3. Done! (SKILL.md will be basic template)
 ```
 
-**Time:** 20-40 minutes
-**Note:** SKILL.md will be generic - enhancement strongly recommended!
+## 📋 现成预设
 
-## 📋 Available Presets
+| 配置                  | 框架               | 描述                       |
+| --------------------- | ------------------ | -------------------------- |
+| `godot.json`        | Godot Engine      | 游戏开发                   |
+| `react.json`        | React             | 前端 UI 框架               |
+| `vue.json`          | Vue.js            | 渐进式框架                 |
+| `django.json`       | Django            | Python Web 框架            |
+| `fastapi.json`      | FastAPI           | 现代 Python API            |
+| `ansible-core.json` | Ansible Core 2.19 | 自动化与配置管理           |
 
-| Config | Framework | Description |
-|--------|-----------|-------------|
-| `godot.json` | Godot Engine | Game development |
-| `react.json` | React | UI framework |
-| `vue.json` | Vue.js | Progressive framework |
-| `django.json` | Django | Python web framework |
-| `fastapi.json` | FastAPI | Modern Python API |
-| `ansible-core.json` | Ansible Core 2.19 | Automation & configuration |
-
-### Using Presets
+使用方式：
 
 ```bash
-# Godot
 skill-seekers scrape --config configs/godot.json
-
-# React
 skill-seekers scrape --config configs/react.json
-
-# Vue
 skill-seekers scrape --config configs/vue.json
-
-# Django
 skill-seekers scrape --config configs/django.json
-
-# FastAPI
 skill-seekers scrape --config configs/fastapi.json
-
-# Ansible
 skill-seekers scrape --config configs/ansible-core.json
 ```
 
-## 🎨 Creating Your Own Config
+## 🎨 自定义配置
 
-### Option 1: Interactive
+### 方式 1：交互式
 
 ```bash
 skill-seekers scrape --interactive
-# Follow prompts, it will create the config for you
 ```
 
-### Option 2: Copy and Edit
+### 方式 2：复制-修改
 
 ```bash
-# Copy a preset
 cp configs/react.json configs/myframework.json
-
-# Edit it
 nano configs/myframework.json
-
-# Use it
 skill-seekers scrape --config configs/myframework.json
 ```
 
-### Config Structure
+### 配置结构示例
 
 ```json
 {
   "name": "myframework",
-  "description": "When to use this skill",
+  "description": "该技能的适用场景",
   "base_url": "https://docs.myframework.com/",
   "selectors": {
     "main_content": "article",
@@ -915,185 +735,163 @@ skill-seekers scrape --config configs/myframework.json
 }
 ```
 
-## 📊 What Gets Created
+## 📊 产出内容
 
 ```
 output/
-├── godot_data/              # Scraped raw data
-│   ├── pages/              # JSON files (one per page)
-│   └── summary.json        # Overview
-│
-└── godot/                   # The skill
-    ├── SKILL.md            # Enhanced with real examples
-    ├── references/         # Categorized docs
+├── godot_data/              # 原始抓取数据
+│   ├── pages/               # 每页一个 JSON
+│   └── summary.json         # 汇总
+└── godot/                   # 构建好的技能
+    ├── SKILL.md             # 含真实示例
+    ├── references/          # 分类参考
     │   ├── index.md
     │   ├── getting_started.md
     │   ├── scripting.md
     │   └── ...
-    ├── scripts/            # Empty (add your own)
-    └── assets/             # Empty (add your own)
+    ├── scripts/
+    └── assets/
 ```
 
-## 🎯 Command Line Options
+## 🎯 命令行速查
 
 ```bash
-# Interactive mode
 skill-seekers scrape --interactive
-
-# Use config file
 skill-seekers scrape --config configs/godot.json
-
-# Quick mode
 skill-seekers scrape --name react --url https://react.dev/
-
-# Skip scraping (use existing data)
 skill-seekers scrape --config configs/godot.json --skip-scrape
-
-# With description
 skill-seekers scrape \
   --name react \
   --url https://react.dev/ \
   --description "React framework for building UIs"
 ```
 
-## 💡 Tips
+## 💡 小贴士
 
-### 1. Test Small First
+### 1. 从小规模开始
 
-Edit `max_pages` in config to test:
 ```json
 {
-  "max_pages": 20  // Test with just 20 pages
+  "max_pages": 20
 }
 ```
 
-### 2. Reuse Scraped Data
+### 2. 复用数据
 
 ```bash
-# Scrape once
 skill-seekers scrape --config configs/react.json
-
-# Rebuild multiple times (instant)
-skill-seekers scrape --config configs/react.json --skip-scrape
 skill-seekers scrape --config configs/react.json --skip-scrape
 ```
 
-### 3. Finding Selectors
+### 3. 寻找选择器
 
 ```python
-# Test in Python
 from bs4 import BeautifulSoup
 import requests
-
-url = "https://docs.example.com/page"
-soup = BeautifulSoup(requests.get(url).content, 'html.parser')
-
-# Try different selectors
-print(soup.select_one('article'))
-print(soup.select_one('main'))
-print(soup.select_one('div[role="main"]'))
+soup = BeautifulSoup(requests.get("https://docs.example.com/page").content, "html.parser")
+print(soup.select_one("article"))
 ```
 
-### 4. Check Output Quality
+### 4. 检查输出质量
 
 ```bash
-# After building, check:
-cat output/godot/SKILL.md  # Should have real examples
-cat output/godot/references/index.md  # Categories
+cat output/godot/SKILL.md
+cat output/godot/references/index.md
 ```
 
-## 🐛 Troubleshooting
+## 🐛 故障排查
 
-### No Content Extracted?
-- Check your `main_content` selector
-- Try: `article`, `main`, `div[role="main"]`
+### 没抓到内容？
 
-### Data Exists But Won't Use It?
+- 检查 `main_content` 选择器
+- 尝试 `article`、`main`、`div[role="main"]`
+
+### 不想复用旧数据？
+
 ```bash
-# Force re-scrape
 rm -rf output/myframework_data/
 skill-seekers scrape --config configs/myframework.json
 ```
 
-### Categories Not Good?
-Edit the config `categories` section with better keywords.
+### 分类不理想？
 
-### Want to Update Docs?
+调整配置中的 `categories` 关键词。
+
+### 想重新抓取？
+
 ```bash
-# Delete old data
 rm -rf output/godot_data/
-
-# Re-scrape
 skill-seekers scrape --config configs/godot.json
 ```
 
-## 📈 Performance
+## 📈 性能
 
-| Task | Time | Notes |
-|------|------|-------|
-| Scraping (sync) | 15-45 min | First time only, thread-based |
-| Scraping (async) | 5-15 min | 2-3x faster with --async flag |
-| Building | 1-3 min | Fast! |
-| Re-building | <1 min | With --skip-scrape |
-| Packaging | 5-10 sec | Final zip |
+| 任务              | 耗时        | 说明                          |
+| ----------------- | ----------- | ----------------------------- |
+| 同步抓取          | 15-45 分钟  | 首次运行，基于线程            |
+| 异步抓取          | 5-15 分钟   | 加 `--async` 提升 2-3 倍      |
+| 构建              | 1-3 分钟    | 很快                          |
+| 使用缓存重建      | <1 分钟     | `--skip-scrape`               |
+| 打包              | 5-10 秒     | 生成 `.zip`                   |
 
-## ✅ Summary
+## ✅ 总结
 
-**One tool does everything:**
-1. ✅ Scrapes documentation
-2. ✅ Auto-detects existing data
-3. ✅ Generates better knowledge
-4. ✅ Creates enhanced skills
-5. ✅ Works with presets or custom configs
-6. ✅ Supports skip-scraping for fast iteration
+**一站式能力：**
 
-**Simple structure:**
-- `doc_scraper.py` - The tool
-- `configs/` - Presets
-- `output/` - Everything else
+1. 抓取文档
+2. 识别并复用缓存
+3. 生成高价值知识
+4. 打造增强版技能
+5. 预设与自定义配置两相宜
+6. 支持跳过抓取、极速迭代
 
-**Better output:**
-- Real code examples with language detection
-- Common patterns extracted from docs
-- Smart categorization
-- Enhanced SKILL.md with actual examples
+**简洁结构：**
 
-## 📚 Documentation
+- `doc_scraper.py` —— 核心工具
+- `configs/` —— 预设
+- `output/` —— 所有结果
 
-### Getting Started
-- **[BULLETPROOF_QUICKSTART.md](BULLETPROOF_QUICKSTART.md)** - 🎯 **START HERE** if you're new!
-- **[QUICKSTART.md](QUICKSTART.md)** - Quick start for experienced users
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
+**更佳输出：**
 
-### Guides
-- **[docs/LARGE_DOCUMENTATION.md](docs/LARGE_DOCUMENTATION.md)** - Handle 10K-40K+ page docs
-- **[ASYNC_SUPPORT.md](ASYNC_SUPPORT.md)** - Async mode guide (2-3x faster scraping)
-- **[docs/ENHANCEMENT.md](docs/ENHANCEMENT.md)** - AI enhancement guide
-- **[docs/TERMINAL_SELECTION.md](docs/TERMINAL_SELECTION.md)** - Configure terminal app for local enhancement
-- **[docs/UPLOAD_GUIDE.md](docs/UPLOAD_GUIDE.md)** - How to upload skills to Claude
-- **[docs/MCP_SETUP.md](docs/MCP_SETUP.md)** - MCP integration setup
+- 真实代码示例 + 语言标注
+- 自动提炼常见模式
+- 智能分类
+- 增强版 SKILL.md
 
-### Technical
-- **[docs/CLAUDE.md](docs/CLAUDE.md)** - Technical architecture
-- **[STRUCTURE.md](STRUCTURE.md)** - Repository structure
+## 📚 文档
 
-## 🎮 Ready?
+### 入门
+
+- [BULLETPROOF_QUICKSTART.md](BULLETPROOF_QUICKSTART.md) —— 🎯 新手从这里开始
+- [QUICKSTART.md](QUICKSTART.md) —— 有经验者快速上手
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) —— 常见问题
+
+### 指南
+
+- [docs/LARGE_DOCUMENTATION.md](docs/LARGE_DOCUMENTATION.md)
+- [ASYNC_SUPPORT.md](ASYNC_SUPPORT.md)
+- [docs/ENHANCEMENT.md](docs/ENHANCEMENT.md)
+- [docs/TERMINAL_SELECTION.md](docs/TERMINAL_SELECTION.md)
+- [docs/UPLOAD_GUIDE.md](docs/UPLOAD_GUIDE.md)
+- [docs/MCP_SETUP.md](docs/MCP_SETUP.md)
+
+### 技术
+
+- [docs/CLAUDE.md](docs/CLAUDE.md)
+- [STRUCTURE.md](STRUCTURE.md)
+
+## 🎮 立即尝试
 
 ```bash
-# Try Godot
 skill-seekers scrape --config configs/godot.json
-
-# Try React
 skill-seekers scrape --config configs/react.json
-
-# Or go interactive
 skill-seekers scrape --interactive
 ```
 
-## 📝 License
+## 📝 许可证
 
-MIT License - see [LICENSE](LICENSE) file for details
+MIT License —— 详见 [LICENSE](LICENSE)。
 
 ---
 
-Happy skill building! 🚀
+祝你玩得开心，技能越做越多！🚀
