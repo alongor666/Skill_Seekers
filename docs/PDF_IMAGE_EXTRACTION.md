@@ -1,18 +1,18 @@
-# PDF Image Extraction (Task B1.5)
+# PDF 图片提取（任务 B1.5）
 
-**Status:** ✅ Completed
-**Date:** October 21, 2025
-**Task:** B1.5 - Add PDF image extraction (diagrams, screenshots)
+**状态：** ✅ 已完成
+**日期：** 2025-10-21
+**任务：** B1.5 - 增加 PDF 图片提取（图表、截图）
 
 ---
 
-## Overview
+## 概览
 
-Task B1.5 adds the ability to extract images (diagrams, screenshots, charts) from PDF documentation and save them as separate files. This is essential for preserving visual documentation elements in skills.
+该任务为 PDF 文档增加图片提取能力（图表、截图、曲线图），并将其单独保存。对在技能中保留视觉信息至关重要。
 
-## New Features
+## 新增特性
 
-### ✅ 1. Image Extraction to Files
+### ✅ 1. 图片提取到文件
 
 Extract embedded images from PDFs and save them to disk:
 
@@ -27,7 +27,7 @@ python3 cli/pdf_extractor_poc.py manual.pdf --extract-images --image-dir assets/
 python3 cli/pdf_extractor_poc.py manual.pdf --extract-images --min-image-size 200
 ```
 
-### ✅ 2. Size-Based Filtering
+### ✅ 2. 基于尺寸过滤
 
 Automatically filter out small images (icons, bullets, decorations):
 
@@ -35,7 +35,7 @@ Automatically filter out small images (icons, bullets, decorations):
 - **Configurable:** `--min-image-size`
 - **Purpose:** Focus on meaningful diagrams and screenshots
 
-### ✅ 3. Image Metadata
+### ✅ 3. 图片元数据
 
 Each extracted image includes comprehensive metadata:
 
@@ -52,7 +52,7 @@ Each extracted image includes comprehensive metadata:
 }
 ```
 
-### ✅ 4. Automatic Directory Creation
+### ✅ 4. 自动目录创建
 
 Images are automatically organized:
 
@@ -62,9 +62,9 @@ Images are automatically organized:
 
 ---
 
-## Usage Examples
+## 使用示例
 
-### Basic Image Extraction
+### 基本图片提取
 
 ```bash
 # Extract all images from PDF
@@ -90,7 +90,7 @@ python3 cli/pdf_extractor_poc.py tutorial.pdf --extract-images -v
    Image directory: output/tutorial_images
 ```
 
-### Custom Image Directory
+### 自定义图片目录
 
 ```bash
 # Save images to specific directory
@@ -99,7 +99,7 @@ python3 cli/pdf_extractor_poc.py manual.pdf --extract-images --image-dir docs/im
 
 Result: Images saved to `docs/images/manual_page*_img*.{ext}`
 
-### Filter Small Images
+### 过滤小尺寸图片
 
 ```bash
 # Only extract images >= 200x200 pixels
@@ -114,7 +114,7 @@ python3 cli/pdf_extractor_poc.py guide.pdf --extract-images --min-image-size 200
     Extracted image: guide_page5_img3.png (1200x800)
 ```
 
-### Complete Extraction Workflow
+### 完整提取工作流
 
 ```bash
 # Extract everything: text, code, images
@@ -130,9 +130,9 @@ python3 cli/pdf_extractor_poc.py documentation.pdf \
 
 ---
 
-## Output Format
+## 输出格式
 
-### Enhanced JSON Structure
+### 增强的 JSON 结构
 
 The output now includes image extraction data:
 
@@ -174,7 +174,7 @@ The output now includes image extraction data:
 }
 ```
 
-### File System Layout
+### 文件系统布局
 
 ```
 output/
@@ -188,9 +188,9 @@ output/
 
 ---
 
-## Technical Implementation
+## 技术实现
 
-### Image Extraction Method
+### 图片提取方法
 
 ```python
 def extract_images_from_page(self, page, page_num):
@@ -239,9 +239,9 @@ def extract_images_from_page(self, page, page_num):
 
 ---
 
-## Performance
+## 性能
 
-### Extraction Speed
+### 提取速度
 
 | PDF Size | Images | Extraction Time | Overhead |
 |----------|--------|-----------------|----------|
@@ -251,7 +251,7 @@ def extract_images_from_page(self, page, page_num):
 
 **Note:** Image extraction adds 10-20% overhead depending on image count and size.
 
-### Storage Requirements
+### 存储需求
 
 - **PNG images:** ~10-500 KB each (diagrams)
 - **JPEG images:** ~50-2000 KB each (screenshots)
@@ -259,7 +259,7 @@ def extract_images_from_page(self, page, page_num):
 
 ---
 
-## Supported Image Formats
+## 支持的图片格式
 
 PyMuPDF automatically handles format detection and extraction:
 
@@ -273,9 +273,9 @@ Images are extracted in their original format.
 
 ---
 
-## Filtering Strategy
+## 过滤策略
 
-### Why Filter Small Images?
+### 为什么要过滤小图片？
 
 PDFs often contain:
 - **Icons:** 16x16, 32x32 (UI elements)
@@ -284,7 +284,7 @@ PDFs often contain:
 
 These are usually not useful for documentation skills.
 
-### Recommended Thresholds
+### 推荐阈值
 
 | Use Case | Min Size | Reasoning |
 |----------|----------|-----------|
@@ -297,9 +297,9 @@ These are usually not useful for documentation skills.
 
 ---
 
-## Integration with Skill Seeker
+## 与 Skill Seeker 的集成
 
-### Future Workflow (Task B1.6+)
+### 未来工作流（B1.6+）
 
 When building PDF-based skills, images will be:
 
@@ -321,9 +321,9 @@ The diagram shows...
 
 ---
 
-## Limitations
+## 限制
 
-### Current Limitations
+### 当前限制
 
 1. **No OCR**
    - Cannot extract text from images
@@ -343,7 +343,7 @@ The diagram shows...
    - Images saved in original format (no conversion)
    - No optimization or compression
 
-### Known Issues
+### 已知问题
 
 1. **Vector Graphics**
    - Some PDFs use vector graphics (not images)
@@ -360,9 +360,9 @@ The diagram shows...
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-### No Images Extracted
+### 未提取到图片
 
 **Problem:** `total_extracted_images: 0` but PDF has visible images
 
@@ -377,7 +377,7 @@ The diagram shows...
 python3 cli/pdf_extractor_poc.py input.pdf --extract-images --min-image-size 0 -v
 ```
 
-### Permission Errors
+### 权限错误
 
 **Problem:** `PermissionError: [Errno 13] Permission denied`
 
@@ -391,7 +391,7 @@ chmod 755 output/images
 python3 cli/pdf_extractor_poc.py input.pdf --extract-images --image-dir ~/my_images/
 ```
 
-### Disk Space
+### 磁盘空间
 
 **Problem:** Running out of disk space
 
@@ -407,9 +407,9 @@ python3 cli/pdf_extractor_poc.py input.pdf --extract-images --min-image-size 300
 
 ---
 
-## Examples
+## 示例
 
-### Extract Diagram-Heavy Documentation
+### 提取图表较多的文档
 
 ```bash
 # Architecture documentation with many diagrams
@@ -422,7 +422,7 @@ python3 cli/pdf_extractor_poc.py architecture.pdf \
 
 **Result:** High-quality diagrams extracted, icons filtered out.
 
-### Tutorial with Screenshots
+### 含大量截图的教程
 
 ```bash
 # Tutorial with step-by-step screenshots
@@ -435,7 +435,7 @@ python3 cli/pdf_extractor_poc.py tutorial.pdf \
 
 **Result:** Full screenshots extracted, UI icons ignored.
 
-### API Reference with Small Charts
+### 含小型图表的 API 文档
 
 ```bash
 # API docs with various image sizes
@@ -450,9 +450,9 @@ python3 cli/pdf_extractor_poc.py api_reference.pdf \
 
 ---
 
-## Command-Line Reference
+## 命令行参考
 
-### Image Extraction Options
+### 图片提取选项
 
 ```
 --extract-images
@@ -469,7 +469,7 @@ python3 cli/pdf_extractor_poc.py api_reference.pdf \
     Default: 100
 ```
 
-### Complete Example
+### 完整示例
 
 ```bash
 python3 cli/pdf_extractor_poc.py manual.pdf \
@@ -485,7 +485,7 @@ python3 cli/pdf_extractor_poc.py manual.pdf \
 
 ---
 
-## Comparison: Before vs After
+## 对比：改进前 vs 改进后
 
 | Feature | Before (B1.4) | After (B1.5) |
 |---------|---------------|--------------|
@@ -498,9 +498,9 @@ python3 cli/pdf_extractor_poc.py manual.pdf \
 
 ---
 
-## Next Steps
+## 下一步
 
-### Task B1.6: Full PDF Scraper CLI
+### 任务 B1.6：完整 PDF 抓取 CLI
 
 The image extraction feature will be integrated into the full PDF scraper:
 
@@ -512,7 +512,7 @@ python3 cli/pdf_scraper.py \
   --enhance-local
 ```
 
-### Task B1.7: MCP Tool Integration
+### 任务 B1.7：MCP 工具集成
 
 Images will be available through MCP:
 
@@ -527,7 +527,7 @@ result = mcp.scrape_pdf(
 
 ---
 
-## Conclusion
+## 结论
 
 Task B1.5 successfully implements:
 - ✅ Image extraction from PDF pages
@@ -536,16 +536,16 @@ Task B1.5 successfully implements:
 - ✅ Organized directory structure
 - ✅ Multiple format support
 
-**Impact:**
+**影响：**
 - Preserves visual documentation
 - Essential for diagram-heavy docs
 - Improves skill completeness
 
-**Performance:** 10-20% overhead (acceptable)
+**性能：** 额外开销 10-20%（可接受）
 
-**Compatibility:** Backward compatible (images optional)
+**兼容性：** 向后兼容（图片可选）
 
-**Ready for B1.6:** Full PDF scraper CLI tool
+**已准备好 B1.6：** 完整 PDF 抓取 CLI
 
 ---
 

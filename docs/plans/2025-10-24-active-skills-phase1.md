@@ -680,3 +680,126 @@ Expected: All tests pass (201+)
 - Task 6: 15 minutes
 
 **Total: ~1.5 hours**
+# 主动技能阶段 1：基础实现计划
+
+> **给 Claude：** 必需子技能：使用 superpowers:executing-plans 按任务逐项实现本计划。
+
+**目标：** 修复 llms.txt 处理的基础问题：扩展名 .txt→.md、下载全部 3 个变体、移除截断。
+
+**架构：** 修改现有 llms.txt 的检测/下载/解析/构建流程，正确处理多变体、修复扩展名，并完整保留内容。
+
+**技术栈：** Python 3.10+、requests、BeautifulSoup4、Skill_Seekers 既有架构
+
+---
+
+## 任务 1：增加多变体检测
+
+- 修改：`cli/llms_txt_detector.py`
+- 测试：`tests/test_llms_txt_detector.py`
+
+### 步骤：
+1. 编写失败测试 `detect_all()`（针对 full/standard/small）
+2. 运行测试验证失败
+3. 在检测器中实现 `detect_all()`（遍历变体、HEAD 检查）
+4. 补充类型导入（List/Dict）
+5. 运行测试验证通过
+6. 提交变更
+
+---
+
+## 任务 2：下载器增加扩展名重命名
+
+- 修改：`cli/llms_txt_downloader.py`
+- 测试：`tests/test_llms_txt_downloader.py`
+
+### 步骤：
+1. 编写失败测试 `get_proper_filename()`（.txt→.md）
+2. 运行验证失败
+3. 在下载器中实现 `get_proper_filename()`（URL path 取名、替换后缀）
+4. 运行验证通过
+5. 提交变更
+
+---
+
+## 任务 3：更新 `_try_llms_txt()` 下载全部变体
+
+- 修改：`cli/doc_scraper.py:337-384`（_try_llms_txt）
+- 测试：`tests/test_integration.py`
+
+### 步骤：
+1. 编写集成失败测试：验证 3 文件创建且内容不截断
+2. 运行验证失败
+3. 修改 `_try_llms_txt()` 使用 `detect_all()` 并逐个下载保存为 `.md`
+4. 解析最大变体用于构建
+5. 运行验证通过
+6. 提交变更
+
+---
+
+## 任务 4：移除内容截断
+
+- 修改：`cli/doc_scraper.py:714-730`（create_reference_file）
+
+### 步骤：
+1. 编写失败测试：内容与代码示例均不得截断
+2. 移除内容 2500 字与代码 600 字的截断逻辑
+3. 运行验证通过
+4. 全套回归测试通过后提交
+
+---
+
+## 任务 5：更新文档
+
+- 修改：`docs/plans/2025-10-24-active-skills-design.md`
+- 修改：`CHANGELOG.md`
+
+### 步骤：
+1. 在设计文档标注阶段 1 已完成
+2. 在 CHANGELOG 增加新增/变更/修复条目
+3. 提交变更
+
+---
+
+## 任务 6：手动验证
+
+- 使用 `configs/hono.json` 验证显式与自动模式
+- 检查 3 变体文件存在与大小匹配原始下载
+- grep 确认无 “Content truncated”等标记
+- 全套测试通过
+
+---
+
+## 完成清单
+
+- [x] 多变体检测（detect_all）
+- [x] 扩展名重命名（get_proper_filename）
+- [x] 全变体下载（_try_llms_txt）
+- [x] 移除截断（create_reference_file）
+- [x] 文档更新
+- [x] 手动验证
+- [x] 全部测试通过，无回归
+
+---
+
+## 成功标准
+
+**技术：**
+- ✅ 发现并下载全部 3 个变体
+- ✅ `.md` 扩展名正确
+- ✅ 0% 内容截断
+- ✅ 现有测试全部通过
+- ✅ 新增测试覆盖变更
+
+**用户体验：**
+- ✅ Hono 技能包含：llms-full.md、llms.md、llms-small.md
+- ✅ 参考文件完整内容，不再截断
+- ✅ 不出现 “[Content truncated]” 文本
+
+---
+
+## 备注
+
+- 本计划对应设计文档阶段 1
+- 阶段 2（目录）与阶段 3（脚本）将另立计划
+- 所有变更保持对 HTML 抓取的向后兼容
+- `.txt → .md` 修复对技能功能至关重要

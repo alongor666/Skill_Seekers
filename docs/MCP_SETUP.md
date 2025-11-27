@@ -616,3 +616,448 @@ TROUBLESHOOTING:
 ---
 
 Happy skill creating! 🚀
+# Claude Code 的 MCP 完整设置指南
+
+逐步指导在 Claude Code 中设置 Skill Seeker 的 MCP 服务器。
+
+**✅ 已全面测试并可用**：9 个 MCP 工具在 Claude Code 生产场景下验证通过
+- ✅ 34 个单元测试（100% 通过）
+- ✅ 通过真实 Claude Code MCP 协议集成测试
+- ✅ 9 个工具均支持自然语言（包含上传）
+
+---
+
+## 目录
+
+- 前置条件
+- 安装
+- 配置
+- 验证
+- 使用示例
+- 故障排除
+- 高级配置
+
+---
+
+## 前置条件
+
+### 必需软件
+
+1. **Python 3.10 或更高**
+   ```bash
+   python3 --version
+   # 应显示：Python 3.10.x 或更高
+   ```
+
+2. **已安装 Claude Code**
+   - 下载地址：[claude.ai/code](https://claude.ai/code)
+   - 需要 Claude Pro 或 Claude Code Max
+
+3. **已克隆 Skill Seeker 仓库**
+   ```bash
+   git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
+   cd Skill_Seekers
+   ```
+
+### 系统要求
+
+- **操作系统**：macOS、Linux 或 Windows（WSL）
+- **磁盘空间**：依赖约 100MB + 技能输出空间
+- **网络**：需要联网用于文档抓取
+
+---
+
+## 安装
+
+### 第 1 步：安装 Python 依赖
+
+```bash
+# 仓库根目录
+cd /path/to/Skill_Seekers
+
+# 安装 MCP 服务器依赖
+pip3 install -r skill_seeker_mcp/requirements.txt
+
+# 安装 CLI 抓取工具依赖
+pip3 install requests beautifulsoup4
+```
+
+**预期输出：**
+```
+Successfully installed mcp-0.9.0 requests-2.31.0 beautifulsoup4-4.12.3
+```
+
+### 第 2 步：验证安装
+
+```bash
+# 测试 MCP 服务器可启动
+timeout 3 python3 skill_seeker_mcp/server.py || echo "Server OK (timeout expected)"
+```
+
+**可选：运行测试**
+
+```bash
+pip3 install pytest
+python3 -m pytest tests/test_mcp_server.py -v
+# 期望：25 通过，约 0.3s
+```
+
+### 第 3 步：记录你的仓库绝对路径
+
+```bash
+pwd
+# 示例：/Users/username/Projects/Skill_Seekers
+```
+
+**保存该路径** — 用于后续配置！
+
+---
+
+## 配置
+
+### 第 1 步：定位 Claude Code MCP 配置
+
+配置文件位于：
+
+- macOS：`~/.config/claude-code/mcp.json`
+- Linux：`~/.config/claude-code/mcp.json`
+- Windows（WSL）：`~/.config/claude-code/mcp.json`
+
+### 第 2 步：创建/编辑配置文件
+
+```bash
+mkdir -p ~/.config/claude-code
+nano ~/.config/claude-code/mcp.json
+```
+
+### 第 3 步：添加 Skill Seeker MCP 服务器
+
+**完整示例：**
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": [
+        "/Users/username/Projects/Skill_Seekers/skill_seeker_mcp/server.py"
+      ],
+      "cwd": "/Users/username/Projects/Skill_Seekers",
+      "env": {}
+    }
+  }
+}
+```
+
+**重要：** 将路径替换为你的真实路径！
+
+**如已有其它 MCP 服务器：**
+```json
+{
+  "mcpServers": {
+    "existing-server": { "command": "node", "args": ["/path/to/server.js"] },
+    "skill-seeker": {
+      "command": "python3",
+      "args": ["/Users/username/Projects/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/Users/username/Projects/Skill_Seekers"
+    }
+  }
+}
+```
+
+### 第 4 步：保存并重启 Claude Code
+
+1. 保存文件
+2. **完全重启 Claude Code**（退出并重新打开）
+
+---
+
+## 验证
+
+### 第 1 步：检查 MCP 服务器是否加载
+
+在 Claude Code 中输入：
+```
+List all available MCP tools
+```
+
+应看到 9 个工具：
+- `generate_config`
+- `estimate_pages`
+- `scrape_docs`
+- `package_skill`
+- `upload_skill`
+- `list_configs`
+- `validate_config`
+- `split_config`
+- `generate_router`
+
+### 第 2 步：测试简单命令
+
+```
+List all available configs
+```
+
+**期望：** 显示 Godot、React、Vue、Django、FastAPI 等预设配置。
+
+### 第 3 步：测试配置生成
+
+```
+Generate a config for Tailwind CSS at https://tailwindcss.com/docs
+```
+
+**期望：**
+```
+✅ Config created: configs/tailwind.json
+```
+
+**校验：**
+```bash
+ls configs/tailwind.json
+```
+
+---
+
+## 使用示例
+
+### 示例 1：从零生成技能
+
+```
+User: Generate config for Svelte docs at https://svelte.dev/docs
+Claude: ✅ Config created: configs/svelte.json
+User: Estimate pages for configs/svelte.json
+Claude: 📊 Estimated pages: 150
+User: Scrape docs using configs/svelte.json
+Claude: ✅ Skill created at output/svelte/
+User: Package skill at output/svelte/
+Claude: ✅ Created: output/svelte.zip
+```
+
+### 示例 2：使用现有配置
+
+```
+User: List all available configs
+Claude: [Shows 7 configs]
+User: Scrape docs using configs/react.json with max 50 pages
+Claude: ✅ Skill created at output/react/
+User: Package skill at output/react/
+Claude: ✅ Created: output/react.zip
+```
+
+### 示例 3：抓取前先校验
+
+```
+User: Validate configs/godot.json
+Claude: ✅ Config is valid
+User: Estimate pages for configs/godot.json
+Claude: 📊 Estimated pages: 450
+User: Scrape docs using configs/godot.json
+Claude: [Scraping starts...]
+```
+
+---
+
+## 故障排除
+
+### 问题：MCP 服务器未加载
+
+**解决：**
+1. 检查配置路径：`cat ~/.config/claude-code/mcp.json`
+2. 验证 Python 路径：`which python3`
+3. 手动启动服务器：`python3 skill_seeker_mcp/server.py`
+4. 查看日志：macOS 在 `~/Library/Logs/Claude Code/`
+5. 完全重启 Claude Code
+
+### 问题："ModuleNotFoundError: No module named 'mcp'"
+```bash
+pip3 install -r skill_seeker_mcp/requirements.txt
+```
+
+### 问题：运行服务器时报 “Permission denied”
+```bash
+chmod +x skill_seeker_mcp/server.py
+```
+
+### 问题：工具已显示但不可用
+
+**解决：**
+1. 检查工作目录：配置中的 `cwd` 必须是仓库根目录
+2. 验证 CLI 工具存在：`ls cli/doc_scraper.py` 等
+3. 直接运行 CLI 帮助：`python3 cli/doc_scraper.py --help`
+
+### 问题：操作缓慢或卡住
+
+**解决：**
+1. 增加 `rate_limit`（默认 0.5s）
+2. 使用较小的 `max_pages` 测试
+3. 检查网络连接：`curl -I https://docs.example.com`
+
+---
+
+## 高级配置
+
+### 自定义环境变量
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": ["/path/to/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/path/to/Skill_Seekers",
+      "env": {
+        "ANTHROPIC_API_KEY": "sk-ant-...",
+        "PYTHONPATH": "/custom/path"
+      }
+    }
+  }
+}
+```
+
+### 多 Python 版本
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "/usr/local/bin/python3.11",
+      "args": ["/path/to/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/path/to/Skill_Seekers"
+    }
+  }
+}
+```
+
+### 虚拟环境
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r skill_seeker_mcp/requirements.txt
+pip install requests beautifulsoup4
+which python3
+```
+将该路径写入配置。
+
+### 调试模式
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": ["-u", "/path/to/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/path/to/Skill_Seekers",
+      "env": { "DEBUG": "1" }
+    }
+  }
+}
+```
+
+---
+
+## 完整示例配置
+
+**最简方案（推荐）：**
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": ["/Users/username/Projects/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/Users/username/Projects/Skill_Seekers"
+    }
+  }
+}
+```
+
+**包含 API 增强：**
+```json
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": ["/Users/username/Projects/Skill_Seekers/skill_seeker_mcp/server.py"],
+      "cwd": "/Users/username/Projects/Skill_Seekers",
+      "env": { "ANTHROPIC_API_KEY": "sk-ant-your-key-here" }
+    }
+  }
+}
+```
+
+---
+
+## 端到端工作流
+
+### 完成设置并创建第一个技能
+
+```bash
+cd ~/Projects
+git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
+cd Skill_Seekers
+pip3 install -r skill_seeker_mcp/requirements.txt
+pip3 install requests beautifulsoup4
+
+mkdir -p ~/.config/claude-code
+cat > ~/.config/claude-code/mcp.json << 'EOF'
+{
+  "mcpServers": {
+    "skill-seeker": {
+      "command": "python3",
+      "args": [
+        "/Users/username/Projects/Skill_Seekers/skill_seeker_mcp/server.py"
+      ],
+      "cwd": "/Users/username/Projects/Skill_Seekers"
+    }
+  }
+}
+EOF
+```
+
+**在 Claude Code 中：**
+```
+User: List all available configs
+User: Scrape docs using configs/react.json with max 50 pages
+User: Package skill at output/react/
+```
+
+**结果：** 已生成 `output/react.zip` 可直接上传！
+
+---
+
+## 下一步
+
+成功设置后：
+1. 试用预设配置（React、Vue、Django 等）
+2. 创建自定义配置（Generate config for [framework] at [url]）
+3. 小规模先测（`max_pages` 设小值）
+4. 体验增强（优先本地增强 `--enhance-local`）
+
+---
+
+## 获取帮助
+
+- 文档：`mcp/README.md`
+- Issues：GitHub Issues
+- 示例：仓库 .github 目录的示例与提示
+
+---
+
+## 快速参考卡片
+
+```
+SETUP:
+1. pip3 install -r skill_seeker_mcp/requirements.txt
+2. 配置：~/.config/claude-code/mcp.json
+3. 重启 Claude Code
+
+VERIFY:
+- "List all available configs"
+- "Validate configs/react.json"
+
+GENERATE SKILL:
+1. 生成配置
+2. 估算页面
+3. 抓取文档
+4. 打包输出
+
+TROUBLESHOOTING:
+- 检查配置文件
+- 启动服务器
+- 查看日志
+```

@@ -865,3 +865,150 @@ python scripts/get_section.py "Middleware"  # Full section from llms-full.md
 ---
 
 **Document Status:** Ready for review and implementation planning.
+# 主动技能设计 - 按需加载文档
+
+**日期：** 2025-10-24
+**类型：** 架构设计
+**状态：** 阶段 1 已实现 ✅
+**作者：** Edgar + Claude（头脑风暴）
+
+---
+
+## 执行摘要
+
+将 Skill_Seekers 从**被动文档倾倒**转变为**主动、智能技能**，按需加载文档。这样每次查询上下文从 300k 缩减至 5-10k，同时保持对完整文档的访问。
+
+**关键创新：** 技能变为轻量路由器，重工具在 `scripts/`，而非文档仓库。
+
+---
+
+## 问题陈述
+
+### 当前架构：被动技能
+
+```
+Agent: "How do I use Hono middleware?"
+  ↓
+Skill: *Claude 加载 203k llms-txt.md 到上下文*
+  ↓
+Agent: *基于已加载文档作答*
+  ↓
+结果：上下文膨胀、性能下降、出现截断
+```
+
+**问题：**
+1. **上下文膨胀**：整份 319k llms-full.txt 被加载
+2. **资源浪费**：Agent 实际只需 5k，却给了 319k
+3. **截断丢失**：因大小限制导致 36% 内容丢失（319k → 203k）
+4. **扩展名错误**：llms.txt 文件存为 .txt 而非 .md
+5. **单一变体**：仅下载一个文件（通常 llms-full.txt）
+
+### 当前文件结构
+
+```
+output/hono/
+├── SKILL.md ──────────► 文档倾倒 + 指令
+├── references/
+│   └── llms-txt.md ───► 203k（从 319k 截断 36%）
+├── scripts/ ──────────► 空（仅占位）
+└── assets/ ───────────► 空（仅占位）
+```
+
+---
+
+## 提议架构：主动技能
+
+### 核心概念
+
+**技能 = 路由器 + 工具**，而非文档仓库。
+
+**新工作流：**
+```
+Agent: "How do I use Hono middleware?"
+  ↓
+Skill: *运行 scripts/search.py "middleware"*
+  ↓
+Script: *加载 llms-full.md，抽取 middleware 章节，返回 8k*
+  ↓
+Agent: *仅使用 8k 作答*
+  ↓
+结果：上下文缩减 40x，无截断，保持完整访问
+```
+
+### 优势
+
+| 指标 | 之前 | 之后 | 改进 |
+|------|------|------|------|
+| 每次查询上下文 | 203k | 5-10k | **20-40x** |
+| 内容丢失 | 36% | 0% | **完整保真** |
+| 变体数量 | 1 | 3 | **可选** |
+| 文件格式 | .txt | .md | **修复** |
+| Agent 工作流 | 被动读取 | 主动工具 | **自主** |
+
+---
+
+## 设计组件
+
+### 组件 1：多变体下载
+
+- 下载全部 3 个变体
+- 命名修复：`.txt` → `.md`
+- 存储：`references/llms-full.md`、`llms-small.md`、`llms.md`、`assets/catalog.json`
+
+### 组件 2：目录系统
+
+- 目的：构建轻量索引而非存储内容
+- 从 `llms-small.md` 生成 `assets/catalog.json`
+- 提供 `sections` 与 `search_index`
+
+### 组件 3：主动脚本
+
+- `scripts/search.py`：按主题搜索并返回相关章节
+- `scripts/list_topics.py`：列出可用章节与大小
+- `scripts/get_section.py`：按标题抽取完整章节
+
+### 组件 4：主动 SKILL.md 模板
+
+- 强调按需加载策略
+- 提供使用脚本的工作流与示例
+
+---
+
+## 实施计划（阶段）
+
+### 阶段 1：基础修复（已完成）
+- 修复扩展名与多变体下载
+- 移除内容截断
+
+### 阶段 2：目录系统
+- 解析 `llms-small.md` 并生成 `catalog.json`
+
+### 阶段 3：主动脚本
+- 创建 `search.py`、`list_topics.py`、`get_section.py`
+
+### 阶段 4：模板更新
+- 应用主动技能模板到 llms.txt 技能
+
+---
+
+## 迁移路径与兼容性
+
+- 旧技能保持可用（被动模式不变）
+- 新的 llms.txt 技能默认启用主动架构（可配置关闭）
+
+---
+
+## 成功指标与权衡
+
+- 上下文效率：20-40x 减少
+- 数据保真：0% 截断
+- Agent 能力：可选细节层级、仅加载所需、无限文档访问
+- 复杂度：脚本与目录增加一定初期成本
+
+---
+
+## 风险与缓解
+
+- 脚本在 Claude 沙箱中不可用 → 充分测试、提供被动回退
+- 目录生成失败 → 优雅降级为单文件模式
+- Agent 不使用脚本 → SKILL.md 清晰说明与示例

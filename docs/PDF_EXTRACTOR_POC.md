@@ -1,18 +1,18 @@
-# PDF Extractor - Proof of Concept (Task B1.2)
+# PDF 提取器 - 概念验证（任务 B1.2）
 
-**Status:** ✅ Completed
-**Date:** October 21, 2025
-**Task:** B1.2 - Create simple PDF text extractor (proof of concept)
+**状态：** ✅ 已完成
+**日期：** 2025-10-21
+**任务：** B1.2 - 创建简单的 PDF 文本提取器（概念验证）
 
 ---
 
-## Overview
+## 概览
 
-This is a proof-of-concept PDF text and code extractor built for Skill Seeker. It demonstrates the feasibility of extracting documentation content from PDF files using PyMuPDF (fitz).
+这是为 Skill Seeker 构建的 PDF 文本与代码提取的概念验证，展示了使用 PyMuPDF（fitz）从 PDF 文件中提取文档内容的可行性。
 
-## Features
+## 功能
 
-### ✅ Implemented
+### ✅ 已实现
 
 1. **Text Extraction** - Extract plain text from all PDF pages
 2. **Markdown Conversion** - Convert PDF content to markdown format
@@ -25,28 +25,28 @@ This is a proof-of-concept PDF text and code extractor built for Skill Seeker. I
 6. **Image Counting** - Track diagrams and screenshots
 7. **JSON Output** - Compatible format with existing doc_scraper.py
 
-### 🎯 Detection Methods
+### 🎯 检测方法
 
-#### Font-Based Detection
+#### 基于字体的检测
 Analyzes font properties to find monospace fonts typically used for code:
 - Courier, Courier New
 - Monaco, Menlo
 - Consolas
 - DejaVu Sans Mono
 
-#### Indentation-Based Detection
+#### 基于缩进的检测
 Identifies code blocks by consistent indentation patterns:
 - 4 spaces or tabs
 - Minimum 2 consecutive lines
 - Minimum 20 characters
 
-#### Pattern-Based Detection
+#### 基于模式的检测
 Uses regex to find common code structures:
 - Function definitions (Python, JS, Go, etc.)
 - Class definitions
 - Import/require statements
 
-### 🔍 Language Detection
+### 🔍 语言检测
 
 Supports detection of 19 programming languages:
 - Python, JavaScript, Java, C, C++, C#
@@ -56,15 +56,15 @@ Supports detection of 19 programming languages:
 
 ---
 
-## Installation
+## 安装
 
-### Prerequisites
+### 前置条件
 
 ```bash
 pip install PyMuPDF
 ```
 
-### Verify Installation
+### 验证安装
 
 ```bash
 python3 -c "import fitz; print(fitz.__doc__)"
@@ -72,9 +72,9 @@ python3 -c "import fitz; print(fitz.__doc__)"
 
 ---
 
-## Usage
+## 使用
 
-### Basic Usage
+### 基本用法
 
 ```bash
 # Extract from PDF (print to stdout)
@@ -90,7 +90,7 @@ python3 cli/pdf_extractor_poc.py input.pdf --verbose
 python3 cli/pdf_extractor_poc.py input.pdf --pretty
 ```
 
-### Examples
+### 示例
 
 ```bash
 # Extract Python documentation
@@ -105,9 +105,9 @@ python3 cli/pdf_extractor_poc.py sample.pdf --pretty
 
 ---
 
-## Output Format
+## 输出格式
 
-### JSON Structure
+### JSON 结构
 
 ```json
 {
@@ -157,7 +157,7 @@ python3 cli/pdf_extractor_poc.py sample.pdf --pretty
 }
 ```
 
-### Page Object
+### 页面对象
 
 Each page contains:
 - `page_number` - 1-indexed page number
@@ -169,7 +169,7 @@ Each page contains:
 - `char_count` - Character count
 - `code_blocks_count` - Number of code blocks found
 
-### Code Sample Object
+### 代码样本对象
 
 Each code sample includes:
 - `code` - The actual code text
@@ -180,9 +180,9 @@ Each code sample includes:
 
 ---
 
-## Technical Details
+## 技术细节
 
-### Detection Accuracy
+### 检测准确率
 
 **Font-based detection:** ⭐⭐⭐⭐⭐ (Best)
 - Highly accurate for well-formatted PDFs
@@ -199,7 +199,7 @@ Each code sample includes:
 - May miss complex or unusual code
 - Works with: Code snippets, function examples
 
-### Language Detection Accuracy
+### 语言检测精度
 
 - **High confidence:** Python, JavaScript, Java, Go, SQL
 - **Medium confidence:** C++, Rust, PHP, Ruby, Swift
@@ -207,7 +207,7 @@ Each code sample includes:
 
 Detection based on keyword patterns, not AST parsing.
 
-### Performance
+### 性能
 
 Tested on various PDF sizes:
 - Small (1-10 pages): < 1 second
@@ -219,9 +219,9 @@ Memory usage: ~50-200 MB depending on PDF size and image content.
 
 ---
 
-## Limitations
+## 限制
 
-### Current Limitations
+### 当前限制
 
 1. **No OCR** - Cannot extract text from scanned/image PDFs
 2. **No Table Extraction** - Tables are treated as plain text
@@ -229,7 +229,7 @@ Memory usage: ~50-200 MB depending on PDF size and image content.
 4. **Simple Deduplication** - May miss some duplicate code blocks
 5. **No Multi-column Support** - May jumble multi-column layouts
 
-### Known Issues
+### 已知问题
 
 1. **Code Split Across Pages** - Code blocks spanning pages may be split
 2. **Complex Layouts** - May struggle with complex PDF layouts
@@ -238,7 +238,7 @@ Memory usage: ~50-200 MB depending on PDF size and image content.
 
 ---
 
-## Comparison with Web Scraper
+## 与网页抓取器的对比
 
 | Feature | Web Scraper | PDF Extractor POC |
 |---------|-------------|-------------------|
@@ -253,44 +253,44 @@ Memory usage: ~50-200 MB depending on PDF size and image content.
 
 ---
 
-## Next Steps (Tasks B1.3-B1.8)
+## 后续步骤（任务 B1.3-B1.8）
 
-### B1.3: Add PDF Page Detection and Chunking
+### B1.3：增加 PDF 页检测与分块
 - Split large PDFs into manageable chunks
 - Handle page-spanning code blocks
 - Add chapter/section detection
 
-### B1.4: Extract Code Blocks from PDFs
+### B1.4：改进 PDF 代码块提取
 - Improve code block detection accuracy
 - Add syntax validation
 - Better language detection (use tree-sitter?)
 
-### B1.5: Add PDF Image Extraction
+### B1.5：增加 PDF 图片提取
 - Extract diagrams as separate files
 - Extract screenshots
 - OCR support for code in images
 
-### B1.6: Create `pdf_scraper.py` CLI Tool
+### B1.6：创建 `pdf_scraper.py` CLI 工具
 - Full-featured CLI like `doc_scraper.py`
 - Config file support
 - Category detection
 - Multi-PDF support
 
-### B1.7: Add MCP Tool `scrape_pdf`
+### B1.7：增加 MCP 工具 `scrape_pdf`
 - Integrate with MCP server
 - Add to existing 9 MCP tools
 - Test with Claude Code
 
-### B1.8: Create PDF Config Format
+### B1.8：创建 PDF 配置格式
 - Define JSON config for PDF sources
 - Similar to web scraper configs
 - Support multiple PDFs per skill
 
 ---
 
-## Testing
+## 测试
 
-### Manual Testing
+### 手动测试
 
 1. **Create test PDF** (or use existing PDF documentation)
 2. **Run extractor:**
@@ -302,7 +302,7 @@ Memory usage: ~50-200 MB depending on PDF size and image content.
    - Verify `languages_detected` includes expected languages
    - Inspect `code_samples` for accuracy
 
-### Test with Real Documentation
+### 使用真实文档测试
 
 Recommended test PDFs:
 - Python documentation (python.org)
@@ -310,7 +310,7 @@ Recommended test PDFs:
 - PostgreSQL manual
 - Any programming language reference
 
-### Expected Results
+### 预期结果
 
 Good PDF (well-formatted with monospace code):
 - Detection rate: 80-95%
@@ -324,9 +324,9 @@ Poor PDF (scanned or badly formatted):
 
 ---
 
-## Code Examples
+## 代码示例
 
-### Using PDFExtractor Class Directly
+### 直接使用 PDFExtractor 类
 
 ```python
 from cli.pdf_extractor_poc import PDFExtractor
@@ -350,7 +350,7 @@ for page in result['pages']:
         print(f"  - {code['language']}: {len(code['code'])} chars")
 ```
 
-### Custom Language Detection
+### 自定义语言检测
 
 ```python
 from cli.pdf_extractor_poc import PDFExtractor
@@ -369,9 +369,9 @@ def custom_detect(code):
 
 ---
 
-## Contributing
+## 贡献
 
-### Adding New Languages
+### 增加新语言
 
 To add language detection for a new language, edit `detect_language_from_code()`:
 
@@ -382,7 +382,7 @@ patterns = {
 }
 ```
 
-### Adding Detection Methods
+### 增加检测方法
 
 To add a new detection method, create a method like:
 
@@ -403,7 +403,7 @@ all_code_blocks = font_code_blocks + indent_code_blocks + pattern_code_blocks + 
 
 ---
 
-## Conclusion
+## 结论
 
 This POC successfully demonstrates:
 - ✅ PyMuPDF can extract text from PDF documentation
@@ -416,5 +416,5 @@ This POC successfully demonstrates:
 
 ---
 
-**POC Completed:** October 21, 2025
-**Next Task:** B1.3 - Add PDF page detection and chunking
+**POC 完成：** 2025-10-21
+**下一任务：** B1.3 - 增加 PDF 页检测与分块

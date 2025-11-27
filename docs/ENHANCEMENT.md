@@ -248,3 +248,44 @@ ADDITIONAL REQUIREMENTS:
 - [README.md](../README.md) - Main documentation
 - [CLAUDE.md](CLAUDE.md) - Architecture guide
 - [doc_scraper.py](../doc_scraper.py) - Main scraping tool
+# SKILL.md 的 AI 增强
+
+## 概览
+
+本文说明如何使用本地 Claude Code 或 Anthropic API 自动增强 SKILL.md，使其具备结构化导航、精选示例与更佳阐述。
+
+## 选项
+
+- 本地增强（Claude Code Max，无需 API Key）
+- API 增强（Anthropic Sonnet 4，需 Key）
+
+## 本地增强
+
+### 命令
+```bash
+python3 cli/enhance_skill_local.py output/<name>/
+```
+
+### 发生什么
+- 打开新终端运行 Claude Code
+- 自动分析 references/*
+- 备份原始 SKILL.md 为 `SKILL.md.backup`
+- 输出增强后的 SKILL.md
+
+## API 增强
+
+### 命令
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+python3 cli/enhance_skill.py output/<name>/
+```
+
+### 成本
+- 约 $0.01-$0.10/技能（视文档大小）
+
+## 最佳实践
+
+- 自动备份原始 SKILL.md
+- 保持参考文件与导航一致
+- 多数工作流优先使用本地增强
+- 仅在需要自动化/批量时使用 API 增强

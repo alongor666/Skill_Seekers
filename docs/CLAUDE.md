@@ -364,3 +364,242 @@ Skill_Seekers automatically detects llms.txt files before HTML scraping:
 - Hono: https://hono.dev/llms-full.txt
 
 If no llms.txt is found, automatically falls back to HTML scraping.
+# CLAUDE.md
+
+本文为 Claude Code（claude.ai/code）在本仓库中进行协作提供技术指引。
+
+## 概览
+
+这是一个基于 Python 的文档抓取器，可将任意文档网站转换为 Claude 技能。核心工具为单文件 `doc_scraper.py`，负责抓取文档、抽取代码模式、检测编程语言并生成可供 Claude 使用的结构化技能文件。
+
+## 依赖
+
+```bash
+pip3 install requests beautifulsoup4
+```
+
+## 核心命令
+
+### 使用预设配置运行
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json
+python3 cli/doc_scraper.py --config configs/react.json
+python3 cli/doc_scraper.py --config configs/vue.json
+python3 cli/doc_scraper.py --config configs/django.json
+python3 cli/doc_scraper.py --config configs/fastapi.json
+```
+
+### 交互模式（用于新框架）
+```bash
+python3 cli/doc_scraper.py --interactive
+```
+
+### 快速模式（最小化配置）
+```bash
+python3 cli/doc_scraper.py --name react --url https://react.dev/ --description "React framework"
+```
+
+### 跳过抓取（使用缓存数据）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
+```
+
+### 断点续抓
+```bash
+# 抓取被中断时
+python3 cli/doc_scraper.py --config configs/godot.json --resume
+
+# 全新开始（清除检查点）
+python3 cli/doc_scraper.py --config configs/godot.json --fresh
+```
+
+### 大型文档（1万-4万+ 页）
+```bash
+# 1. 估算页面数
+python3 cli/estimate_pages.py configs/godot.json
+
+# 2. 拆分为聚焦子技能
+python3 cli/split_config.py configs/godot.json --strategy router
+
+# 3. 生成路由技能
+python3 cli/generate_router.py configs/godot-*.json
+
+# 4. 打包多个技能
+python3 cli/package_multi.py output/godot*/
+```
+
+### AI 驱动的 SKILL.md 增强
+```bash
+# 方案 1：抓取期间（API，需要 ANTHROPIC_API_KEY）
+pip3 install anthropic
+export ANTHROPIC_API_KEY=sk-ant-...
+python3 cli/doc_scraper.py --config configs/react.json --enhance
+
+# 方案 2：抓取期间（本地，无需 API Key）
+python3 cli/doc_scraper.py --config configs/react.json --enhance-local
+
+# 方案 3：独立增强（API）
+python3 cli/enhance_skill.py output/react/
+
+# 方案 4：独立增强（本地）
+python3 cli/enhance_skill_local.py output/react/
+```
+
+本地增强会打开新终端运行 Claude Code，自动分析参考文件并增强 SKILL.md。需要 Claude Code Max 方案，但不需要 API Key。
+
+### MCP 集成（Claude Code）
+```bash
+# 一次性设置
+./setup_mcp.sh
+
+# 然后在 Claude Code 中使用自然语言：
+"List all available configs"
+"Generate config for Tailwind at https://tailwindcss.com/docs"
+"Split configs/godot.json using router strategy"
+"Generate router for configs/godot-*.json"
+"Package skill at output/react/"
+```
+
+提供 9 个 MCP 工具：list_configs、generate_config、validate_config、estimate_pages、scrape_docs、package_skill、upload_skill、split_config、generate_router
+
+### 以小页面数进行测试（先修改配置）
+设置 `"max_pages": 20` 进行快速测试。
+
+## 架构
+
+### 单文件设计
+`doc_scraper.py`（约 737 行），核心类 `DocToSkillConverter` 负责：
+- **网页抓取**：BFS 遍历与 URL 校验
+- **内容提取**：通过 CSS 选择器提取标题、正文、代码块
+- **语言检测**：从代码样本进行启发式检测（Python、JS、GDScript、C++ 等）
+- **模式抽取**：识别通用模式并抽取
+- **智能分类**：URL/标题/内容打分并分类
+- **技能生成**：创建含真实代码示例的 SKILL.md 与分类参考文件
+
+### 数据流
+1. **抓取阶段**：输入配置 → BFS 抓取 → 输出 `output/{name}_data/pages/*.json` 与 `summary.json`
+2. **构建阶段**：读取缓存 → 智能分类 → 抽取模式 → 生成参考文件与 SKILL.md
+
+### 目录结构
+```
+Skill_Seekers/
+├── cli/
+│   ├── doc_scraper.py
+│   ├── enhance_skill.py
+│   ├── enhance_skill_local.py
+│   ├── estimate_pages.py
+│   ├── split_config.py
+│   ├── generate_router.py
+│   ├── package_skill.py
+│   └── package_multi.py
+├── mcp/
+│   ├── server.py
+│   └── README.md
+├── configs/
+├── docs/
+└── output/
+```
+
+### 配置格式
+包含：`name`、`description`、`base_url`、`selectors`（main_content、title、code_blocks）、`url_patterns`（include/exclude）、`categories`、`rate_limit`、`max_pages`、`split_strategy`、`split_config`、`checkpoint` 等。
+
+### 关键特性
+- **自动检测缓存**：存在 `output/{name}_data/` 时提示复用
+- **语言检测来源**：CSS 类、启发式（关键词）
+- **模式抽取**：识别 “Example:”“Pattern:”“Usage:” 标记并抽取（每页最多 5 个）
+- **智能分类**：URL/标题/内容打分（3/2/1 分），阈值 2+，自动推断分类与回退
+- **AI 增强**：本地或 API 增强 SKILL.md，抽取最佳示例、阐释概念与导航
+- **大型文档支持**：拆分、路由器技能、并行抓取与 MCP 集成
+- **断点/续抓**：保存检查点、断点续抓、清除检查点
+
+## 关键代码位置
+- URL 校验：`is_valid_url()` doc_scraper.py:47-62
+- 内容提取：`extract_content()` doc_scraper.py:64-131
+- 语言检测：`detect_language()` doc_scraper.py:133-163
+- 模式抽取：`extract_patterns()` doc_scraper.py:165-181
+- 智能分类：`smart_categorize()` doc_scraper.py:280-321
+- 分类推断：`infer_categories()` doc_scraper.py:323-349
+- 快速参考：`generate_quick_reference()` doc_scraper.py:351-370
+- SKILL.md 生成：`create_enhanced_skill_md()` doc_scraper.py:424-540
+- 抓取循环：`scrape_all()` doc_scraper.py:226-249
+- 主流程：`main()` doc_scraper.py:661-733
+
+## 工作流示例
+
+### 首次抓取（包含抓取）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json
+python3 cli/package_skill.py output/godot/
+# 结果：godot.zip
+```
+
+### 复用缓存数据（快速迭代）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
+python3 cli/package_skill.py output/godot/
+```
+
+### 创建新框架配置
+```bash
+python3 cli/doc_scraper.py --interactive
+# 或复制修改：
+cp configs/react.json configs/myframework.json
+python3 cli/doc_scraper.py --config configs/myframework.json
+```
+
+### 大型文档工作流（4 万页）
+```bash
+python3 cli/estimate_pages.py configs/godot.json
+python3 cli/split_config.py configs/godot.json --strategy router --target-pages 5000
+for config in configs/godot-*.json; do
+  python3 cli/doc_scraper.py --config $config &
+done
+wait
+python3 cli/generate_router.py configs/godot-*.json
+python3 cli/package_multi.py output/godot*/
+# 上传所有 .zip，路由技能自动分流！
+```
+
+**节省时间：**并行抓取可将 20-40 小时缩短为 4-8 小时；详见 [大型文档指南](LARGE_DOCUMENTATION.md)
+
+## 选择器测试
+```python
+from bs4 import BeautifulSoup
+import requests
+url = "https://docs.example.com/page"
+soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+print(soup.select_one('article'))
+print(soup.select_one('main'))
+print(soup.select_one('div[role="main"]'))
+```
+
+## 故障排除
+- **未提取到内容**：检查 `main_content`（如 `article`、`main`、`div[role="main"]`、`div.content`）
+- **分类效果差**：优化配置 `categories` 的关键词
+- **强制重抓**：`rm -rf output/{name}_data/`
+- **限速问题**：提高 `rate_limit`（如 0.5 → 1.0s）
+
+## 输出质量检查
+```bash
+cat output/godot/SKILL.md
+cat output/godot/references/index.md
+ls output/godot/references/
+```
+
+## llms.txt 支持
+
+### 检测顺序
+1. `{base_url}/llms-full.txt`
+2. `{base_url}/llms.txt`
+3. `{base_url}/llms-small.txt`
+
+### 优势
+- ⚡ 更快（< 5s 对比 20-60s）
+- ✅ 更可靠（由文档作者维护）
+- 🎯 质量更好（为 LLM 预格式化）
+- 🚫 无需限速
+
+### 示例站点
+- Hono: https://hono.dev/llms-full.txt
+
+未找到 llms.txt 时自动回退 HTML 抓取。

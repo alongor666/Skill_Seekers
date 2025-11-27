@@ -1,24 +1,24 @@
-# Handling Large Documentation Sites (10K+ Pages)
+# 大型文档站点处理（1万+ 页）
 
-Complete guide for scraping and managing large documentation sites with Skill Seeker.
-
----
-
-## Table of Contents
-
-- [When to Split Documentation](#when-to-split-documentation)
-- [Split Strategies](#split-strategies)
-- [Quick Start](#quick-start)
-- [Detailed Workflows](#detailed-workflows)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-- [Troubleshooting](#troubleshooting)
+使用 Skill Seeker 抓取与管理大型文档站点的完整指南。
 
 ---
 
-## When to Split Documentation
+## 目录
 
-### Size Guidelines
+- [何时需要拆分文档](#何时需要拆分文档)
+- [拆分策略](#拆分策略)
+- [快速开始](#快速开始)
+- [详细工作流](#详细工作流)
+- [最佳实践](#最佳实践)
+- [示例](#示例)
+- [故障排除](#故障排除)
+
+---
+
+## 何时需要拆分文档
+
+### 规模建议
 
 | Documentation Size | Recommendation | Strategy |
 |-------------------|----------------|----------|
@@ -27,39 +27,39 @@ Complete guide for scraping and managing large documentation sites with Skill Se
 | 10,000 - 30,000 pages | **Recommended** | Router + Categories |
 | 30,000+ pages | **Strongly recommended** | Router + Categories |
 
-### Why Split Large Documentation?
+### 为什么拆分大型文档？
 
-**Benefits:**
+**优势：**
 - ✅ Faster scraping (parallel execution)
 - ✅ More focused skills (better Claude performance)
 - ✅ Easier maintenance (update one topic at a time)
 - ✅ Better user experience (precise answers)
 - ✅ Avoids context window limits
 
-**Trade-offs:**
+**权衡：**
 - ⚠️ Multiple skills to manage
 - ⚠️ Initial setup more complex
 - ⚠️ Router adds one extra skill
 
 ---
 
-## Split Strategies
+## 拆分策略
 
-### 1. **No Split** (One Big Skill)
-**Best for:** Small to medium documentation (< 5K pages)
+### 1. **不拆分**（一个大技能）
+**适用：** 小至中型文档（< 5000 页）
 
 ```bash
 # Just use the config as-is
 python3 cli/doc_scraper.py --config configs/react.json
 ```
 
-**Pros:** Simple, one skill to maintain
-**Cons:** Can be slow for large docs, may hit limits
+**优点：** 简单，维护一个技能
+**缺点：** 大型文档较慢且可能触碰限制
 
 ---
 
-### 2. **Category Split** (Multiple Focused Skills)
-**Best for:** 5K-15K pages with clear topic divisions
+### 2. **按分类拆分**（多个聚焦技能）
+**适用：** 5000-15000 页，主题划分清晰
 
 ```bash
 # Auto-split by categories
@@ -73,13 +73,13 @@ python3 cli/split_config.py configs/godot.json --strategy category
 # - etc.
 ```
 
-**Pros:** Focused skills, clear separation
-**Cons:** User must know which skill to use
+**优点：** 技能聚焦，边界清晰
+**缺点：** 用户需了解使用哪个技能
 
 ---
 
-### 3. **Router + Categories** (Intelligent Hub) ⭐ RECOMMENDED
-**Best for:** 10K+ pages, best user experience
+### 3. **路由器 + 分类**（智能枢纽）⭐ 推荐
+**适用：** 1万+ 页，最佳用户体验
 
 ```bash
 # Create router + sub-skills
@@ -92,13 +92,13 @@ python3 cli/split_config.py configs/godot.json --strategy router
 # - etc.
 ```
 
-**Pros:** Best of both worlds, intelligent routing, natural UX
-**Cons:** Slightly more complex setup
+**优点：** 兼顾两端，智能路由，自然的 UX
+**缺点：** 设置略复杂
 
 ---
 
-### 4. **Size-Based Split**
-**Best for:** Docs without clear categories
+### 4. **按规模拆分**
+**适用：** 无明确分类的文档
 
 ```bash
 # Split every 5000 pages
@@ -111,14 +111,14 @@ python3 cli/split_config.py configs/bigdocs.json --strategy size --target-pages 
 # - etc.
 ```
 
-**Pros:** Simple, predictable
-**Cons:** May split related topics
+**优点：** 简单、可预期
+**缺点：** 可能拆分相关主题
 
 ---
 
-## Quick Start
+## 快速开始
 
-### Option 1: Automatic (Recommended)
+### 方案一：自动（推荐）
 
 ```bash
 # 1. Create config
@@ -151,7 +151,7 @@ python3 cli/package_multi.py output/godot*/
 
 ---
 
-### Option 2: Manual Control
+### 方案二：手动控制
 
 ```bash
 # 1. Define split in config
@@ -175,11 +175,11 @@ python3 cli/split_config.py configs/godot.json
 
 ---
 
-## Detailed Workflows
+## 详细工作流
 
-### Workflow 1: Router + Categories (40K Pages)
+### 工作流 1：路由器 + 分类（4 万页）
 
-**Scenario:** Godot documentation (40,000 pages)
+**场景：** Godot 文档（40,000 页）
 
 **Step 1: Estimate**
 ```bash
@@ -244,7 +244,7 @@ Upload all 6 .zip files to Claude. The router will intelligently direct queries 
 
 ---
 
-### Workflow 2: Category Split Only (15K Pages)
+### 工作流 2：仅分类拆分（1.5 万页）
 
 **Scenario:** Vue.js documentation (15,000 pages)
 
@@ -265,13 +265,13 @@ python3 cli/package_multi.py output/vue*/
 # 4. Upload all to Claude
 ```
 
-**Result:** 5 focused Vue skills (components, reactivity, routing, etc.)
+**结果：** 5 个聚焦的 Vue 技能（组件、响应式、路由等）
 
 ---
 
-## Best Practices
+## 最佳实践
 
-### 1. **Choose Target Size Wisely**
+### 1. **合理选择目标规模**
 
 ```bash
 # Small focused skills (3K-5K pages) - more skills, very focused
@@ -284,7 +284,7 @@ python3 cli/split_config.py config.json --target-pages 5000
 python3 cli/split_config.py config.json --target-pages 8000
 ```
 
-### 2. **Use Parallel Scraping**
+### 2. **使用并行抓取**
 
 ```bash
 # Serial (slow - 40 hours)
@@ -299,7 +299,7 @@ done
 wait
 ```
 
-### 3. **Test Before Full Scrape**
+### 3. **全量前先测试**
 
 ```bash
 # Test with limited pages first
@@ -311,7 +311,7 @@ python3 cli/doc_scraper.py --config configs/godot-2d.json
 # If output looks good, increase to full
 ```
 
-### 4. **Use Checkpoints for Long Scrapes**
+### 4. **长任务启用断点**
 
 ```bash
 # Enable checkpoints in config
@@ -328,9 +328,9 @@ python3 cli/doc_scraper.py --config config.json --resume
 
 ---
 
-## Examples
+## 示例
 
-### Example 1: AWS Documentation (Hypothetical 50K Pages)
+### 示例 1：AWS 文档（假设 5 万页）
 
 ```bash
 # 1. Split by AWS services
@@ -350,7 +350,7 @@ python3 cli/split_config.py configs/aws.json --strategy router --target-pages 50
 # 6. Focused, accurate answer!
 ```
 
-### Example 2: Microsoft Docs (100K+ Pages)
+### 示例 2：Microsoft Docs（10 万+ 页）
 
 ```bash
 # Too large even with splitting - use selective categories
@@ -368,9 +368,9 @@ python3 cli/split_config.py configs/microsoft.json --strategy category
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-### Issue: "Splitting creates too many skills"
+### 问题：“拆分后技能过多”
 
 **Solution:** Increase target size or combine categories
 
@@ -381,7 +381,7 @@ python3 cli/split_config.py config.json --target-pages 8000
 # Or manually combine categories in config
 ```
 
-### Issue: "Router not routing correctly"
+### 问题：“路由器未正确路由”
 
 **Solution:** Check routing keywords in router SKILL.md
 
@@ -393,7 +393,7 @@ cat output/godot/SKILL.md
 nano output/godot/SKILL.md
 ```
 
-### Issue: "Parallel scraping fails"
+### 问题：“并行抓取失败”
 
 **Solution:** Reduce parallelism or check rate limits
 
@@ -410,9 +410,9 @@ wait
 
 ---
 
-## Summary
+## 总结
 
-**For 40K+ Page Documentation:**
+**针对 4 万+ 页文档：**
 
 1. ✅ **Estimate first**: `python3 cli/estimate_pages.py config.json`
 2. ✅ **Split with router**: `python3 cli/split_config.py config.json --strategy router`
@@ -425,7 +425,7 @@ wait
 
 ---
 
-**Questions? See:**
+**更多信息：**
 - [Main README](../README.md)
 - [MCP Setup Guide](MCP_SETUP.md)
 - [Enhancement Guide](ENHANCEMENT.md)

@@ -1,25 +1,25 @@
-# Unified Multi-Source Scraping
+# 统一的多源抓取
 
-**Version:** 2.0 (Feature complete as of October 2025)
+**版本：** 2.0（截至 2025-10 功能完备）
 
-## Overview
+## 概览
 
-Unified multi-source scraping allows you to combine knowledge from multiple sources into a single comprehensive Claude skill. Instead of choosing between documentation, GitHub repositories, or PDF manuals, you can now extract and intelligently merge information from all of them.
+统一的多源抓取允许你将来自多种来源的知识合并为一个完整的 Claude 技能。不必在“文档 / GitHub 仓库 / PDF 手册”之间二选一，你可以同时提取并智能合并这些来源的信息。
 
-## Why Unified Scraping?
+## 为什么需要统一抓取？
 
-**The Problem**: Documentation and code often drift apart over time. Official docs might be outdated, missing features that exist in code, or documenting features that have been removed. Separately scraping docs and code creates two incomplete skills.
+**问题：** 文档与代码随时间常常发生偏差。官方文档可能过时，遗漏代码中已存在的功能，或记录已删除的功能。单独抓取文档与代码会得到两个不完整的技能。
 
-**The Solution**: Unified scraping:
-- Extracts information from multiple sources (documentation, GitHub, PDFs)
-- **Detects conflicts** between documentation and actual code implementation
-- **Intelligently merges** conflicting information with transparency
-- **Highlights discrepancies** with inline warnings (⚠️)
-- Creates a single, comprehensive skill that shows the complete picture
+**解决：** 统一抓取：
+- 从多个来源提取信息（文档、GitHub、PDF）
+- **检测**文档与实际代码实现之间的冲突
+- **智能合并**冲突信息并保持透明
+- 使用内联警示（⚠️）**突出差异**
+- 生成一个**完整技能**，呈现全貌
 
-## Quick Start
+## 快速开始
 
-### 1. Create a Unified Config
+### 1. 创建统一配置
 
 Create a config file with multiple sources:
 
@@ -46,7 +46,7 @@ Create a config file with multiple sources:
 }
 ```
 
-### 2. Scrape and Build
+### 2. 抓取并构建
 
 ```bash
 python3 cli/unified_scraper.py --config configs/react_unified.json
@@ -58,15 +58,15 @@ The tool will:
 3. ✅ **Phase 3**: Merge conflicts intelligently
 4. ✅ **Phase 4**: Build unified skill with conflict transparency
 
-### 3. Package and Upload
+### 3. 打包并上传
 
 ```bash
 python3 cli/package_skill.py output/react/
 ```
 
-## Config Format
+## 配置格式
 
-### Unified Config Structure
+### 统一配置结构
 
 ```json
 {
@@ -82,7 +82,7 @@ python3 cli/package_skill.py output/react/
 }
 ```
 
-### Documentation Source
+### 文档来源
 
 ```json
 {
@@ -107,7 +107,7 @@ python3 cli/package_skill.py output/react/
 }
 ```
 
-### GitHub Source
+### GitHub 来源
 
 ```json
 {
@@ -127,12 +127,12 @@ python3 cli/package_skill.py output/react/
 }
 ```
 
-**Code Analysis Depth**:
-- `surface` (default): Basic structure, no code analysis
-- `deep`: Extract class/function signatures, parameters, return types
-- `full`: Complete AST analysis (expensive)
+**代码分析深度：**
+- `surface`（默认）：基础结构，不分析代码
+- `deep`：提取类/函数签名、参数、返回类型
+- `full`：完整 AST 分析（开销大）
 
-### PDF Source
+### PDF 来源
 
 ```json
 {
@@ -144,14 +144,14 @@ python3 cli/package_skill.py output/react/
 }
 ```
 
-## Conflict Detection
+## 冲突检测
 
-The unified scraper automatically detects 4 types of conflicts:
+统一抓取器会自动检测 4 类冲突：
 
-### 1. Missing in Documentation
+### 1. 文档缺失
 
-**Severity**: Medium
-**Description**: API exists in code but is not documented
+**严重性：**中
+**描述：**代码中存在该 API，但文档未提及
 
 **Example**:
 ```python
@@ -162,12 +162,12 @@ def move_local_x(self, delta: float, snap: bool = False) -> None:
 # But documentation doesn't mention it
 ```
 
-**Suggestion**: Add documentation for this API
+**建议：**补充文档
 
-### 2. Missing in Code
+### 2. 代码缺失
 
-**Severity**: High
-**Description**: API is documented but not found in codebase
+**严重性：**高
+**描述：**文档中存在该 API，但代码库中不存在
 
 **Example**:
 ```python
@@ -177,12 +177,12 @@ def rotate(angle: float) -> None
 # But code doesn't have this function
 ```
 
-**Suggestion**: Update documentation to remove this API, or add it to codebase
+**建议：**更新文档删除该 API，或在代码中补齐
 
-### 3. Signature Mismatch
+### 3. 签名不匹配
 
-**Severity**: Medium-High
-**Description**: API exists in both but signatures differ
+**严重性：**中-高
+**描述：**文档与代码均存在该 API，但签名不同
 
 **Example**:
 ```python
@@ -193,16 +193,16 @@ def move_local_x(delta: float)
 def move_local_x(delta: float, snap: bool = False)
 ```
 
-**Suggestion**: Update documentation to match actual signature
+**建议：**更新文档以匹配实际签名
 
-### 4. Description Mismatch
+### 4. 描述不匹配
 
 **Severity**: Low
 **Description**: Different descriptions/docstrings
 
-## Merge Modes
+## 合并模式
 
-### Rule-Based Merge (Default)
+### 规则合并（默认）
 
 Fast, deterministic merging using predefined rules:
 
@@ -211,17 +211,17 @@ Fast, deterministic merging using predefined rules:
 3. **If both match perfectly** → Include normally
 4. **If conflict exists** → Prefer code signature, keep docs description
 
-**When to use**:
-- Fast merging (< 1 second)
-- Automated workflows
-- You don't need human oversight
+**适用场景：**
+- 快速合并（<1 秒）
+- 自动化工作流
+- 不需要人工审校
 
 **Example**:
 ```bash
 python3 cli/unified_scraper.py --config config.json --merge-mode rule-based
 ```
 
-### Claude-Enhanced Merge
+### Claude 增强合并
 
 AI-powered reconciliation using local Claude Code:
 
@@ -230,17 +230,17 @@ AI-powered reconciliation using local Claude Code:
 3. Claude analyzes and creates reconciled API reference
 4. Human can review and adjust before finalizing
 
-**When to use**:
-- Complex conflicts requiring judgment
-- You want highest quality merge
-- You have time for human oversight
+**适用场景：**
+- 复杂冲突需要判断
+- 追求最高质量的合并
+- 有时间进行人工审校
 
 **Example**:
 ```bash
 python3 cli/unified_scraper.py --config config.json --merge-mode claude-enhanced
 ```
 
-## Skill Output Structure
+## 技能输出结构
 
 The unified scraper creates this structure:
 
@@ -263,7 +263,7 @@ output/skill-name/
 └── assets/                      # Empty (for user assets)
 ```
 
-### SKILL.md Format
+### SKILL.md 格式
 
 ```markdown
 # React
@@ -325,9 +325,9 @@ useEffect(callback: () => void | (() => void), deps?: readonly any[])
 ---
 ```
 
-## Examples
+## 示例
 
-### Example 1: React (Docs + GitHub)
+### 示例 1：React（文档 + GitHub）
 
 ```json
 {
@@ -351,7 +351,7 @@ useEffect(callback: () => void | (() => void), deps?: readonly any[])
 }
 ```
 
-### Example 2: Django (Docs + GitHub)
+### 示例 2：Django（文档 + GitHub）
 
 ```json
 {
@@ -379,7 +379,7 @@ useEffect(callback: () => void | (() => void), deps?: readonly any[])
 }
 ```
 
-### Example 3: Mixed Sources (Docs + GitHub + PDF)
+### 示例 3：混合来源（文档 + GitHub + PDF）
 
 ```json
 {
@@ -408,9 +408,9 @@ useEffect(callback: () => void | (() => void), deps?: readonly any[])
 }
 ```
 
-## Command Reference
+## 命令参考
 
-### Unified Scraper
+### 统一抓取器
 
 ```bash
 # Basic usage
@@ -423,7 +423,7 @@ python3 cli/unified_scraper.py --config configs/react_unified.json --merge-mode 
 python3 cli/unified_scraper.py --config configs/react_unified.json --skip-scrape
 ```
 
-### Validate Config
+### 校验配置
 
 ```bash
 python3 -c "
@@ -438,9 +438,9 @@ print(f'Needs API merge: {validator.needs_api_merge()}')
 "
 ```
 
-## MCP Integration
+## MCP 集成
 
-The unified scraper is fully integrated with MCP. The `scrape_docs` tool automatically detects unified vs legacy configs and routes to the appropriate scraper.
+统一抓取器已完全集成 MCP。`scrape_docs` 工具会自动检测统一/传统配置并路由到相应抓取器。
 
 ```python
 # MCP tool usage
@@ -459,9 +459,9 @@ The tool will:
 3. Apply specified merge mode
 4. Return comprehensive output
 
-## Backward Compatibility
+## 向后兼容
 
-**Legacy configs still work!** The system automatically detects legacy single-source configs and routes to the original `doc_scraper.py`.
+**传统配置仍然有效！** 系统会自动检测传统的单源配置并路由到原始 `doc_scraper.py`。
 
 ```json
 // Legacy config (still works)
@@ -475,7 +475,7 @@ The tool will:
 // Routes to doc_scraper.py
 ```
 
-## Testing
+## 测试
 
 Run integration tests:
 
@@ -489,9 +489,9 @@ Tests validate:
 - ✅ Mixed source type support
 - ✅ Error handling for invalid configs
 
-## Architecture
+## 架构
 
-### Components
+### 组件
 
 1. **config_validator.py**: Validates unified and legacy configs
 2. **code_analyzer.py**: Extracts code signatures at configurable depth
@@ -501,7 +501,7 @@ Tests validate:
 6. **unified_skill_builder.py**: Generates final skill structure
 7. **skill_seeker_mcp/server.py**: MCP integration with auto-detection
 
-### Data Flow
+### 数据流
 
 ```
 Unified Config
@@ -542,21 +542,21 @@ UnifiedScraper.run()
 Unified Skill (.zip ready)
 ```
 
-## Best Practices
+## 最佳实践
 
-### 1. Start with Rule-Based Merge
+### 1. 先使用规则合并
 
 Rule-based is fast and works well for most cases. Only use Claude-enhanced if you need human oversight.
 
-### 2. Use Surface-Level Code Analysis
+### 2. 使用浅层代码分析
 
 `code_analysis_depth: "surface"` is usually sufficient. Deep analysis is expensive and rarely needed.
 
-### 3. Limit GitHub Issues
+### 3. 限制 GitHub Issues 数量
 
 `max_issues: 100` is a good default. More than 200 issues rarely adds value.
 
-### 4. Be Specific with File Patterns
+### 4. 文件模式尽量具体
 
 ```json
 "file_patterns": [
@@ -568,13 +568,13 @@ Rule-based is fast and works well for most cases. Only use Claude-enhanced if yo
 "file_patterns": ["**/*.js"]  // Too broad, slow
 ```
 
-### 5. Monitor Conflict Reports
+### 5. 关注冲突报告
 
 Always review `references/conflicts.md` to understand discrepancies between sources.
 
-## Troubleshooting
+## 故障排除
 
-### No Conflicts Detected
+### 未检测到冲突
 
 **Possible causes**:
 - `extract_api: false` in documentation source
@@ -583,7 +583,7 @@ Always review `references/conflicts.md` to understand discrepancies between sour
 
 **Solution**: Ensure both sources have API extraction enabled
 
-### Too Many Conflicts
+### 冲突过多
 
 **Possible causes**:
 - Fuzzy matching threshold too strict
@@ -592,7 +592,7 @@ Always review `references/conflicts.md` to understand discrepancies between sour
 
 **Solution**: Review conflicts manually and adjust merge strategy
 
-### Merge Takes Too Long
+### 合并耗时过长
 
 **Possible causes**:
 - Using `code_analysis_depth: "full"` (very slow)
@@ -604,7 +604,7 @@ Always review `references/conflicts.md` to understand discrepancies between sour
 - Narrow file patterns
 - Increase `rate_limit`
 
-## Future Enhancements
+## 未来增强
 
 Planned features:
 - [ ] Automated conflict resolution strategies
@@ -613,13 +613,13 @@ Planned features:
 - [ ] Custom merge rules DSL
 - [ ] Conflict confidence scores
 
-## Support
+## 支持
 
 For issues, questions, or suggestions:
 - GitHub Issues: https://github.com/yusufkaraaslan/Skill_Seekers/issues
 - Documentation: https://github.com/yusufkaraaslan/Skill_Seekers/docs
 
-## Changelog
+## 更新日志
 
 **v2.0 (October 2025)**: Unified multi-source scraping feature complete
 - ✅ Config validation for unified format

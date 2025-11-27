@@ -1,37 +1,37 @@
-# PDF Scraper CLI Tool (Tasks B1.6 + B1.8)
+# PDF 抓取 CLI 工具（任务 B1.6 + B1.8）
 
-**Status:** ✅ Completed
-**Date:** October 21, 2025
-**Tasks:** B1.6 - Create pdf_scraper.py CLI tool, B1.8 - PDF config format
+**状态：** ✅ 已完成
+**日期：** 2025-10-21
+**任务：** B1.6 - 创建 `pdf_scraper.py` CLI；B1.8 - PDF 配置格式
 
 ---
 
-## Overview
+## 概览
 
-The PDF scraper (`pdf_scraper.py`) is a complete CLI tool that converts PDF documentation into Claude AI skills. It integrates all PDF extraction features (B1.1-B1.5) with the Skill Seeker workflow to produce packaged, uploadable skills.
+PDF 抓取器（`pdf_scraper.py`）是一个完整的 CLI 工具，可将 PDF 文档转换为 Claude 技能。它整合了 B1.1-B1.5 的所有 PDF 提取特性，并与 Skill Seeker 工作流结合生成可打包与上传的技能。
 
-## Features
+## 功能
 
-### ✅ Complete Workflow
+### ✅ 完整工作流
 
 1. **Extract** - Uses `pdf_extractor_poc.py` for extraction
 2. **Categorize** - Organizes content by chapters or keywords
 3. **Build** - Creates skill structure (SKILL.md, references/)
 4. **Package** - Ready for `package_skill.py`
 
-### ✅ Three Usage Modes
+### ✅ 三种使用模式
 
 1. **Config File** - Use JSON configuration (recommended)
 2. **Direct PDF** - Quick conversion from PDF file
 3. **From JSON** - Build skill from pre-extracted data
 
-### ✅ Automatic Categorization
+### ✅ 自动分类
 
 - Chapter-based (from PDF structure)
 - Keyword-based (configurable)
 - Fallback to single category
 
-### ✅ Quality Filtering
+### ✅ 质量过滤
 
 - Uses quality scores from B1.4
 - Extracts top code examples
@@ -39,9 +39,9 @@ The PDF scraper (`pdf_scraper.py`) is a complete CLI tool that converts PDF docu
 
 ---
 
-## Usage
+## 使用
 
-### Mode 1: Config File (Recommended)
+### 模式 1：配置文件（推荐）
 
 ```bash
 # Create config file
@@ -68,7 +68,7 @@ EOF
 python3 cli/pdf_scraper.py --config configs/my_manual.json
 ```
 
-**Output:**
+**输出：**
 ```
 🔍 Extracting from PDF: docs/manual.pdf
 📄 Extracting from: docs/manual.pdf
@@ -97,21 +97,21 @@ python3 cli/pdf_scraper.py --config configs/my_manual.json
 📦 Next step: Package with: python3 cli/package_skill.py output/mymanual/
 ```
 
-### Mode 2: Direct PDF
+### 模式 2：直接 PDF
 
 ```bash
 # Quick conversion without config file
 python3 cli/pdf_scraper.py --pdf manual.pdf --name mymanual --description "My Manual Docs"
 ```
 
-**Uses default settings:**
+**默认设置：**
 - Chunk size: 10
 - Min quality: 5.0
 - Extract images: true
 - Min image size: 100px
 - No custom categories (chapter-based)
 
-### Mode 3: From Extracted JSON
+### 模式 3：从提取的 JSON
 
 ```bash
 # Step 1: Extract only (saves JSON)
@@ -121,16 +121,16 @@ python3 cli/pdf_extractor_poc.py manual.pdf -o manual_extracted.json --extract-i
 python3 cli/pdf_scraper.py --from-json manual_extracted.json
 ```
 
-**Benefits:**
+**优势：**
 - Separate extraction and building
 - Iterate on skill structure without re-extracting
 - Faster development cycle
 
 ---
 
-## Config File Format (Task B1.8)
+## 配置文件格式（任务 B1.8）
 
-### Complete Example
+### 完整示例
 
 ```json
 {
@@ -178,9 +178,9 @@ python3 cli/pdf_scraper.py --from-json manual_extracted.json
 }
 ```
 
-### Field Reference
+### 字段参考
 
-#### Required Fields
+#### 必需字段
 
 - **`name`** (string): Skill identifier
   - Used for directory names
@@ -191,7 +191,7 @@ python3 cli/pdf_scraper.py --from-json manual_extracted.json
   - Absolute or relative to working directory
   - Example: `"docs/manual.pdf"`
 
-#### Optional Fields
+#### 可选字段
 
 - **`description`** (string): Skill description
   - Shows in SKILL.md
@@ -211,9 +211,9 @@ python3 cli/pdf_scraper.py --from-json manual_extracted.json
 
 ---
 
-## Output Structure
+## 输出结构
 
-### Generated Files
+### 生成的文件
 
 ```
 output/
@@ -232,7 +232,7 @@ output/
             └── mymanual_page12_img2.jpeg
 ```
 
-### SKILL.md Format
+### SKILL.md 格式
 
 ```markdown
 # Mymanual Documentation Skill
@@ -286,7 +286,7 @@ See `references/index.md` for complete documentation structure.
 - shell: 8 examples
 ```
 
-### Reference File Format
+### 参考文件格式
 
 Each category gets its own reference file:
 
@@ -323,9 +323,9 @@ server:
 
 ---
 
-## Categorization Logic
+## 分类逻辑
 
-### Chapter-Based (Automatic)
+### 基于章节（自动）
 
 If PDF has detectable chapters (from B1.3):
 
@@ -342,7 +342,7 @@ If PDF has detectable chapters (from B1.3):
 - "Chapter 1: Introduction" → `chapter_1_introduction.md`
 - "Part 2: Advanced Topics" → `part_2_advanced_topics.md`
 
-### Keyword-Based (Configurable)
+### 基于关键词（可配置）
 
 If `categories` config is provided:
 
@@ -362,9 +362,9 @@ If `categories` config is provided:
 
 ---
 
-## Integration with Skill Seeker
+## 与 Skill Seeker 集成
 
-### Complete Workflow
+### 完整工作流
 
 ```bash
 # 1. Create PDF config
@@ -391,7 +391,7 @@ python3 cli/package_skill.py output/api_manual/ --upload
 # Result: api_manual.zip ready for Claude!
 ```
 
-### Enhancement (Optional)
+### 增强（可选）
 
 ```bash
 # After building, enhance with AI
@@ -404,9 +404,9 @@ python3 cli/enhance_skill.py output/api_manual/
 
 ---
 
-## Performance
+## 性能
 
-### Benchmark
+### 基准
 
 | PDF Size | Pages | Extraction | Building | Total |
 |----------|-------|------------|----------|-------|
@@ -417,7 +417,7 @@ python3 cli/enhance_skill.py output/api_manual/
 **Extraction**: PDF → JSON (cpu-intensive)
 **Building**: JSON → Skill (fast, i/o-bound)
 
-### Optimization Tips
+### 优化建议
 
 1. **Use `--from-json` for iteration**
    - Extract once, build many times
@@ -433,9 +433,9 @@ python3 cli/enhance_skill.py output/api_manual/
 
 ---
 
-## Examples
+## 示例
 
-### Example 1: Programming Language Manual
+### 示例 1：编程语言手册
 
 ```json
 {
@@ -457,7 +457,7 @@ python3 cli/enhance_skill.py output/api_manual/
 }
 ```
 
-### Example 2: API Documentation
+### 示例 2：API 文档
 
 ```json
 {
@@ -480,7 +480,7 @@ python3 cli/enhance_skill.py output/api_manual/
 }
 ```
 
-### Example 3: Framework Documentation
+### 示例 3：框架文档
 
 ```json
 {
@@ -494,13 +494,13 @@ python3 cli/enhance_skill.py output/api_manual/
   }
 }
 ```
-*Note: No categories - uses chapter-based categorization*
+*注：未提供分类 —— 使用章节分类*
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-### No Categories Created
+### 未创建分类
 
 **Problem:** Only "content" or "other" category
 
@@ -518,7 +518,7 @@ cat output/mymanual_extracted.json | jq '.chapters'
 # Or let it create single "content" category (OK for small PDFs)
 ```
 
-### Low-Quality Code Blocks
+### 低质量代码块过多
 
 **Problem:** Too many poor code examples
 
@@ -531,7 +531,7 @@ cat output/mymanual_extracted.json | jq '.chapters'
 }
 ```
 
-### Images Not Extracted
+### 未提取到图片
 
 **Problem:** No images in `assets/images/`
 
@@ -547,7 +547,7 @@ cat output/mymanual_extracted.json | jq '.chapters'
 
 ---
 
-## Comparison with Web Scraper
+## 与网页抓取器对比
 
 | Feature | Web Scraper | PDF Scraper |
 |---------|-------------|-------------|
@@ -563,9 +563,9 @@ cat output/mymanual_extracted.json | jq '.chapters'
 
 ---
 
-## Next Steps
+## 下一步
 
-### Task B1.7: MCP Tool Integration
+### 任务 B1.7：MCP 工具集成
 
 The PDF scraper will be available through MCP:
 
@@ -585,7 +585,7 @@ result = mcp.scrape_pdf(
 
 ---
 
-## Conclusion
+## 结论
 
 Tasks B1.6 and B1.8 successfully implement:
 
@@ -602,13 +602,13 @@ Tasks B1.6 and B1.8 successfully implement:
 - ✅ Category definitions (keyword-based)
 - ✅ Compatible with web scraper config style
 
-**Impact:**
+**影响：**
 - Complete PDF documentation support
 - Parallel workflow to web scraping
 - Reusable extraction results
 - High-quality skill generation
 
-**Ready for B1.7:** MCP tool integration
+**已准备好 B1.7：** MCP 工具集成
 
 ---
 

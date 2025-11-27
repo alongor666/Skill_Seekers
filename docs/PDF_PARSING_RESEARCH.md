@@ -1,23 +1,23 @@
-# PDF Parsing Libraries Research (Task B1.1)
+# PDF 解析库调研（任务 B1.1）
 
-**Date:** October 21, 2025
-**Task:** B1.1 - Research PDF parsing libraries
-**Purpose:** Evaluate Python libraries for extracting text and code from PDF documentation
+**日期：** 2025-10-21
+**任务：** B1.1 - 调研 PDF 解析库
+**目的：** 评估用于从 PDF 文档中提取文本与代码的 Python 库
 
 ---
 
-## Executive Summary
+## 摘要
 
-After comprehensive research, **PyMuPDF (fitz)** is recommended as the primary library for Skill Seeker's PDF parsing needs, with **pdfplumber** as a secondary option for complex table extraction.
+综合调研后，推荐以 **PyMuPDF (fitz)** 作为 Skill Seeker 的主要 PDF 解析库，**pdfplumber** 作为复杂表格提取的备选方案。
 
-### Quick Recommendation:
+### 快速建议：
 - **Primary Choice:** PyMuPDF (fitz) - Fast, comprehensive, well-maintained
 - **Secondary/Fallback:** pdfplumber - Better for tables, slower but more precise
 - **Avoid:** PyPDF2 (deprecated, merged into pypdf)
 
 ---
 
-## Library Comparison Matrix
+## 库对比矩阵
 
 | Library | Speed | Text Quality | Code Detection | Tables | Maintenance | License |
 |---------|-------|--------------|----------------|--------|-------------|---------|
@@ -29,18 +29,18 @@ After comprehensive research, **PyMuPDF (fitz)** is recommended as the primary l
 
 ---
 
-## Detailed Analysis
+## 详细分析
 
-### 1. PyMuPDF (fitz) ⭐ RECOMMENDED
+### 1. PyMuPDF (fitz) ⭐ 推荐
 
-**Performance:** 42 milliseconds (60x faster than pdfminer.six)
+**性能：** 42ms（比 pdfminer.six 快约 60 倍）
 
-**Installation:**
+**安装：**
 ```bash
 pip install PyMuPDF
 ```
 
-**Pros:**
+**优点：**
 - ✅ Extremely fast (C-based MuPDF backend)
 - ✅ Comprehensive features (text, images, tables, metadata)
 - ✅ Supports markdown output
@@ -48,12 +48,12 @@ pip install PyMuPDF
 - ✅ Well-documented and actively maintained
 - ✅ Handles complex layouts well
 
-**Cons:**
+**缺点：**
 - ⚠️ AGPL license (requires commercial license for proprietary projects)
 - ⚠️ Requires MuPDF binary installation (handled by pip)
 - ⚠️ Slightly larger dependency footprint
 
-**Code Example:**
+**代码示例：**
 ```python
 import fitz  # PyMuPDF
 
@@ -84,7 +84,7 @@ def extract_as_markdown(pdf_path):
     return markdown
 ```
 
-**Use Cases for Skill Seeker:**
+**Skill Seeker 使用场景：**
 - Fast extraction of code examples from PDF docs
 - Preserving formatting for code blocks
 - Extracting diagrams and screenshots
@@ -92,16 +92,16 @@ def extract_as_markdown(pdf_path):
 
 ---
 
-### 2. pdfplumber ⭐ RECOMMENDED (for tables)
+### 2. pdfplumber ⭐ 推荐（适合表格）
 
-**Performance:** ~2.5 seconds (slower but more precise)
+**性能：** ~2.5s（较慢但更精细）
 
-**Installation:**
+**安装：**
 ```bash
 pip install pdfplumber
 ```
 
-**Pros:**
+**优点：**
 - ✅ MIT license (fully open source)
 - ✅ Exceptional table extraction
 - ✅ Visual debugging tool
@@ -109,12 +109,12 @@ pip install pdfplumber
 - ✅ Built on pdfminer (proven text extraction)
 - ✅ No binary dependencies
 
-**Cons:**
+**缺点：**
 - ⚠️ Slower than PyMuPDF
 - ⚠️ Higher memory usage for large PDFs
 - ⚠️ Requires more configuration for optimal results
 
-**Code Example:**
+**代码示例：**
 ```python
 import pdfplumber
 
@@ -143,14 +143,14 @@ def extract_region(pdf_path, page_num, bbox):
         return cropped.extract_text()
 ```
 
-**Use Cases for Skill Seeker:**
+**Skill Seeker 使用场景：**
 - Extracting API reference tables from PDFs
 - Precise code block extraction with layout
 - Documentation with complex table structures
 
 ---
 
-### 3. pypdf (formerly PyPDF2)
+### 3. pypdf（原 PyPDF2）
 
 **Performance:** Fast (medium speed)
 
@@ -159,14 +159,14 @@ def extract_region(pdf_path, page_num, bbox):
 pip install pypdf
 ```
 
-**Pros:**
+**优点：**
 - ✅ BSD license
 - ✅ Simple API
 - ✅ Can modify PDFs (merge, split, encrypt)
 - ✅ Actively maintained (PyPDF2 merged back)
 - ✅ No external dependencies
 
-**Cons:**
+**缺点：**
 - ⚠️ Limited complex layout support
 - ⚠️ Basic text extraction only
 - ⚠️ Poor with scanned/image PDFs
@@ -185,7 +185,7 @@ def extract_with_pypdf(pdf_path):
     return text
 ```
 
-**Use Cases for Skill Seeker:**
+**Skill Seeker 使用场景：**
 - Simple text extraction
 - Fallback when PyMuPDF licensing is an issue
 - Basic PDF manipulation tasks
@@ -201,19 +201,19 @@ def extract_with_pypdf(pdf_path):
 pip install pdfminer.six
 ```
 
-**Pros:**
+**优点：**
 - ✅ MIT license
 - ✅ Excellent text quality (preserves formatting)
 - ✅ Handles complex layouts
 - ✅ Pure Python (no binaries)
 
-**Cons:**
+**缺点：**
 - ⚠️ Slowest option
 - ⚠️ Complex API
 - ⚠️ Poor documentation
 - ⚠️ Limited table support
 
-**Use Cases for Skill Seeker:**
+**Skill Seeker 使用场景：**
 - Not recommended (pdfplumber is built on this with better API)
 
 ---
@@ -227,37 +227,37 @@ pip install pdfminer.six
 pip install pypdfium2
 ```
 
-**Pros:**
+**优点：**
 - ✅ Extremely fast
 - ✅ Apache 2.0 license
 - ✅ Lightweight
 - ✅ Clean output
 
-**Cons:**
+**缺点：**
 - ⚠️ Basic features only
 - ⚠️ Limited documentation
 - ⚠️ No table extraction
 - ⚠️ Newer/less proven
 
-**Use Cases for Skill Seeker:**
+**Skill Seeker 使用场景：**
 - High-speed basic extraction
 - Potential future optimization
 
 ---
 
-## Licensing Considerations
+## 许可考虑
 
-### Open Source Projects (Skill Seeker):
+### 开源项目（Skill Seeker）：
 - **PyMuPDF:** ✅ AGPL license is fine for open-source projects
 - **pdfplumber:** ✅ MIT license (most permissive)
 - **pypdf:** ✅ BSD license (permissive)
 
-### Important Note:
+### 重要说明：
 PyMuPDF requires AGPL compliance (source code must be shared) OR a commercial license for proprietary use. Since Skill Seeker is open source on GitHub, AGPL is acceptable.
 
 ---
 
-## Performance Benchmarks
+## 性能基准
 
 Based on 2025 testing:
 
@@ -269,22 +269,22 @@ Based on 2025 testing:
 | pdfplumber | 2.5s | 250s |
 | pdfminer.six | 2.5s | 250s |
 
-**Winner:** pypdfium2 (speed) / PyMuPDF (features + speed balance)
+**最佳：** pypdfium2（速度） / PyMuPDF（功能与速度平衡）
 
 ---
 
-## Recommendations for Skill Seeker
+## 对 Skill Seeker 的建议
 
-### Primary Approach: PyMuPDF (fitz)
+### 主方案：PyMuPDF (fitz)
 
-**Why:**
+**理由：**
 1. **Speed** - 60x faster than alternatives
 2. **Features** - Text, images, markdown output, metadata
 3. **Quality** - High-quality text extraction
 4. **Maintained** - Active development, good docs
 5. **License** - AGPL is fine for open source
 
-**Implementation Strategy:**
+**实现策略：**
 ```python
 import fitz  # PyMuPDF
 
@@ -316,14 +316,14 @@ def extract_pdf_documentation(pdf_path):
     return pages
 ```
 
-### Fallback Approach: pdfplumber
+### 备选方案：pdfplumber
 
-**When to use:**
+**使用时机：**
 - PDF has complex tables that PyMuPDF misses
 - Need visual debugging
 - License concerns (use MIT instead of AGPL)
 
-**Implementation Strategy:**
+**实现策略：**
 ```python
 import pdfplumber
 
@@ -342,11 +342,11 @@ def extract_pdf_tables(pdf_path):
 
 ---
 
-## Code Block Detection Strategy
+## 代码块检测策略
 
 PDFs don't have semantic "code block" markers like HTML. Detection strategies:
 
-### 1. Font-based Detection
+### 1. 基于字体的检测
 ```python
 # PyMuPDF can detect font changes
 def detect_code_by_font(page):
@@ -365,7 +365,7 @@ def detect_code_by_font(page):
     return code_blocks
 ```
 
-### 2. Indentation-based Detection
+### 2. 基于缩进的检测
 ```python
 def detect_code_by_indent(text):
     lines = text.split('\n')
@@ -383,7 +383,7 @@ def detect_code_by_indent(text):
     return code_blocks
 ```
 
-### 3. Pattern-based Detection
+### 3. 基于模式的检测
 ```python
 import re
 
@@ -406,24 +406,24 @@ def detect_code_by_pattern(text):
 
 ---
 
-## Next Steps (Task B1.2+)
+## 后续步骤（任务 B1.2+）
 
-### Immediate Next Task: B1.2 - Create Simple PDF Text Extractor
+### 紧接任务：B1.2 - 创建简单的 PDF 文本提取器
 
 **Goal:** Proof of concept using PyMuPDF
 
-**Implementation Plan:**
+**实现计划：**
 1. Create `cli/pdf_extractor_poc.py`
 2. Extract text from sample PDF
 3. Detect code blocks using font/pattern matching
 4. Output to JSON (similar to web scraper)
 
-**Dependencies:**
+**依赖：**
 ```bash
 pip install PyMuPDF
 ```
 
-**Expected Output:**
+**预期输出：**
 ```json
 {
   "pages": [
@@ -437,7 +437,7 @@ pip install PyMuPDF
 }
 ```
 
-### Future Tasks:
+### 未来任务：
 - **B1.3:** Add page chunking (split large PDFs)
 - **B1.4:** Improve code block detection
 - **B1.5:** Extract images/diagrams
@@ -447,25 +447,25 @@ pip install PyMuPDF
 
 ---
 
-## Additional Resources
+## 更多资源
 
-### Documentation:
+### 文档：
 - PyMuPDF: https://pymupdf.readthedocs.io/
 - pdfplumber: https://github.com/jsvine/pdfplumber
 - pypdf: https://pypdf.readthedocs.io/
 
-### Comparison Studies:
+### 对比研究：
 - 2025 Comparative Study: https://arxiv.org/html/2410.09871v1
 - Performance Benchmarks: https://github.com/py-pdf/benchmarks
 
-### Example Use Cases:
+### 示例场景：
 - Extracting API docs from PDF manuals
 - Converting PDF guides to markdown
 - Building skills from PDF-only documentation
 
 ---
 
-## Conclusion
+## 结论
 
 **For Skill Seeker's PDF documentation extraction:**
 
@@ -475,7 +475,7 @@ pip install PyMuPDF
 4. **Preserve formatting** with markdown output
 5. **Extract images** for diagrams/screenshots
 
-**Estimated Implementation Time:**
+**预计实现时间：**
 - B1.2 (POC): 2-3 hours
 - B1.3-B1.5 (Features): 5-8 hours
 - B1.6 (CLI): 3-4 hours
@@ -483,9 +483,9 @@ pip install PyMuPDF
 - B1.8 (Config): 1-2 hours
 - **Total: 13-20 hours** for complete PDF support
 
-**License:** AGPL (PyMuPDF) is acceptable for Skill Seeker (open source)
+**许可：** AGPL（PyMuPDF）对 Skill Seeker（开源）是可接受的
 
 ---
 
-**Research completed:** ✅ October 21, 2025
-**Next task:** B1.2 - Create simple PDF text extractor (proof of concept)
+**调研完成：** ✅ 2025-10-21
+**下一任务：** B1.2 - 创建简单 PDF 文本提取器（概念验证）

@@ -577,3 +577,60 @@ result = extractor.extract_all()
 ✅ **Intelligent Caching** for faster re-runs
 
 The PDF extractor now handles virtually any PDF scenario with maximum performance!
+# PDF 高级特性（优先级 2 与 3）
+
+## 概览
+
+本文覆盖 PDF 提取与抓取的高级特性，包括扫描 PDF 的 OCR、密码保护 PDF、表格提取、缓存与并行处理。
+
+## 特性
+
+- 针对扫描/图片型 PDF 的 OCR（pytesseract）
+- 加密 PDF 的密码处理
+- 表格提取
+- 中间结果缓存
+- 并行页面处理
+
+## OCR
+
+### 依赖
+- 需要安装 `pytesseract` 与 Pillow
+
+### 行为
+- 当页面文本极少时才触发 OCR
+- 未安装依赖时给出警告并跳过 OCR
+
+## 密码保护的 PDF
+
+### 处理方式
+- 提供密码参数初始化
+- 正确识别加密 PDF
+- 错误密码与缺失密码的报错与处理
+
+## 表格提取
+
+### 方法
+- 启用表格提取标志后进行页面表格检测
+- 记录表格的行/列数与边界框
+- 支持单页多表格与异常处理
+
+## 缓存
+
+### 策略
+- 初始化缓存
+- 支持设置与获取缓存值
+- 未命中返回 None
+- 可禁用或覆盖缓存
+
+## 并行处理
+
+### Workers 数量
+- 默认关闭
+- 自动检测可用 worker 数
+- 支持自定义并行度
+
+## 集成
+
+- 与质量评分与过滤协同
+- 在 CLI 与 MCP 中可用
+- 额外开销极低

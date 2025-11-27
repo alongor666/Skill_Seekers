@@ -1,94 +1,94 @@
-# Terminal Selection Guide
+# 终端选择指南
 
-When using `--enhance-local`, Skill Seeker opens a new terminal window to run Claude Code. This guide explains how to control which terminal app is used.
+使用 `--enhance-local` 时，Skill Seeker 会打开一个新的终端窗口来运行 Claude Code。本文说明如何控制使用哪个终端应用。
 
-## Priority Order
+## 优先级顺序
 
-The script automatically detects which terminal to use in this order:
+脚本按以下顺序自动检测应使用的终端：
 
-1. **`SKILL_SEEKER_TERMINAL` environment variable** (highest priority)
-2. **`TERM_PROGRAM` environment variable** (inherit current terminal)
-3. **Terminal.app** (fallback default)
+1. **`SKILL_SEEKER_TERMINAL` 环境变量**（最高优先级）
+2. **`TERM_PROGRAM` 环境变量**（继承当前终端）
+3. **Terminal.app**（回退默认）
 
-## Setting Your Preferred Terminal
+## 设置首选终端
 
-### Option 1: Set Environment Variable (Recommended)
+### 方案一：设置环境变量（推荐）
 
-Add this to your shell config (`~/.zshrc` or `~/.bashrc`):
+将如下内容添加到你的 Shell 配置（`~/.zshrc` 或 `~/.bashrc`）：
 
 ```bash
-# For Ghostty users
+# Ghostty 用户
 export SKILL_SEEKER_TERMINAL="Ghostty"
 
-# For iTerm users
+# iTerm 用户
 export SKILL_SEEKER_TERMINAL="iTerm"
 
-# For WezTerm users
+# WezTerm 用户
 export SKILL_SEEKER_TERMINAL="WezTerm"
 ```
 
-Then reload your shell:
+然后重新加载 Shell：
 ```bash
 source ~/.zshrc  # or source ~/.bashrc
 ```
 
-### Option 2: Set Per-Session
+### 方案二：按会话设置
 
-Set the variable before running the command:
+在运行命令前设置该变量：
 
 ```bash
 SKILL_SEEKER_TERMINAL="Ghostty" python3 cli/doc_scraper.py --config configs/react.json --enhance-local
 ```
 
-### Option 3: Inherit Current Terminal (Automatic)
+### 方案三：继承当前终端（自动）
 
-If you run the script from Ghostty, iTerm2, or WezTerm, it will automatically open the enhancement in the same terminal app.
+如果你从 Ghostty、iTerm2 或 WezTerm 运行脚本，将自动在同一终端应用中打开增强流程。
 
-**Note:** IDE terminals (VS Code, Zed, JetBrains) use unique `TERM_PROGRAM` values, so they fall back to Terminal.app unless you set `SKILL_SEEKER_TERMINAL`.
+**注意：** IDE 的集成终端（VS Code、Zed、JetBrains）使用独特的 `TERM_PROGRAM` 值，除非设置 `SKILL_SEEKER_TERMINAL`，否则会回退到 Terminal.app。
 
-## Supported Terminals
+## 支持的终端
 
-- **Ghostty** (`ghostty`)
-- **iTerm2** (`iTerm.app`)
-- **Terminal.app** (`Apple_Terminal`)
-- **WezTerm** (`WezTerm`)
+- **Ghostty**（`ghostty`）
+- **iTerm2**（`iTerm.app`）
+- **Terminal.app**（`Apple_Terminal`）
+- **WezTerm**（`WezTerm`）
 
-## Example Output
+## 示例输出
 
-When terminal detection works:
+终端检测成功时：
 ```
 🚀 Launching Claude Code in new terminal...
    Using terminal: Ghostty (from SKILL_SEEKER_TERMINAL)
 ```
 
-When running from an IDE terminal:
+从 IDE 终端运行时：
 ```
 🚀 Launching Claude Code in new terminal...
 ⚠️  unknown TERM_PROGRAM (zed)
    → Using Terminal.app as fallback
 ```
 
-**Tip:** Set `SKILL_SEEKER_TERMINAL` to avoid the fallback behavior.
+**提示：** 设置 `SKILL_SEEKER_TERMINAL` 可避免回退行为。
 
-## Troubleshooting
+## 故障排除
 
-**Q: The wrong terminal opens even though I set `SKILL_SEEKER_TERMINAL`**
+**问：我已设置 `SKILL_SEEKER_TERMINAL`，但仍打开了错误的终端？**
 
-A: Make sure you reloaded your shell after editing `~/.zshrc`:
+答：请确保在编辑 `~/.zshrc` 后已重新加载：
 ```bash
 source ~/.zshrc
 ```
 
-**Q: I want to use a different terminal temporarily**
+**问：我想临时使用不同的终端？**
 
-A: Set the variable inline:
+答：内联设置变量：
 ```bash
 SKILL_SEEKER_TERMINAL="iTerm" python3 cli/doc_scraper.py --enhance-local ...
 ```
 
-**Q: Can I use a custom terminal app?**
+**问：可以使用自定义终端应用吗？**
 
-A: Yes! Just use the app name as it appears in `/Applications/`:
+答：可以！直接使用 `/Applications/` 中显示的应用名称：
 ```bash
 export SKILL_SEEKER_TERMINAL="Alacritty"
 ```
