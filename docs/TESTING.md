@@ -1,8 +1,8 @@
-# Testing Guide for Skill Seeker
+# Skill Seeker 测试指南（中文唯一版本）
 
-Comprehensive testing documentation for the Skill Seeker project.
+Skill Seeker 项目的综合测试文档。
 
-## Quick Start
+## 快速开始
 
 ```bash
 # Run all tests
@@ -23,7 +23,7 @@ python3 run_tests.py --failfast
 python3 run_tests.py --list
 ```
 
-## Test Structure
+## 测试结构
 
 ```
 tests/
@@ -36,13 +36,13 @@ tests/
 └── test_pdf_advanced_features.py        # PDF advanced features (26 tests) NEW
 ```
 
-## Test Suites
+## 测试套件
 
-### 1. Config Validation Tests (`test_config_validation.py`)
+### 1. 配置校验测试（`test_config_validation.py`）
 
 Tests the `validate_config()` function with comprehensive coverage.
 
-**Test Categories:**
+测试类别：
 - ✅ Valid configurations (minimal and complete)
 - ✅ Missing required fields (`name`, `base_url`)
 - ✅ Invalid name formats (special characters)
@@ -56,7 +56,7 @@ Tests the `validate_config()` function with comprehensive coverage.
 - ✅ Max pages validation (range 1-10000, type checking)
 - ✅ Start URLs validation (format and protocol)
 
-**Example Test:**
+示例测试：
 ```python
 def test_valid_complete_config(self):
     """Test valid complete configuration"""
@@ -75,26 +75,26 @@ def test_valid_complete_config(self):
     self.assertEqual(len(errors), 0)
 ```
 
-**Running:**
+运行：
 ```bash
 python3 run_tests.py --suite config -v
 ```
 
 ---
 
-### 2. Scraper Features Tests (`test_scraper_features.py`)
+### 2. 抓取功能测试（`test_scraper_features.py`）
 
 Tests core scraper functionality including URL validation, language detection, pattern extraction, and categorization.
 
-**Test Categories:**
+测试类别：
 
-**URL Validation:**
+URL 校验：
 - ✅ URL matching include patterns
 - ✅ URL matching exclude patterns
 - ✅ Different domain rejection
 - ✅ No pattern configuration
 
-**Language Detection:**
+语言检测：
 - ✅ Detection from CSS classes (`language-*`, `lang-*`)
 - ✅ Detection from parent elements
 - ✅ Python detection (import, from, def)
@@ -103,25 +103,25 @@ Tests core scraper functionality including URL validation, language detection, p
 - ✅ C++ detection (#include, int main)
 - ✅ Unknown language fallback
 
-**Pattern Extraction:**
+模式抽取：
 - ✅ Extraction with "Example:" marker
 - ✅ Extraction with "Usage:" marker
 - ✅ Pattern limit (max 5)
 
-**Categorization:**
+分类：
 - ✅ Categorization by URL keywords
 - ✅ Categorization by title keywords
 - ✅ Categorization by content keywords
 - ✅ Fallback to "other" category
 - ✅ Empty category removal
 
-**Text Cleaning:**
+文本清洗：
 - ✅ Multiple spaces normalization
 - ✅ Newline normalization
 - ✅ Tab normalization
 - ✅ Whitespace stripping
 
-**Example Test:**
+示例测试：
 ```python
 def test_detect_python_from_heuristics(self):
     """Test Python detection from code content"""
@@ -131,31 +131,31 @@ def test_detect_python_from_heuristics(self):
     self.assertEqual(lang, 'python')
 ```
 
-**Running:**
+运行：
 ```bash
 python3 run_tests.py --suite features -v
 ```
 
 ---
 
-### 3. Integration Tests (`test_integration.py`)
+### 3. 集成测试（`test_integration.py`）
 
 Tests complete workflows and interactions between components.
 
-**Test Categories:**
+测试类别：
 
-**Dry-Run Mode:**
+Dry-Run 模式：
 - ✅ No directories created in dry-run mode
 - ✅ Dry-run flag properly set
 - ✅ Normal mode creates directories
 
-**Config Loading:**
+配置加载：
 - ✅ Load valid configuration files
 - ✅ Invalid JSON error handling
 - ✅ Nonexistent file error handling
 - ✅ Validation errors during load
 
-**Real Config Validation:**
+真实配置校验：
 - ✅ Godot config validation
 - ✅ React config validation
 - ✅ Vue config validation
@@ -163,17 +163,17 @@ Tests complete workflows and interactions between components.
 - ✅ FastAPI config validation
 - ✅ Steam Economy config validation
 
-**URL Processing:**
+URL 处理：
 - ✅ URL normalization
 - ✅ Start URLs fallback to base_url
 - ✅ Multiple start URLs handling
 
-**Content Extraction:**
+内容提取：
 - ✅ Empty content handling
 - ✅ Basic content extraction
 - ✅ Code sample extraction with language detection
 
-**Example Test:**
+示例测试：
 ```python
 def test_dry_run_no_directories_created(self):
     """Test that dry-run mode doesn't create directories"""
@@ -186,20 +186,20 @@ def test_dry_run_no_directories_created(self):
     self.assertFalse(skill_dir.exists())
 ```
 
-**Running:**
+运行：
 ```bash
 python3 run_tests.py --suite integration -v
 ```
 
 ---
 
-### 4. PDF Extraction Tests (`test_pdf_extractor.py`) **NEW**
+### 4. PDF 提取测试（`test_pdf_extractor.py`）【新增】
 
 Tests PDF content extraction functionality (B1.2-B1.5).
 
-**Note:** These tests require PyMuPDF (`pip install PyMuPDF`). They will be skipped if not installed.
+说明：该套件需要 PyMuPDF（`pip install PyMuPDF`）；未安装时自动跳过。
 
-**Test Categories:**
+测试类别：
 
 **Language Detection (5 tests):**
 - ✅ Python detection with confidence scoring
@@ -238,7 +238,7 @@ Tests PDF content extraction functionality (B1.2-B1.5).
 **Quality Filtering (1 test):**
 - ✅ Filter by minimum quality threshold
 
-**Example Test:**
+示例测试：
 ```python
 def test_detect_python_with_confidence(self):
     """Test Python detection returns language and confidence"""
@@ -252,20 +252,20 @@ def test_detect_python_with_confidence(self):
     self.assertLessEqual(confidence, 1.0)
 ```
 
-**Running:**
+运行：
 ```bash
 python3 -m pytest tests/test_pdf_extractor.py -v
 ```
 
 ---
 
-### 5. PDF Workflow Tests (`test_pdf_scraper.py`) **NEW**
+### 5. PDF 工作流测试（`test_pdf_scraper.py`）【新增】
 
 Tests PDF to skill conversion workflow (B1.6).
 
-**Note:** These tests require PyMuPDF (`pip install PyMuPDF`). They will be skipped if not installed.
+说明：需要 PyMuPDF；未安装时自动跳过。
 
-**Test Categories:**
+测试类别：
 
 **PDFToSkillConverter (3 tests):**
 - ✅ Initialization with name and PDF path
@@ -299,7 +299,7 @@ Tests PDF to skill conversion workflow (B1.6).
 - ✅ Load from extracted JSON
 - ✅ Build from JSON without extraction
 
-**Example Test:**
+示例测试：
 ```python
 def test_build_skill_creates_structure(self):
     """Test that build_skill creates required directory structure"""
@@ -324,20 +324,20 @@ def test_build_skill_creates_structure(self):
     self.assertTrue((skill_dir / "assets").exists())
 ```
 
-**Running:**
+运行：
 ```bash
 python3 -m pytest tests/test_pdf_scraper.py -v
 ```
 
 ---
 
-### 6. PDF Advanced Features Tests (`test_pdf_advanced_features.py`) **NEW**
+### 6. PDF 高级特性测试（`test_pdf_advanced_features.py`）【新增】
 
 Tests advanced PDF features (Priority 2 & 3).
 
-**Note:** These tests require PyMuPDF (`pip install PyMuPDF`). OCR tests also require pytesseract and Pillow. They will be skipped if not installed.
+说明：需要 PyMuPDF；OCR 测试还需 pytesseract 与 Pillow。未安装时自动跳过。
 
-**Test Categories:**
+测试类别：
 
 **OCR Support (5 tests):**
 - ✅ OCR flag initialization
@@ -377,7 +377,7 @@ Tests advanced PDF features (Priority 2 & 3).
 - ✅ Various feature combinations
 - ✅ Page data includes tables
 
-**Example Test:**
+示例测试：
 ```python
 def test_table_extraction_basic(self):
     """Test basic table extraction"""
@@ -406,23 +406,23 @@ def test_table_extraction_basic(self):
     self.assertEqual(tables[0]['col_count'], 3)
 ```
 
-**Running:**
+运行：
 ```bash
 python3 -m pytest tests/test_pdf_advanced_features.py -v
 ```
 
 ---
 
-## Test Runner Features
+## 测试运行器特性
 
 The custom test runner (`run_tests.py`) provides:
 
-### Colored Output
+### 彩色输出
 - 🟢 Green for passing tests
 - 🔴 Red for failures and errors
 - 🟡 Yellow for skipped tests
 
-### Detailed Summary
+### 详细摘要
 ```
 ======================================================================
 TEST SUMMARY
@@ -449,7 +449,7 @@ Test Breakdown by Category:
 ======================================================================
 ```
 
-### Command-Line Options
+### 命令行选项
 
 ```bash
 # Verbose output (show each test name)
@@ -470,22 +470,22 @@ python3 run_tests.py --list
 
 ---
 
-## Running Individual Tests
+## 运行单项测试
 
-### Run Single Test File
+### 运行单个测试文件
 ```bash
 python3 -m unittest tests.test_config_validation
 python3 -m unittest tests.test_scraper_features
 python3 -m unittest tests.test_integration
 ```
 
-### Run Single Test Class
+### 运行单个测试类
 ```bash
 python3 -m unittest tests.test_config_validation.TestConfigValidation
 python3 -m unittest tests.test_scraper_features.TestLanguageDetection
 ```
 
-### Run Single Test Method
+### 运行单个测试方法
 ```bash
 python3 -m unittest tests.test_config_validation.TestConfigValidation.test_valid_complete_config
 python3 -m unittest tests.test_scraper_features.TestLanguageDetection.test_detect_python_from_heuristics
@@ -493,9 +493,9 @@ python3 -m unittest tests.test_scraper_features.TestLanguageDetection.test_detec
 
 ---
 
-## Test Coverage
+## 测试覆盖率
 
-### Current Coverage
+### 当前覆盖率
 
 | Component | Tests | Coverage |
 |-----------|-------|----------|
@@ -517,7 +517,7 @@ python3 -m unittest tests.test_scraper_features.TestLanguageDetection.test_detec
 
 **Note:** PDF tests (67 total) require PyMuPDF and will be skipped if not installed. When PyMuPDF is available, all 142 tests run.
 
-### Not Yet Covered
+### 尚未覆盖
 - Network operations (actual scraping)
 - Enhancement scripts (`enhance_skill.py`, `enhance_skill_local.py`)
 - Package creation (`package_skill.py`)
@@ -528,9 +528,9 @@ python3 -m unittest tests.test_scraper_features.TestLanguageDetection.test_detec
 
 ---
 
-## Writing New Tests
+## 编写新测试
 
-### Test Template
+### 测试模板
 
 ```python
 #!/usr/bin/env python3
@@ -587,7 +587,7 @@ if __name__ == '__main__':
     unittest.main()
 ```
 
-### Best Practices
+### 最佳实践
 
 1. **Use descriptive test names**: `test_valid_name_formats` not `test1`
 2. **Follow AAA pattern**: Arrange, Act, Assert
@@ -600,7 +600,7 @@ if __name__ == '__main__':
 
 ---
 
-## Continuous Integration
+## 持续集成
 
 ### GitHub Actions (Future)
 
@@ -623,7 +623,7 @@ jobs:
 
 ---
 
-## Troubleshooting
+## 故障排除
 
 ### Tests Fail with Import Errors
 ```bash
@@ -654,7 +654,7 @@ python3 -m unittest tests.test_config_validation.TestConfigValidation.test_name 
 
 ---
 
-## Performance
+## 性能
 
 Test execution times:
 - **Config Validation**: ~0.1 seconds (30 tests)
@@ -664,7 +664,7 @@ Test execution times:
 
 ---
 
-## Contributing Tests
+## 提交测试
 
 When adding new features:
 
@@ -681,7 +681,7 @@ When adding new features:
 
 ---
 
-## Additional Resources
+## 参考资源
 
 - **unittest documentation**: https://docs.python.org/3/library/unittest.html
 - **pytest** (alternative): https://pytest.org/ (more powerful, but requires installation)
@@ -689,7 +689,7 @@ When adding new features:
 
 ---
 
-## Summary
+## 总结
 
 ✅ **142 comprehensive tests** covering all major features (75 + 67 PDF)
 ✅ **PDF support testing** with 67 tests for B1 tasks + Priority 2 & 3

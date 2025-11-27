@@ -1,15 +1,15 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文为 Claude Code（claude.ai/code）在本仓库中进行协作时的指导说明。
 
-## 🎯 Current Status (November 11, 2025)
+## 🎯 当前状态（2025-11-11）
 
-**Version:** v2.0.0 (Production Ready - Published on PyPI!)
-**Active Development:** Flexible, incremental task-based approach
+**版本：**v2.0.0（可用于生产，已发布至 PyPI）
+**开发模式：**灵活的增量任务驱动
 
-### Recent Updates (This Week):
+### 本周更新：
 
-**🎉 MAJOR MILESTONE: Published on PyPI! (v2.0.0)**
+**🎉 重大里程碑：发布至 PyPI！（v2.0.0）**
 - **📦 PyPI Publication**: Install with `pip install skill-seekers` - https://pypi.org/project/skill-seekers/
 - **🔧 Modern Python Packaging**: pyproject.toml, src/ layout, entry points
 - **✅ CI/CD Fixed**: All 5 test matrix jobs passing (Ubuntu + macOS, Python 3.10-3.12)
@@ -18,21 +18,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **🧪 Test Coverage**: 379 tests passing, 39% coverage
 - **🌐 Community**: GitHub Discussion, Release notes, announcements published
 
-**🚀 Unified Multi-Source Scraping (v2.0.0)**
+**🚀 统一多来源抓取（v2.0.0）**
 - **NEW**: Combine documentation + GitHub + PDF in one skill
 - **NEW**: Automatic conflict detection between docs and code
 - **NEW**: Rule-based and AI-powered merging
 - **NEW**: 5 example unified configs (React, Django, FastAPI, Godot, FastAPI-test)
 - **Status**: ⚠️ 12 unified tests need fixes (core functionality stable)
 
-**✅ Community Response (H1 Group):**
+**✅ 社区响应（H1 分组）：**
 - **Issue #8 Fixed** - Added BULLETPROOF_QUICKSTART.md and TROUBLESHOOTING.md for beginners
 - **Issue #7 Fixed** - Fixed all 11 configs (Django, Laravel, Astro, Tailwind) - 100% working
 - **Issue #4 Linked** - Connected to roadmap Tasks A2/A3 (knowledge sharing + website)
 - **PR #5 Reviewed** - Approved anchor stripping feature (security verified, 32/32 tests pass)
 - **MCP Setup Fixed** - Path expansion bug resolved in setup_mcp.sh
 
-**📦 Configs Status:**
+**📦 配置状态：**
 - ✅ **24 total configs available** (including unified configs)
 - ✅ 5 unified configs added (React, Django, FastAPI, Godot, FastAPI-test)
 - ✅ Core selectors tested and validated
@@ -40,7 +40,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 📝 Multi-source configs: django_unified, fastapi_unified, fastapi_unified_test, godot_unified, react_unified
 - 📝 Test/Example configs: godot_github, react_github, python-tutorial-test, example_pdf, test-manual
 
-**📋 Next Up (Post-PyPI v2.0.0):**
+**📋 下一步（PyPI v2.0.0 之后）：**
 - **✅ DONE**: PyPI publication complete
 - **✅ DONE**: CI/CD fixed - all checks passing
 - **✅ DONE**: Documentation updated (README, CHANGELOG, FUTURE_RELEASES.md)
@@ -51,16 +51,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Priority 3**: Task A3.1 - GitHub Pages site (skillseekersweb.com)
 - **Priority 4**: Task J1.1 - Install MCP package for testing
 
-**📊 Roadmap Progress:**
+**📊 路线图进展：**
 - 134 tasks organized into 22 feature groups
 - Project board: https://github.com/users/yusufkaraaslan/projects/2
 - See [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) for complete task list
 
 ---
 
-## 🔌 MCP Integration Available
+## 🔌 可用的 MCP 集成
 
-**This repository includes a fully tested MCP server with 9 tools:**
+**本仓库包含已通过测试的 MCP 服务器，提供 9 个工具：**
 - `mcp__skill-seeker__list_configs` - List all available preset configurations
 - `mcp__skill-seeker__generate_config` - Generate a new config file for any docs site
 - `mcp__skill-seeker__validate_config` - Validate a config file structure
@@ -71,9 +71,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `mcp__skill-seeker__split_config` - Split large documentation configs
 - `mcp__skill-seeker__generate_router` - Generate router/hub skills
 
-**Setup:** See [docs/MCP_SETUP.md](docs/MCP_SETUP.md) or run `./setup_mcp.sh`
+**安装：**参见 [docs/MCP_SETUP.md](docs/MCP_SETUP.md) 或运行 `./setup_mcp.sh`
 
-**Status:** ✅ Tested and working in production with Claude Code
+**状态：**✅ 已在 Claude Code 生产环境验证可用
 
 ## Overview
 

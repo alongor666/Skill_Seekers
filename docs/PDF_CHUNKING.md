@@ -1,25 +1,24 @@
-# PDF Page Detection and Chunking (Task B1.3)
+# PDF 页面检测与分块（任务 B1.3，中文唯一版本）
 
-**Status:** ✅ Completed
-**Date:** October 21, 2025
-**Task:** B1.3 - Add PDF page detection and chunking
+状态：✅ 已完成（2025-10-21）
+任务：B1.3 — 增加 PDF 页面检测与智能分块
 
 ---
 
-## Overview
+## 概览
 
-Task B1.3 enhances the PDF extractor with intelligent page chunking and chapter detection capabilities. This allows large PDF documentation to be split into manageable, logical sections for better processing and organization.
+为 PDF 提取器增加智能分块与章节检测能力，使大型 PDF 文档按逻辑章节拆分为可管理的片段，以便更优的处理与组织。
 
-## New Features
+## 新增特性
 
-### ✅ 1. Page Chunking
+### ✅ 1. 页面分块
 
-Break large PDFs into smaller, manageable chunks:
-- Configurable chunk size (default: 10 pages per chunk)
-- Smart chunking that respects chapter boundaries
-- Chunk metadata includes page ranges and chapter titles
+将大型 PDF 切分为更小且易管理的块：
+- 分块大小可配置（默认：每块 10 页）
+- 章节边界优先，避免跨章切分
+- 分块包含页范围与章标题元数据
 
-**Usage:**
+用法：
 ```bash
 # Default chunking (10 pages per chunk)
 python3 cli/pdf_extractor_poc.py input.pdf
@@ -31,30 +30,28 @@ python3 cli/pdf_extractor_poc.py input.pdf --chunk-size 20
 python3 cli/pdf_extractor_poc.py input.pdf --chunk-size 0
 ```
 
-### ✅ 2. Chapter/Section Detection
+### ✅ 2. 章节/小节检测
 
-Automatically detect chapter and section boundaries:
-- Detects H1 and H2 headings as chapter markers
-- Recognizes common chapter patterns:
-  - "Chapter 1", "Chapter 2", etc.
-  - "Part 1", "Part 2", etc.
-  - "Section 1", "Section 2", etc.
-  - Numbered sections like "1. Introduction"
+自动检测章节与小节边界：
+- 识别 H1/H2 作为章节标记
+- 支持常见章节模式：
+  - “Chapter 1”“Part 1”“Section 1” 等
+  - 数字标题如 “1. Introduction”
 
-**Chapter Detection Logic:**
+章节检测逻辑：
 1. Check for H1/H2 headings at page start
 2. Pattern match against common chapter formats
 3. Extract chapter title for metadata
 
-### ✅ 3. Code Block Merging
+### ✅ 3. 跨页代码块合并
 
-Intelligently merge code blocks split across pages:
-- Detects when code continues from one page to the next
-- Checks language and detection method consistency
-- Looks for continuation indicators:
-  - Doesn't end with `}`, `;`
-  - Ends with `,`, `\`
-  - Incomplete syntax structures
+智能合并跨页拆分的代码块：
+- 检测代码是否在下一页延续
+- 保证语言与检测方法一致
+- 连续性指示：
+  - 末尾非 `}`、`;`
+  - 以 `,`、`\` 结尾
+  - 语法结构未闭合
 
 **Example:**
 ```
@@ -70,9 +67,9 @@ The merger will combine these into a single code block.
 
 ---
 
-## Output Format
+## 输出格式
 
-### Enhanced JSON Structure
+### 增强后的 JSON 结构
 
 The output now includes chunking and chapter information:
 
@@ -114,7 +111,7 @@ The output now includes chunking and chapter information:
 }
 ```
 
-### Chunk Object
+### 分块对象
 
 Each chunk contains:
 - `chunk_number` - Sequential chunk identifier (1-indexed)
@@ -123,7 +120,7 @@ Each chunk contains:
 - `chapter_title` - Detected chapter title (if any)
 - `pages` - Array of page objects in this chunk
 
-### Merged Code Block Indicator
+### 合并代码块指示
 
 Code blocks merged from multiple pages include a flag:
 ```json
@@ -137,9 +134,9 @@ Code blocks merged from multiple pages include a flag:
 
 ---
 
-## Implementation Details
+## 实现细节
 
-### Chapter Detection Algorithm
+### 章节检测算法
 
 ```python
 def detect_chapter_start(self, page_data):
@@ -173,7 +170,7 @@ def detect_chapter_start(self, page_data):
     return False, None
 ```
 
-### Code Block Merging Algorithm
+### 代码块合并算法
 
 ```python
 def merge_continued_code_blocks(self, pages):
@@ -215,7 +212,7 @@ def merge_continued_code_blocks(self, pages):
     return pages
 ```
 
-### Chunking Algorithm
+### 分块算法
 
 ```python
 def create_chunks(self, pages):
@@ -255,9 +252,9 @@ def create_chunks(self, pages):
 
 ---
 
-## Usage Examples
+## 用法示例
 
-### Basic Chunking
+### 基本分块
 
 ```bash
 # Extract with default 10-page chunks
@@ -268,7 +265,7 @@ cat manual.json | jq '.total_chunks'
 # Output: 15
 ```
 
-### Large PDF Processing
+### 大型 PDF 处理
 
 ```bash
 # Large PDF with bigger chunks (50 pages each)
@@ -282,7 +279,7 @@ python3 cli/pdf_extractor_poc.py large_manual.pdf --chunk-size 50 -o output.json
 #    Chapters detected: 12
 ```
 
-### No Chunking (Single Output)
+### 禁用分块（单块输出）
 
 ```bash
 # Process all pages as single chunk
@@ -291,9 +288,9 @@ python3 cli/pdf_extractor_poc.py small_doc.pdf --chunk-size 0 -o output.json
 
 ---
 
-## Performance
+## 性能
 
-### Chunking Performance
+### 分块性能
 
 - **Chapter Detection:** ~0.1ms per page (negligible overhead)
 - **Code Merging:** ~0.5ms per page (fast)
@@ -301,7 +298,7 @@ python3 cli/pdf_extractor_poc.py small_doc.pdf --chunk-size 0 -o output.json
 
 **Total overhead:** < 1% of extraction time
 
-### Memory Benefits
+### 内存收益
 
 Chunking large PDFs helps reduce memory usage:
 - **Without chunking:** Entire PDF loaded in memory
@@ -311,9 +308,9 @@ Chunking large PDFs helps reduce memory usage:
 
 ---
 
-## Limitations
+## 限制
 
-### Current Limitations
+### 当前限制
 
 1. **Chapter Pattern Matching**
    - Limited to common English chapter patterns
@@ -330,7 +327,7 @@ Chunking large PDFs helps reduce memory usage:
    - Doesn't account for page content volume
    - No auto-sizing based on memory constraints
 
-### Known Issues
+### 已知问题
 
 1. **Multi-Chapter Pages**
    - If a single page has multiple chapters, only first is detected
@@ -346,7 +343,7 @@ Chunking large PDFs helps reduce memory usage:
 
 ---
 
-## Comparison: Before vs After
+## 对比：增强前后
 
 | Feature | Before (B1.2) | After (B1.3) |
 |---------|---------------|--------------|
@@ -359,9 +356,9 @@ Chunking large PDFs helps reduce memory usage:
 
 ---
 
-## Testing
+## 测试
 
-### Test Chapter Detection
+### 测试章节检测
 
 Create a test PDF with chapters:
 1. Page 1: "Chapter 1: Introduction"
@@ -396,7 +393,7 @@ Expected output:
 ]
 ```
 
-### Test Code Merging
+### 测试代码合并
 
 Create a test PDF with code spanning pages:
 - Page 1 ends with: `def example():\n    total = 0`
@@ -411,7 +408,7 @@ cat test.json | jq '.pages[0].code_samples[] | select(.merged_from_next_page == 
 
 ---
 
-## Next Steps (Future Tasks)
+## 后续任务
 
 ### Task B1.4: Improve Code Block Detection
 - Add syntax validation
@@ -430,7 +427,7 @@ cat test.json | jq '.pages[0].code_samples[] | select(.merged_from_next_page == 
 
 ---
 
-## Integration with Skill Seeker
+## 与 Skill Seeker 的集成
 
 The chunking feature lays groundwork for:
 1. **Memory-efficient processing** - Process PDFs chunk-by-chunk
@@ -451,9 +448,9 @@ python3 cli/build_skill_from_pdf.py manual.json
 
 ---
 
-## API Usage
+## API 用法
 
-### Using PDFExtractor with Chunking
+### PDFExtractor（启用分块）
 
 ```python
 from cli.pdf_extractor_poc import PDFExtractor
@@ -476,7 +473,7 @@ for chapter in result['chapters']:
     print(f"  Pages: {chapter['start_page']}-{chapter['end_page']}")
 ```
 
-### Processing Chunks Independently
+### 独立处理分块
 
 ```python
 # Extract
@@ -500,7 +497,7 @@ for chunk in result['chunks']:
 
 ---
 
-## Conclusion
+## 结论
 
 Task B1.3 successfully implements:
 - ✅ Page chunking with configurable size
@@ -519,43 +516,4 @@ Task B1.3 successfully implements:
 
 **Task Completed:** October 21, 2025
 **Next Task:** B1.4 - Improve code block extraction with syntax detection
-# PDF 页面检测与分块（任务 B1.3）
-
-## 概览
-
-本文描述如何检测逻辑章节并对大型 PDF 进行分块，以提升提取质量与性能。
-
-## 目标
-
-- 可靠检测章节/小节
-- 合并跨页代码块
-- 进行分块以支持并行处理
-- 在保持高保真度的同时降低内存占用
-
-## 检测启发式
-
-- 数字标题（如 “1.”、“2.1”）
-- 全大写标题
-- 字体大小变化
-- 开头页的目录模式
-
-## 分块策略
-
-- 固定页窗口（如每 10 页）
-- 根据章节边界的自适应窗口
-- 当代码密度高时合并相邻窗口
-- 基于分块并行处理并自动检测 worker 数
-
-## 性能考量
-
-- 检测额外开销极低（< 1ms/页）
-- 平衡分块大小以提高吞吐
-- 避免对小 PDF 过度拆分
-- 重跑时缓存检测结果
-
-## 集成
-
-- 与质量评分（B1.4）协同
-- 为图片提取（B1.5）提供基础
-- 为 CLI（B1.6）所需
-- 被 MCP 工具（B1.7）使用
+（以上为完整中文化；英文章节已移除）

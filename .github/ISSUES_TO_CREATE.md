@@ -1,32 +1,32 @@
-# GitHub Issues to Create
+# 需创建的 GitHub Issues 清单
 
-Copy these to GitHub Issues manually or use `gh issue create`
+可手动复制到 GitHub Issues，或使用 `gh issue create` 创建。
 
 ---
 
-## Issue 1: Fix 3 Remaining Test Failures
+## Issue 1：修复剩余的 3 个测试失败
 
-**Title:** Fix 3 test failures (warnings vs errors handling)
+**标题：**Fix 3 test failures (warnings vs errors handling)
 
-**Labels:** bug, tests, good first issue
+**标签：**bug, tests, good first issue
 
-**Body:**
+**内容：**
 ```markdown
-## Problem
-3 tests are failing because they check for errors but the validation function returns warnings for these cases:
+## 问题
+有 3 个测试失败，原因是它们校验的是错误（errors），但校验函数在这些情况下返回的是警告（warnings）：
 
 1. `test_missing_recommended_selectors` - Missing selectors are warnings, not errors
 2. `test_invalid_rate_limit_too_high` - Rate limit warnings
 3. `test_invalid_max_pages_too_high` - Max pages warnings
 
-**Current:** 68/71 tests passing (95.8%)
-**Target:** 71/71 tests passing (100%)
+**当前：**68/71 通过（95.8%）
+**目标：**71/71 全部通过（100%）
 
-## Location
+## 位置
 - `tests/test_config_validation.py`
 
-## Solution
-Update tests to check warnings tuple instead of errors:
+## 方案
+将测试改为校验 warnings 元组，而非 errors：
 ```python
 # Before
 errors, _ = validate_config(config)
@@ -37,150 +37,150 @@ _, warnings = validate_config(config)
 self.assertTrue(any('title' in warning.lower() for warning in warnings))
 ```
 
-## Acceptance Criteria
-- [ ] All 71 tests passing
-- [ ] Tests properly differentiate errors vs warnings
-- [ ] No false positives
+## 验收标准
+- [ ] 71 个测试全部通过
+- [ ] 测试能正确区分 errors 与 warnings
+- [ ] 无误报
 
-## Files to Modify
+## 需修改的文件
 - `tests/test_config_validation.py` (3 test methods)
 ```
 
 ---
 
-## Issue 2: Create MCP Setup Guide
+## Issue 2：创建 MCP 安装指南
 
-**Title:** Create comprehensive MCP setup guide for Claude Code
+**标题：**Create comprehensive MCP setup guide for Claude Code
 
-**Labels:** documentation, mcp, enhancement
+**标签：**documentation, mcp, enhancement
 
-**Body:**
+**内容：**
 ```markdown
-## Goal
-Create step-by-step guide for users to set up the MCP server with Claude Code.
+## 目标
+为用户创建逐步指南，帮助在 Claude Code 中配置 MCP 服务器。
 
-## Content Needed
+## 需要的内容
 
-### 1. Prerequisites
+### 1. 前置条件
 - Python 3.7+
-- Claude Code installed
-- Repository cloned
+- 已安装 Claude Code
+- 已克隆仓库
 
-### 2. Installation Steps
-- Install dependencies
-- Configure MCP in Claude Code
-- Verify installation
+### 2. 安装步骤
+- 安装依赖
+- 在 Claude Code 中配置 MCP
+- 验证安装
 
-### 3. Configuration Example
-- Complete `~/.config/claude-code/mcp.json` example
-- Path configuration
-- Troubleshooting common issues
+### 3. 配置示例
+- 完整的 `~/.config/claude-code/mcp.json` 示例
+- 路径配置
+- 常见问题排查
 
-### 4. Usage Examples
-- Generate config for new site
-- Estimate pages
-- Scrape and build skill
-- End-to-end workflow
+### 4. 使用示例
+- 为新网站生成配置
+- 估计页面数量
+- 抓取并构建技能
+- 端到端工作流
 
-### 5. Screenshots/Video
-- Visual guide through setup
-- Example interactions
+### 5. 截图/视频
+- 安装配置的可视化引导
+- 交互示例
 
-## Deliverables
-- [ ] `docs/MCP_SETUP.md` - Main setup guide
-- [ ] `.claude/mcp_config.example.json` - Example config
-- [ ] Screenshots in `docs/images/`
-- [ ] Optional: Quick start video
+## 交付物
+- [ ] `docs/MCP_SETUP.md` - 主安装指南
+- [ ] `.claude/mcp_config.example.json` - 配置示例
+- [ ] `docs/images/` 中的截图
+- [ ] 可选：快速上手视频
 
-## Target Audience
-Users who have Claude Code but never used MCP before.
+## 目标用户
+已安装 Claude Code，但从未使用 MCP 的用户。
 ```
 
 ---
 
-## Issue 3: Test MCP Server Functionality
+## Issue 3：测试 MCP 服务器功能
 
-**Title:** Test MCP server with actual Claude Code instance
+**标题：**Test MCP server with actual Claude Code instance
 
-**Labels:** testing, mcp, priority-high
+**标签：**testing, mcp, priority-high
 
-**Body:**
+**内容：**
 ```markdown
-## Goal
-Verify MCP server works correctly with actual Claude Code.
+## 目标
+验证 MCP 服务器能在真实的 Claude Code 环境中正常工作。
 
-## Test Plan
+## 测试计划
 
-### Setup
+### 准备
 1. Install MCP server locally
 2. Configure Claude Code MCP settings
 3. Restart Claude Code
 
-### Tests
+### 测试项
 
-#### Test 1: List Configs
+#### 测试 1：列出配置
 ```
 User: "List all available configs"
 Expected: Shows 7 configs (godot, react, vue, django, fastapi, kubernetes, steam-economy)
 ```
 
-#### Test 2: Generate Config
+#### 测试 2：生成配置
 ```
 User: "Generate config for Tailwind CSS at https://tailwindcss.com/docs"
 Expected: Creates configs/tailwind.json
 ```
 
-#### Test 3: Estimate Pages
+#### 测试 3：估计页面数
 ```
 User: "Estimate pages for configs/tailwind.json"
 Expected: Returns estimation results
 ```
 
-#### Test 4: Validate Config
+#### 测试 4：校验配置
 ```
 User: "Validate configs/react.json"
 Expected: Shows config is valid
 ```
 
-#### Test 5: Scrape Docs
+#### 测试 5：抓取文档
 ```
 User: "Scrape docs using configs/kubernetes.json with max 10 pages"
 Expected: Creates output/kubernetes/ directory with SKILL.md
 ```
 
-#### Test 6: Package Skill
+#### 测试 6：打包技能
 ```
 User: "Package skill at output/kubernetes/"
 Expected: Creates kubernetes.zip
 ```
 
-## Success Criteria
-- [ ] All 6 tools respond correctly
-- [ ] No errors in Claude Code logs
-- [ ] Generated files are correct
-- [ ] Performance is acceptable (<5s for simple operations)
+## 成功标准
+- [ ] 6 个工具均能正确响应
+- [ ] Claude Code 日志无错误
+- [ ] 生成文件正确
+- [ ] 性能可接受（简单操作 < 5s）
 
-## Documentation
-Document any issues found and solutions in test results.
+## 文档
+将发现的问题与解决方案记录到测试结果中。
 
-## Files
-- [ ] Create `tests/mcp_integration_test.md` with results
+## 文件
+- [ ] 创建 `tests/mcp_integration_test.md` 并写入测试结果
 ```
 
 ---
 
-## Issue 4: Update Documentation for Monorepo
+## Issue 4：为 Monorepo 更新文档
 
-**Title:** Update all documentation for new monorepo structure
+**标题：**Update all documentation for new monorepo structure
 
-**Labels:** documentation, breaking-change
+**标签：**documentation, breaking-change
 
-**Body:**
+**内容：**
 ```markdown
-## Goal
-Update all documentation to reflect cli/ and mcp/ structure.
+## 目标
+更新所有文档以匹配 `cli/` 与 `mcp/` 的新结构。
 
-## Files to Update
+## 需更新的文件
 
 ### 1. README.md
 - [ ] Update file structure diagram
@@ -206,16 +206,16 @@ Update all documentation to reflect cli/ and mcp/ structure.
 - [ ] Update for both CLI and MCP
 - [ ] Add decision tree: "Use CLI or MCP?"
 
-## New Documentation Needed
+## 需要新增的文档
 - [ ] `mcp/QUICKSTART.md` - MCP-specific quick start
 - [ ] Update diagrams/architecture docs
 
-## Breaking Changes to Document
+## 需要记录的破坏性变更
 - CLI tools moved from root to `cli/`
 - Import path changes: `from doc_scraper` → `from cli.doc_scraper`
 - New MCP-based workflow available
 
-## Validation
+## 验证
 - [ ] All code examples work
 - [ ] All paths are correct
 - [ ] Links are not broken
@@ -225,13 +225,13 @@ Update all documentation to reflect cli/ and mcp/ structure.
 
 ## How to Create Issues
 
-### Option 1: GitHub Web UI
+### 方案 1：GitHub 网页端
 1. Go to https://github.com/yusufkaraaslan/Skill_Seekers/issues/new
 2. Copy title and body
 3. Add labels
 4. Create issue
 
-### Option 2: GitHub CLI
+### 方案 2：GitHub CLI
 ```bash
 # Issue 1
 gh issue create --title "Fix 3 test failures (warnings vs errors handling)" \
@@ -254,5 +254,5 @@ gh issue create --title "Update all documentation for new monorepo structure" \
   --label "documentation,breaking-change"
 ```
 
-### Option 3: Manual Script
-Save each issue body to issue1.md, issue2.md, etc., then use gh CLI as shown above.
+### 方案 3：手工脚本
+将每个 Issue 的内容保存为 issue1.md、issue2.md 等，再按上述方式使用 gh CLI 创建。

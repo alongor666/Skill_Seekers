@@ -1,10 +1,212 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文为 Claude Code（claude.ai/code）在本仓库中协作的技术指引（中文唯一版本）。
 
-## Overview
+## 概览
 
-This is a Python-based documentation scraper that converts ANY documentation website into a Claude skill. It's a single-file tool (`doc_scraper.py`) that scrapes documentation, extracts code patterns, detects programming languages, and generates structured skill files ready for use with Claude.
+这是一个基于 Python 的文档抓取器，可将任意文档网站转换为 Claude 技能。核心单文件工具 `cli/doc_scraper.py` 负责：抓取文档、抽取代码模式、检测编程语言，并生成可供 Claude 使用的结构化技能文件。
+
+## 依赖
+
+```bash
+pip3 install requests beautifulsoup4
+```
+
+## 核心命令
+
+### 使用预设配置运行
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json
+python3 cli/doc_scraper.py --config configs/react.json
+python3 cli/doc_scraper.py --config configs/vue.json
+python3 cli/doc_scraper.py --config configs/django.json
+python3 cli/doc_scraper.py --config configs/fastapi.json
+```
+
+### 交互模式（用于新框架）
+```bash
+python3 cli/doc_scraper.py --interactive
+```
+
+### 快速模式（最小化配置）
+```bash
+python3 cli/doc_scraper.py --name react --url https://react.dev/ --description "React framework"
+```
+
+### 跳过抓取（使用缓存数据）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
+```
+
+### 断点续抓/清空检查点
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json --resume
+python3 cli/doc_scraper.py --config configs/godot.json --fresh
+```
+
+### 大型文档（1 万—4 万+ 页）工作流
+```bash
+# 1. 估算页面数
+python3 cli/estimate_pages.py configs/godot.json
+
+# 2. 拆分为聚焦子技能
+python3 cli/split_config.py configs/godot.json --strategy router
+
+# 3. 生成路由技能
+python3 cli/generate_router.py configs/godot-*.json
+
+# 4. 打包多个技能
+python3 cli/package_multi.py output/godot*/
+```
+
+## AI 驱动的 SKILL.md 增强
+
+### 方案 A：API（需 ANTHROPIC_API_KEY）
+```bash
+pip3 install anthropic
+export ANTHROPIC_API_KEY=sk-ant-...
+python3 cli/doc_scraper.py --config configs/react.json --enhance
+```
+
+### 方案 B：本地（无需 Key，Claude Code Max）
+```bash
+python3 cli/doc_scraper.py --config configs/react.json --enhance-local
+# 或独立脚本：
+python3 cli/enhance_skill_local.py output/react/
+```
+
+说明：本地增强会打开新终端运行 Claude Code，自动分析参考文件并增强 SKILL.md。需要 Claude Code Max 方案但不需要 API Key。
+
+## MCP 集成（Claude Code）
+
+```bash
+./setup_mcp.sh
+```
+
+在 Claude Code 中使用自然语言：
+- "List all available configs"
+- "Generate config for Tailwind at https://tailwindcss.com/docs"
+- "Split configs/godot.json using router strategy"
+- "Generate router for configs/godot-*.json"
+- "Package skill at output/react/"
+
+提供 9 个 MCP 工具：list_configs、generate_config、validate_config、estimate_pages、scrape_docs、package_skill、upload_skill、split_config、generate_router。
+
+## 架构
+
+### 单文件设计
+`doc_scraper.py`（约 737 行），核心类 `DocToSkillConverter` 负责：
+- 网页抓取：BFS 遍历与 URL 校验
+- 内容提取：通过 CSS 选择器提取标题、正文、代码块
+- 语言检测：从代码样本启发式检测（Python、JS、GDScript、C++ 等）
+- 模式抽取：识别“示例/模式/用法”并抽取
+- 智能分类：URL/标题/内容打分并分类
+- 技能生成：创建含真实代码示例的 SKILL.md 与分类参考文件
+
+### 数据流
+1. 抓取阶段：输入配置 → BFS 抓取 → 输出到 `output/{name}_data/pages/*.json` 与 `summary.json`
+2. 构建阶段：读取缓存 → 智能分类 → 抽取模式 → 生成参考文件与 `output/{name}/SKILL.md`
+
+### 目录结构
+```
+Skill_Seekers/
+├── cli/
+│   ├── doc_scraper.py
+│   ├── enhance_skill.py
+│   ├── enhance_skill_local.py
+│   ├── estimate_pages.py
+│   ├── split_config.py
+│   ├── generate_router.py
+│   ├── package_skill.py
+│   └── package_multi.py
+├── mcp/
+│   ├── server.py
+│   └── README.md
+├── configs/
+├── docs/
+└── output/
+```
+
+### 配置格式
+必备字段：`name`、`description`、`base_url`、`selectors`（`main_content`/`title`/`code_blocks`）、`url_patterns`（include/exclude）、`categories`、`rate_limit`、`max_pages`、`split_strategy`、`split_config`、`checkpoint`。
+
+### 关键特性
+- 自动检测缓存：存在 `output/{name}_data/` 时提示复用
+- 语言检测来源：CSS 类与启发式（关键词）
+- 模式抽取：识别“Example/Pattern/Usage”并抽取（每页最多 5 个）
+- 智能分类：URL/标题/内容打分（3/2/1 分），阈值 ≥2，自动推断与回退
+- AI 增强：本地或 API 增强 SKILL.md，抽取最佳示例、阐释概念与导航
+- 大型文档支持：拆分、路由器技能、并行抓取与 MCP 集成
+- 断点/续抓：保存检查点、断点续抓、清除检查点
+
+## 关键代码位置（文件:行）
+- URL 校验：`cli/doc_scraper.py:47-62`
+- 内容提取：`cli/doc_scraper.py:64-131`
+- 语言检测：`cli/doc_scraper.py:133-163`
+- 模式抽取：`cli/doc_scraper.py:165-181`
+- 智能分类：`cli/doc_scraper.py:280-321`
+- 分类推断：`cli/doc_scraper.py:323-349`
+- 快速参考生成：`cli/doc_scraper.py:351-370`
+- SKILL.md 生成：`cli/doc_scraper.py:424-540`
+- 抓取循环：`cli/doc_scraper.py:226-249`
+- 主流程：`cli/doc_scraper.py:661-733`
+
+## 工作流示例
+
+### 首次抓取（含抓取）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json
+python3 cli/package_skill.py output/godot/
+# 结果：output/godot.zip
+```
+
+### 复用缓存数据（快速迭代）
+```bash
+python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
+python3 cli/package_skill.py output/godot/
+```
+
+### 创建新框架配置
+```bash
+python3 cli/doc_scraper.py --interactive
+# 或复制修改：
+cp configs/react.json configs/myframework.json
+python3 cli/doc_scraper.py --config configs/myframework.json
+```
+
+### 大型文档工作流（4 万页示例）
+```bash
+python3 cli/estimate_pages.py configs/godot.json
+python3 cli/split_config.py configs/godot.json --strategy router --target-pages 5000
+for config in configs/godot-*.json; do
+  python3 cli/doc_scraper.py --config $config &
+done
+wait
+python3 cli/generate_router.py configs/godot-*.json
+python3 cli/package_multi.py output/godot*/
+```
+
+## 质量检查
+```bash
+cat output/godot/SKILL.md
+cat output/godot/references/index.md
+ls output/godot/references/
+```
+
+## llms.txt 支持（优先）
+按以下顺序自动检测：
+1. `{base_url}/llms-full.txt`
+2. `{base_url}/llms.txt`
+3. `{base_url}/llms-small.txt`
+
+优势：更快、更可靠、更适配 LLM；若缺失则回退至 HTML 抓取。
+
+## 故障排除
+- 无内容：检查 `main_content` 选择器（常见：`article`、`main`、`div[role="main"]`）
+- 分类不佳：在配置中优化 `categories` 的关键词
+- 强制重抓：删除 `output/{name}_data/`
+- 限速问题：提升 `rate_limit`（如 0.5 → 1.0 秒）
+
 
 ## Dependencies
 

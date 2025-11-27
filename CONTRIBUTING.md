@@ -1,102 +1,102 @@
-# Contributing to Skill Seeker
+# 为 Skill Seeker 做贡献
 
-First off, thank you for considering contributing to Skill Seeker! It's people like you that make Skill Seeker such a great tool.
+首先，感谢你愿意为 Skill Seeker 贡献！正是因为有你的参与，项目才能不断变得更好。
 
-## Table of Contents
+## 目录
 
-- [Branch Workflow](#branch-workflow)
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-- [Development Setup](#development-setup)
-- [Pull Request Process](#pull-request-process)
-- [Coding Standards](#coding-standards)
-- [Testing](#testing)
-- [Documentation](#documentation)
+- [分支工作流](#分支工作流)
+- [行为准则](#行为准则)
+- [我可以如何贡献](#我可以如何贡献)
+- [开发环境搭建](#开发环境搭建)
+- [拉取请求流程](#拉取请求流程)
+- [编码规范](#编码规范)
+- [测试](#测试)
+- [文档](#文档)
 
 ---
 
-## Branch Workflow
+## 分支工作流
 
-**⚠️ IMPORTANT:** Skill Seekers uses a two-branch workflow.
+**⚠️ 重要：**Skill Seekers 采用双分支工作流。
 
-### Branch Structure
+### 分支结构
 
 ```
-main (production)
+main（生产）
   ↑
-  │ (only maintainer merges)
+  │（仅维护者合并）
   │
-development (integration) ← default branch for PRs
+development（集成） ← PR 默认目标分支
   ↑
-  │ (all contributor PRs go here)
+  │（所有贡献者的 PR 进入此分支）
   │
-feature branches
+feature 分支
 ```
 
-### Branches
+### 分支说明
 
-- **`main`** - Production branch
-  - Always stable
-  - Only receives merges from `development` by maintainers
-  - Protected: requires tests + 1 review
+- **`main`** - 生产分支
+  - 保持稳定
+  - 仅由维护者从 `development` 合并
+  - 受保护：需测试通过 + 至少 1 次评审
 
-- **`development`** - Integration branch
-  - **Default branch for all PRs**
-  - Active development happens here
-  - Protected: requires tests to pass
-  - Gets merged to `main` by maintainers
+- **`development`** - 集成分支
+  - **所有 PR 的默认目标分支**
+  - 活跃开发发生在此分支
+  - 受保护：需测试通过
+  - 由维护者合并到 `main`
 
-- **Feature branches** - Your work
-  - Created from `development`
-  - Named descriptively (e.g., `add-github-scraping`)
-  - Merged back to `development` via PR
+- **Feature 分支** - 你的工作分支
+  - 从 `development` 创建
+  - 使用描述性名称（如 `add-github-scraping`）
+  - 通过 PR 合并回 `development`
 
-### Workflow Example
+### 工作流示例
 
 ```bash
-# 1. Fork and clone
+# 1. Fork 并克隆
 git clone https://github.com/YOUR_USERNAME/Skill_Seekers.git
 cd Skill_Seekers
 
-# 2. Add upstream
+# 2. 添加上游
 git remote add upstream https://github.com/yusufkaraaslan/Skill_Seekers.git
 
-# 3. Create feature branch from development
+# 3. 从 development 创建功能分支
 git checkout development
 git pull upstream development
 git checkout -b my-feature
 
-# 4. Make changes, commit, push
+# 4. 修改、提交并推送
 git add .
 git commit -m "Add my feature"
 git push origin my-feature
 
-# 5. Create PR targeting 'development' branch
+# 5. 创建 PR，目标指向 'development' 分支
 ```
 
 ---
 
-## Code of Conduct
+## 行为准则
 
-This project and everyone participating in it is governed by our commitment to fostering an open and welcoming environment. Please be respectful and constructive in all interactions.
+本项目及所有参与者承诺营造开放、友好的环境。请在所有交流中保持尊重与建设性。
 
 ---
 
-## How Can I Contribute?
+## 我可以如何贡献
 
-### Reporting Bugs
+### 报告缺陷
 
-Before creating bug reports, please check the [existing issues](https://github.com/yusufkaraaslan/Skill_Seekers/issues) to avoid duplicates.
+在创建缺陷报告前，请先查看 [现有 Issues](https://github.com/yusufkaraaslan/Skill_Seekers/issues) 以避免重复。
 
-When creating a bug report, include:
-- **Clear title and description**
-- **Steps to reproduce** the issue
-- **Expected behavior** vs actual behavior
-- **Screenshots** if applicable
-- **Environment details** (OS, Python version, etc.)
-- **Error messages** and stack traces
+创建缺陷报告时，请包含：
+- **清晰的标题与描述**
+- **复现步骤**
+- **期望行为** 与 **实际行为**
+- **截图**（如适用）
+- **环境信息**（OS、Python 版本等）
+- **错误信息** 与堆栈
 
-**Example:**
+**示例：**
 ```markdown
 **Bug:** MCP tool fails when config has no categories
 
@@ -114,20 +114,20 @@ When creating a bug report, include:
 - Version: 1.0.0
 ```
 
-### Suggesting Enhancements
+### 建议改进
 
-Enhancement suggestions are tracked as [GitHub issues](https://github.com/yusufkaraaslan/Skill_Seekers/issues).
+改进建议通过 [GitHub Issues](https://github.com/yusufkaraaslan/Skill_Seekers/issues) 进行跟踪。
 
-Include:
-- **Clear title** describing the enhancement
-- **Detailed description** of the proposed functionality
-- **Use cases** that would benefit from this enhancement
-- **Examples** of how it would work
-- **Alternatives considered**
+请包含：
+- **清晰标题** 描述改进点
+- **详细说明** 拟新增功能
+- **使用场景** 与收益
+- **工作方式** 示例
+- **已考虑的替代方案**
 
-### Adding New Framework Configs
+### 添加新的框架配置
 
-We welcome new framework configurations! To add one:
+欢迎贡献新的框架配置！步骤如下：
 
 1. Create a config file in `configs/`
 2. Test it thoroughly with different page counts
@@ -136,7 +136,7 @@ We welcome new framework configurations! To add one:
    - Brief description of the framework
    - Test results (number of pages scraped, categories found)
 
-**Example PR:**
+**示例 PR：**
 ```markdown
 **Add Svelte Documentation Config**
 
@@ -148,11 +148,11 @@ Adds configuration for Svelte documentation (https://svelte.dev/docs).
 - Total pages available: ~150
 ```
 
-### Pull Requests
+### 拉取请求（PR）
 
-We actively welcome your pull requests!
+我们非常欢迎你的 PR！
 
-**⚠️ IMPORTANT:** All PRs must target the `development` branch, not `main`.
+**⚠️ 重要：**所有 PR 必须指向 `development`，不要指向 `main`。
 
 1. Fork the repo and create your branch from `development`
 2. If you've added code, add tests
@@ -163,14 +163,14 @@ We actively welcome your pull requests!
 
 ---
 
-## Development Setup
+## 开发环境搭建
 
-### Prerequisites
+### 前置条件
 
-- Python 3.10 or higher (required for MCP integration)
+- Python 3.10 或更高（用于 MCP 集成）
 - Git
 
-### Setup Steps
+### 设置步骤
 
 1. **Fork and clone the repository**
    ```bash
@@ -178,71 +178,71 @@ We actively welcome your pull requests!
    cd Skill_Seekers
    ```
 
-2. **Install dependencies**
+2. **安装依赖**
    ```bash
    pip install requests beautifulsoup4
    pip install pytest pytest-cov
    pip install -r mcp/requirements.txt
    ```
 
-3. **Create a feature branch from development**
+3. **从 development 创建功能分支**
    ```bash
    git checkout development
    git pull upstream development
    git checkout -b feature/my-awesome-feature
    ```
 
-4. **Make your changes**
+4. **进行修改**
    ```bash
    # Edit files...
    ```
 
-5. **Run tests**
+5. **运行测试**
    ```bash
    python -m pytest tests/ -v
    ```
 
-6. **Commit your changes**
+6. **提交变更**
    ```bash
    git add .
    git commit -m "Add awesome feature"
    ```
 
-7. **Push to your fork**
+7. **推送到你的 fork**
    ```bash
    git push origin feature/my-awesome-feature
    ```
 
-8. **Create a Pull Request**
+8. **创建拉取请求（PR）**
 
 ---
 
-## Pull Request Process
+## 拉取请求流程
 
-### Before Submitting
+### 提交前检查
 
-- [ ] Tests pass locally (`python -m pytest tests/ -v`)
-- [ ] Code follows PEP 8 style guidelines
-- [ ] Documentation is updated if needed
-- [ ] CHANGELOG.md is updated (if applicable)
-- [ ] Commit messages are clear and descriptive
+- [ ] 本地测试通过（`python -m pytest tests/ -v`）
+- [ ] 代码遵循 PEP 8 风格
+- [ ] 需要时已更新文档
+- [ ] 更新了 CHANGELOG.md（如适用）
+- [ ] 提交信息清晰且具描述性
 
-### PR Template
+### PR 模板
 
 ```markdown
-## Description
-Brief description of what this PR does.
+## 描述
+简要说明此 PR 的作用。
 
-## Type of Change
+## 变更类型
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation update
 
-## How Has This Been Tested?
-Describe the tests you ran to verify your changes.
+## 测试说明
+描述你为验证变更所运行的测试。
 
-## Checklist
+## 检查清单
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
@@ -252,20 +252,20 @@ Describe the tests you ran to verify your changes.
 - [ ] New and existing unit tests pass locally with my changes
 ```
 
-### Review Process
+### 评审流程
 
-1. A maintainer will review your PR within 3-5 business days
-2. Address any feedback or requested changes
-3. Once approved, a maintainer will merge your PR
-4. Your contribution will be included in the next release!
+1. 维护者将在 3-5 个工作日内评审你的 PR
+2. 你需处理反馈或变更请求
+3. 评审通过后，维护者将合并 PR
+4. 你的贡献会被纳入下一次发布！
 
 ---
 
-## Coding Standards
+## 编码规范
 
-### Python Style Guide
+### Python 风格指南
 
-We follow [PEP 8](https://www.python.org/dev/peps/pep-0008/) with some modifications:
+遵循 [PEP 8](https://www.python.org/dev/peps/pep-0008/) 并做少量修改：
 
 - **Line length:** 100 characters (not 79)
 - **Indentation:** 4 spaces
@@ -275,7 +275,7 @@ We follow [PEP 8](https://www.python.org/dev/peps/pep-0008/) with some modificat
   - Classes: `PascalCase`
   - Constants: `UPPER_SNAKE_CASE`
 
-### Code Organization
+### 代码组织
 
 ```python
 # 1. Standard library imports
@@ -300,11 +300,11 @@ def my_function():
     pass
 ```
 
-### Documentation
+### 文档要求
 
-- All functions should have docstrings
-- Use type hints where appropriate
-- Add comments for complex logic
+- 所有函数应有 docstring
+- 适当使用类型标注
+- 复杂逻辑需添加注释
 
 ```python
 def scrape_page(url: str, selectors: dict) -> dict:
@@ -326,9 +326,9 @@ def scrape_page(url: str, selectors: dict) -> dict:
 
 ---
 
-## Testing
+## 测试
 
-### Running Tests
+### 运行测试
 
 ```bash
 # Run all tests
@@ -341,7 +341,7 @@ python -m pytest tests/test_mcp_server.py -v
 python -m pytest tests/ --cov=cli --cov=mcp --cov-report=term
 ```
 
-### Writing Tests
+### 编写测试
 
 - Tests go in the `tests/` directory
 - Test files should start with `test_`
@@ -355,7 +355,7 @@ def test_config_validation_with_missing_fields():
     assert result is False
 ```
 
-### Test Coverage
+### 覆盖率目标
 
 - Aim for >80% code coverage
 - Critical paths should have 100% coverage
@@ -363,16 +363,16 @@ def test_config_validation_with_missing_fields():
 
 ---
 
-## Documentation
+## 文档
 
-### Where to Document
+### 文档位置
 
 - **README.md** - Overview, quick start, basic usage
 - **docs/** - Detailed guides and tutorials
 - **CHANGELOG.md** - All notable changes
 - **Code comments** - Complex logic and non-obvious decisions
 
-### Documentation Style
+### 文档风格
 
 - Use clear, simple language
 - Include code examples
@@ -381,7 +381,7 @@ def test_config_validation_with_missing_fields():
 
 ---
 
-## Project Structure
+## 项目结构
 
 ```
 Skill_Seekers/
@@ -402,9 +402,9 @@ Skill_Seekers/
 
 ---
 
-## Release Process
+## 发布流程
 
-Releases are managed by maintainers:
+版本发布由维护者管理：
 
 1. Update version in relevant files
 2. Update CHANGELOG.md
@@ -414,19 +414,19 @@ Releases are managed by maintainers:
 
 ---
 
-## Questions?
+## 有问题？
 
-- 💬 [Open a discussion](https://github.com/yusufkaraaslan/Skill_Seekers/discussions)
-- 🐛 [Report a bug](https://github.com/yusufkaraaslan/Skill_Seekers/issues)
-- 📧 Contact: yusufkaraaslan.yk@pm.me
+- 💬 [发起讨论](https://github.com/yusufkaraaslan/Skill_Seekers/discussions)
+- 🐛 [报告缺陷](https://github.com/yusufkaraaslan/Skill_Seekers/issues)
+- 📧 联系方式：yusufkaraaslan.yk@pm.me
 
 ---
 
-## Recognition
+## 贡献致谢
 
-Contributors will be recognized in:
-- README.md contributors section
-- CHANGELOG.md for each release
-- GitHub contributors page
+贡献者将被收录于：
+- README.md 的贡献者章节
+- 每次发布的 CHANGELOG.md
+- GitHub Contributors 页面
 
-Thank you for contributing to Skill Seeker! 🎉
+感谢你为 Skill Seeker 做出贡献！🎉

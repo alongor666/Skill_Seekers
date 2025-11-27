@@ -1,12 +1,12 @@
-# Flexible Development Roadmap
-**Philosophy:** Small incremental tasks → Pick one → Complete → Move to next
-**No big milestones, just continuous progress!**
+# 灵活开发路线图
+**理念：** 小步增量 → 选一个任务 → 完成 → 继续下一个
+**不设大里程碑，只追求持续进步！**
 
 ---
 
-## 🎯 Current Status: v1.0.0 Released ✅
+## 🎯 当前状态：v1.0.0 已发布 ✅
 
-**What Works:**
+**已就绪功能：**
 - ✅ Documentation scraping (HTML websites)
 - ✅ 9 MCP tools fully functional
 - ✅ Auto-upload to Claude
@@ -15,10 +15,10 @@
 
 ---
 
-## 📋 Task Categories (Pick Any, Any Order)
+## 📋 任务类别（任选、任序）
 
-### 🌐 **Category A: Community & Sharing**
-Small tasks that build community features incrementally
+### 🌐 **类别 A：社区与分享**
+以小任务逐步搭建社区功能
 
 #### A1: Config Sharing (Website Feature)
 - [ ] **Task A1.1:** Create simple JSON API endpoint to list configs

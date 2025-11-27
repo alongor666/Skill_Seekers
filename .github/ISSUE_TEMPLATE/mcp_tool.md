@@ -1,18 +1,18 @@
 ---
-name: MCP Tool Request
-about: Suggest a new tool for the MCP server
+name: MCP 工具需求
+about: 为 MCP 服务器建议新工具
 title: '[MCP] Add tool: '
 labels: mcp, enhancement
 assignees: ''
 ---
 
-## Tool Name
-<!-- e.g., auto_detect_selectors -->
+## 工具名称
+<!-- 例如：auto_detect_selectors -->
 
-## Tool Description
-<!-- What does this tool do? -->
+## 工具描述
+<!-- 该工具的作用是什么？ -->
 
-## Input Parameters
+## 输入参数
 ```json
 {
   "param1": {
@@ -23,20 +23,20 @@ assignees: ''
 }
 ```
 
-## Expected Output
-<!-- What should the tool return? -->
+## 期望输出
+<!-- 该工具应返回什么？ -->
 
-## Use Case Example
-<!-- How would users interact with this tool? -->
+## 使用示例
+<!-- 用户会如何与该工具交互？ -->
 ```
-User: "Auto-detect selectors for https://docs.example.com"
-Tool: Analyzes page structure and suggests optimal selectors
+用户："为 https://docs.example.com 自动检测选择器"
+工具：分析页面结构并给出最优选择器建议
 ```
 
-## CLI Integration
-<!-- Which CLI tool does this wrap? Or is it new logic? -->
-- [ ] Wraps existing CLI tool: `cli/tool_name.py`
-- [ ] New functionality
+## CLI 集成
+<!-- 该工具封装了哪个 CLI？或为全新逻辑？ -->
+- [ ] 封装现有 CLI：`cli/tool_name.py`
+- [ ] 全新功能
 
-## Implementation Notes
-<!-- Technical details, dependencies, etc. -->
+## 实现说明
+<!-- 技术细节、依赖等 -->

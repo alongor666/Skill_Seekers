@@ -21,7 +21,7 @@
 
 ### 1. 创建统一配置
 
-Create a config file with multiple sources:
+创建一个包含多种来源的配置文件：
 
 ```json
 {
@@ -52,11 +52,11 @@ Create a config file with multiple sources:
 python3 cli/unified_scraper.py --config configs/react_unified.json
 ```
 
-The tool will:
-1. ✅ **Phase 1**: Scrape all sources (docs + GitHub)
-2. ✅ **Phase 2**: Detect conflicts between sources
-3. ✅ **Phase 3**: Merge conflicts intelligently
-4. ✅ **Phase 4**: Build unified skill with conflict transparency
+工具将执行：
+1. ✅ 阶段 1：抓取所有来源（文档 + GitHub）
+2. ✅ 阶段 2：检测来源之间的冲突
+3. ✅ 阶段 3：智能合并冲突
+4. ✅ 阶段 4：构建含冲突透明展示的统一技能
 
 ### 3. 打包并上传
 
@@ -197,14 +197,14 @@ def move_local_x(delta: float, snap: bool = False)
 
 ### 4. 描述不匹配
 
-**Severity**: Low
-**Description**: Different descriptions/docstrings
+**严重性：**低
+**描述：**描述或注释不一致
 
 ## 合并模式
 
 ### 规则合并（默认）
 
-Fast, deterministic merging using predefined rules:
+使用预定义规则的快速、确定性合并：
 
 1. **If API only in docs** → Include with `[DOCS_ONLY]` tag
 2. **If API only in code** → Include with `[UNDOCUMENTED]` tag
@@ -216,19 +216,18 @@ Fast, deterministic merging using predefined rules:
 - 自动化工作流
 - 不需要人工审校
 
-**Example**:
+**示例：**
 ```bash
 python3 cli/unified_scraper.py --config config.json --merge-mode rule-based
 ```
 
 ### Claude 增强合并
 
-AI-powered reconciliation using local Claude Code:
-
-1. Opens new terminal with Claude Code
-2. Provides conflict context and instructions
-3. Claude analyzes and creates reconciled API reference
-4. Human can review and adjust before finalizing
+使用本地 Claude Code 的 AI 增强合并：
+1. 打开新的终端并启动 Claude Code
+2. 提供冲突上下文与指令
+3. Claude 分析并生成协调后的 API 参考
+4. 人工在最终前进行复核与调整
 
 **适用场景：**
 - 复杂冲突需要判断
@@ -242,7 +241,7 @@ python3 cli/unified_scraper.py --config config.json --merge-mode claude-enhanced
 
 ## 技能输出结构
 
-The unified scraper creates this structure:
+统一抓取器生成的输出结构：
 
 ```
 output/skill-name/
@@ -268,11 +267,11 @@ output/skill-name/
 ```markdown
 # React
 
-Complete React knowledge base combining official documentation and React codebase insights.
+整合官方文档与 React 代码库洞见的完整知识库。
 
 ## 📚 Sources
 
-This skill combines knowledge from multiple sources:
+该技能整合了多种来源的知识：
 
 - ✅ **Documentation**: https://react.dev/
   - Pages: 200
@@ -280,13 +279,13 @@ This skill combines knowledge from multiple sources:
   - Code Analysis: surface
   - Issues: 100
 
-## ⚠️ Data Quality
+## ⚠️ 数据质量
 
 **5 conflicts detected** between sources.
 
-**Conflict Breakdown:**
-- missing_in_docs: 3
-- missing_in_code: 2
+**冲突类型统计：**
+- 文档缺失：3
+- 代码缺失：2
 
 See `references/conflicts.md` for detailed conflict information.
 
@@ -453,11 +452,11 @@ print(f'Needs API merge: {validator.needs_api_merge()}')
 }
 ```
 
-The tool will:
-1. Auto-detect unified format
-2. Route to `unified_scraper.py`
-3. Apply specified merge mode
-4. Return comprehensive output
+工具将：
+1. 自动检测统一配置格式
+2. 路由到 `unified_scraper.py`
+3. 应用指定的合并模式
+4. 返回完整输出
 
 ## 向后兼容
 
@@ -546,15 +545,15 @@ Unified Skill (.zip ready)
 
 ### 1. 先使用规则合并
 
-Rule-based is fast and works well for most cases. Only use Claude-enhanced if you need human oversight.
+规则合并速度快且适用于大多数场景。仅在需要人工判断时使用 Claude 增强合并。
 
 ### 2. 使用浅层代码分析
 
-`code_analysis_depth: "surface"` is usually sufficient. Deep analysis is expensive and rarely needed.
+`code_analysis_depth: "surface"` 通常足够。深度分析开销大且很少必要。
 
 ### 3. 限制 GitHub Issues 数量
 
-`max_issues: 100` is a good default. More than 200 issues rarely adds value.
+`max_issues: 100` 是良好的默认值。超过 200 的 Issues 通常价值不高。
 
 ### 4. 文件模式尽量具体
 
@@ -570,18 +569,18 @@ Rule-based is fast and works well for most cases. Only use Claude-enhanced if yo
 
 ### 5. 关注冲突报告
 
-Always review `references/conflicts.md` to understand discrepancies between sources.
+请始终查看 `references/conflicts.md` 以理解不同来源之间的差异。
 
 ## 故障排除
 
 ### 未检测到冲突
 
-**Possible causes**:
+**可能原因：**
 - `extract_api: false` in documentation source
 - `include_code: false` in GitHub source
 - Code analysis found no APIs (check `code_analysis_depth`)
 
-**Solution**: Ensure both sources have API extraction enabled
+**解决方案：**确保两种来源均启用 API 提取
 
 ### 冲突过多
 
@@ -590,7 +589,7 @@ Always review `references/conflicts.md` to understand discrepancies between sour
 - Documentation uses different naming conventions
 - Old documentation version
 
-**Solution**: Review conflicts manually and adjust merge strategy
+**解决方案：**人工审阅冲突并调整合并策略
 
 ### 合并耗时过长
 
@@ -599,35 +598,35 @@ Always review `references/conflicts.md` to understand discrepancies between sour
 - Too many file patterns
 - Large repository
 
-**Solution**:
-- Use `"surface"` or `"deep"` analysis
-- Narrow file patterns
-- Increase `rate_limit`
+**解决方案：**
+- 使用 `"surface"` 或 `"deep"` 分析
+- 收紧文件匹配范围
+- 增加 `rate_limit`
 
 ## 未来增强
 
-Planned features:
-- [ ] Automated conflict resolution strategies
-- [ ] Conflict trend analysis across versions
-- [ ] Multi-version comparison (docs v1 vs v2)
-- [ ] Custom merge rules DSL
-- [ ] Conflict confidence scores
+规划特性：
+- [ ] 自动化冲突解决策略
+- [ ] 跨版本冲突趋势分析
+- [ ] 多版本比较（文档 v1 vs v2）
+- [ ] 自定义合并规则 DSL
+- [ ] 冲突置信度评分
 
 ## 支持
 
-For issues, questions, or suggestions:
-- GitHub Issues: https://github.com/yusufkaraaslan/Skill_Seekers/issues
-- Documentation: https://github.com/yusufkaraaslan/Skill_Seekers/docs
+如有问题、疑问或建议：
+- Issues：https://github.com/yusufkaraaslan/Skill_Seekers/issues
+- 文档：https://github.com/yusufkaraaslan/Skill_Seekers/docs
 
 ## 更新日志
 
-**v2.0 (October 2025)**: Unified multi-source scraping feature complete
-- ✅ Config validation for unified format
-- ✅ Deep code analysis with AST parsing
-- ✅ Conflict detection (4 types, 3 severity levels)
-- ✅ Rule-based merging
-- ✅ Claude-enhanced merging
-- ✅ Unified skill builder with inline conflict warnings
-- ✅ MCP integration with auto-detection
-- ✅ Backward compatibility with legacy configs
-- ✅ Comprehensive tests and documentation
+**v2.0（2025-10）**：统一多源抓取功能完备
+- ✅ 统一配置格式校验
+- ✅ 基于 AST 的深度代码分析
+- ✅ 冲突检测（4 类、3 个严重等级）
+- ✅ 规则合并
+- ✅ Claude 增强合并
+- ✅ 统一技能构建（内联冲突警告）
+- ✅ MCP 集成（自动检测）
+- ✅ 兼容传统单源配置
+- ✅ 完整测试与文档

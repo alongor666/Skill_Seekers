@@ -1,19 +1,19 @@
-# PDF Advanced Features Guide
+# PDF 高级特性指南（中文唯一版本）
 
-Comprehensive guide to advanced PDF extraction features (Priority 2 & 3).
+涵盖 PDF 提取的高级能力（优先级 2 与 3）。
 
-## Overview
+## 概览
 
-Skill Seeker's PDF extractor now includes powerful advanced features for handling complex PDF scenarios:
+PDF 提取器支持处理更复杂的场景：
 
-**Priority 2 Features (More PDF Types):**
-- ✅ OCR support for scanned PDFs
-- ✅ Password-protected PDF support
-- ✅ Complex table extraction
+优先级 2（更多 PDF 类型）：
+- ✅ 扫描型 PDF 的 OCR 支持
+- ✅ 密码保护 PDF 的处理
+- ✅ 复杂表格的提取
 
-**Priority 3 Features (Performance Optimizations):**
-- ✅ Parallel page processing
-- ✅ Intelligent caching of expensive operations
+优先级 3（性能优化）：
+- ✅ 并行页面处理
+- ✅ 对高开销操作的智能缓存
 
 ## Table of Contents
 
@@ -27,11 +27,11 @@ Skill Seeker's PDF extractor now includes powerful advanced features for handlin
 
 ---
 
-## OCR Support
+## OCR 支持（扫描型 PDF）
 
 Extract text from scanned PDFs using Optical Character Recognition.
 
-### Installation
+### 安装
 
 ```bash
 # Install Tesseract OCR engine
@@ -45,7 +45,7 @@ brew install tesseract
 pip install pytesseract Pillow
 ```
 
-### Usage
+### 用法
 
 ```bash
 # Basic OCR
@@ -58,7 +58,7 @@ python3 cli/pdf_extractor_poc.py scanned.pdf --ocr --verbose -o output.json
 python3 cli/pdf_scraper.py --pdf scanned.pdf --name myskill --ocr
 ```
 
-### How It Works
+### 工作机制
 
 1. **Detection**: For each page, checks if text content is < 50 characters
 2. **Fallback**: If low text detected and OCR enabled, renders page as image
@@ -66,7 +66,7 @@ python3 cli/pdf_scraper.py --pdf scanned.pdf --name myskill --ocr
 4. **Selection**: Uses OCR text if it's longer than extracted text
 5. **Logging**: Shows OCR extraction results in verbose mode
 
-### Example Output
+### 输出示例
 
 ```
 📄 Extracting from: scanned.pdf
@@ -79,14 +79,14 @@ python3 cli/pdf_scraper.py --pdf scanned.pdf --name myskill --ocr
    OCR extracted 389 chars (was 5)
 ```
 
-### Limitations
+### 限制
 
 - Requires Tesseract installed on system
 - Slower than regular text extraction (~2-5 seconds per page)
 - Quality depends on PDF scan quality
 - Works best with high-resolution scans
 
-### Best Practices
+### 最佳实践
 
 - Use `--parallel` with OCR for faster processing
 - Combine with `--verbose` to see OCR progress
@@ -94,11 +94,11 @@ python3 cli/pdf_scraper.py --pdf scanned.pdf --name myskill --ocr
 
 ---
 
-## Password-Protected PDFs
+## 密码保护的 PDF
 
 Handle encrypted PDFs with password protection.
 
-### Usage
+### 用法
 
 ```bash
 # Basic usage
@@ -108,14 +108,14 @@ python3 cli/pdf_extractor_poc.py encrypted.pdf --password mypassword
 python3 cli/pdf_scraper.py --pdf encrypted.pdf --name myskill --password mypassword
 ```
 
-### How It Works
+### 工作机制
 
 1. **Detection**: Checks if PDF is encrypted (`doc.is_encrypted`)
 2. **Authentication**: Attempts to authenticate with provided password
 3. **Validation**: Returns error if password is incorrect or missing
 4. **Processing**: Continues normal extraction if authentication succeeds
 
-### Example Output
+### 输出示例
 
 ```
 📄 Extracting from: encrypted.pdf
@@ -125,7 +125,7 @@ python3 cli/pdf_scraper.py --pdf encrypted.pdf --name myskill --password mypassw
    Metadata: {...}
 ```
 
-### Error Handling
+### 错误处理
 
 ```
 # Missing password
@@ -136,7 +136,7 @@ python3 cli/pdf_scraper.py --pdf encrypted.pdf --name myskill --password mypassw
 ❌ Invalid password
 ```
 
-### Security Notes
+### 安全注意
 
 - Password is passed via command line (visible in process list)
 - For sensitive documents, consider environment variables
@@ -144,11 +144,11 @@ python3 cli/pdf_scraper.py --pdf encrypted.pdf --name myskill --password mypassw
 
 ---
 
-## Table Extraction
+## 表格提取
 
 Extract tables from PDFs and include them in skill references.
 
-### Usage
+### 用法
 
 ```bash
 # Extract tables
@@ -161,14 +161,14 @@ python3 cli/pdf_extractor_poc.py data.pdf --extract-tables --verbose -o output.j
 python3 cli/pdf_scraper.py --pdf data.pdf --name myskill --extract-tables
 ```
 
-### How It Works
+### 工作机制
 
 1. **Detection**: Uses PyMuPDF's `find_tables()` method
 2. **Extraction**: Extracts table data as 2D array (rows × columns)
 3. **Metadata**: Captures bounding box, row count, column count
 4. **Integration**: Tables included in page data and summary
 
-### Example Output
+### 输出示例
 
 ```
 📄 Extracting from: data.pdf
@@ -182,7 +182,7 @@ python3 cli/pdf_scraper.py --pdf data.pdf --name myskill --extract-tables
    Tables found: 25
 ```
 
-### Table Data Structure
+### 表格数据结构
 
 ```json
 {
@@ -202,7 +202,7 @@ python3 cli/pdf_scraper.py --pdf data.pdf --name myskill --extract-tables
 }
 ```
 
-### Integration with Skills
+### 与技能的集成
 
 Tables are automatically included in reference files when building skills:
 
@@ -215,7 +215,7 @@ Tables are automatically included in reference files when building skills:
 | Data 1   | Data 2   | Data 3   |
 ```
 
-### Limitations
+### 限制
 
 - Quality depends on PDF table structure
 - Works best with well-formatted tables
@@ -223,11 +223,11 @@ Tables are automatically included in reference files when building skills:
 
 ---
 
-## Parallel Processing
+## 并行处理
 
 Process pages in parallel for 3x faster extraction.
 
-### Usage
+### 用法
 
 ```bash
 # Enable parallel processing (auto-detects CPU count)
@@ -240,7 +240,7 @@ python3 cli/pdf_extractor_poc.py large.pdf --parallel --workers 8
 python3 cli/pdf_scraper.py --pdf large.pdf --name myskill --parallel --workers 8
 ```
 
-### How It Works
+### 工作机制
 
 1. **Worker Pool**: Creates ThreadPoolExecutor with N workers
 2. **Distribution**: Distributes pages across workers
@@ -248,7 +248,7 @@ python3 cli/pdf_scraper.py --pdf large.pdf --name myskill --parallel --workers 8
 4. **Collection**: Results collected and merged
 5. **Threshold**: Only activates for PDFs with > 5 pages
 
-### Example Output
+### 输出示例
 
 ```
 📄 Extracting from: large.pdf
@@ -262,7 +262,7 @@ python3 cli/pdf_scraper.py --pdf large.pdf --name myskill --parallel --workers 8
    Code blocks found: 450
 ```
 
-### Performance
+### 性能
 
 | Pages | Sequential | Parallel (4 workers) | Parallel (8 workers) |
 |-------|-----------|---------------------|---------------------|
@@ -271,14 +271,14 @@ python3 cli/pdf_scraper.py --pdf large.pdf --name myskill --parallel --workers 8
 | 500   | 4m 10s    | 1m 30s (2.8x)       | 1m 15s (3.3x)       |
 | 1000  | 8m 20s    | 3m 00s (2.8x)       | 2m 30s (3.3x)       |
 
-### Best Practices
+### 最佳实践
 
 - Use `--workers` equal to CPU core count
 - Combine with `--no-cache` for first-time processing
 - Monitor system resources (RAM, CPU)
 - Not recommended for very large images (memory intensive)
 
-### Limitations
+### 限制
 
 - Requires `concurrent.futures` (Python 3.2+)
 - Uses more memory (N workers × page size)
@@ -286,11 +286,11 @@ python3 cli/pdf_scraper.py --pdf large.pdf --name myskill --parallel --workers 8
 
 ---
 
-## Caching
+## 缓存
 
 Intelligent caching of expensive operations for faster re-extraction.
 
-### Usage
+### 用法
 
 ```bash
 # Caching enabled by default
@@ -300,14 +300,14 @@ python3 cli/pdf_extractor_poc.py input.pdf
 python3 cli/pdf_extractor_poc.py input.pdf --no-cache
 ```
 
-### How It Works
+### 工作机制
 
 1. **Cache Key**: Each page cached by page number
 2. **Check**: Before extraction, checks cache for page data
 3. **Store**: After extraction, stores result in cache
 4. **Reuse**: On re-run, returns cached data instantly
 
-### What Gets Cached
+### 缓存内容
 
 - Page text and markdown
 - Code block detection results
@@ -316,7 +316,7 @@ python3 cli/pdf_extractor_poc.py input.pdf --no-cache
 - Image extraction results
 - Table extraction results
 
-### Example Output
+### 输出示例
 
 ```
   Page 1: Using cached data
@@ -324,7 +324,7 @@ python3 cli/pdf_extractor_poc.py input.pdf --no-cache
   Page 3: 892 chars, 2 code blocks, 4 headings, 0 images, 0 tables
 ```
 
-### Cache Lifetime
+### 缓存生命周期
 
 - In-memory only (cleared when process exits)
 - Useful for:
@@ -332,7 +332,7 @@ python3 cli/pdf_extractor_poc.py input.pdf --no-cache
   - Re-running with different filters
   - Development and debugging
 
-### When to Disable
+### 何时关闭
 
 - First-time extraction
 - PDF file has changed
@@ -341,9 +341,9 @@ python3 cli/pdf_extractor_poc.py input.pdf --no-cache
 
 ---
 
-## Combined Usage
+## 综合用法
 
-### Maximum Performance
+### 最大性能组合
 
 Extract everything as fast as possible:
 
@@ -358,7 +358,7 @@ python3 cli/pdf_scraper.py \
   --min-quality 5.0
 ```
 
-### Scanned PDF with Tables
+### 扫描 PDF + 表格提取
 
 ```bash
 python3 cli/pdf_scraper.py \
@@ -370,7 +370,7 @@ python3 cli/pdf_scraper.py \
   --workers 4
 ```
 
-### Encrypted PDF with All Features
+### 加密 PDF 全特性
 
 ```bash
 python3 cli/pdf_scraper.py \
@@ -386,15 +386,15 @@ python3 cli/pdf_scraper.py \
 
 ---
 
-## Performance Benchmarks
+## 性能基准
 
-### Test Setup
+### 测试环境
 
 - **Hardware**: 8-core CPU, 16GB RAM
 - **PDF**: 500-page technical manual
 - **Content**: Mixed text, code, images, tables
 
-### Results
+### 结果
 
 | Configuration | Time | Speedup |
 |--------------|------|---------|
@@ -404,7 +404,7 @@ python3 cli/pdf_scraper.py \
 | + Parallel (8 workers) | 1m 15s | 3.3x |
 | + All optimizations | 1m 10s | 3.6x |
 
-### Feature Overhead
+### 特性开销
 
 | Feature | Time Impact | Memory Impact |
 |---------|------------|---------------|
@@ -416,9 +416,9 @@ python3 cli/pdf_scraper.py \
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-### OCR Issues
+### OCR 问题
 
 **Problem**: `pytesseract not found`
 
@@ -437,7 +437,7 @@ brew install tesseract               # macOS
 - Check scan quality
 - Try different Tesseract language packs
 
-### Parallel Processing Issues
+### 并行处理问题
 
 **Problem**: Out of memory errors
 
@@ -455,7 +455,7 @@ python3 cli/pdf_extractor_poc.py large.pdf
 - Try with larger PDFs (> 50 pages)
 - Monitor system resources
 
-### Table Extraction Issues
+### 表格提取问题
 
 **Problem**: Tables not detected
 
@@ -471,9 +471,9 @@ python3 cli/pdf_extractor_poc.py large.pdf
 
 ---
 
-## Best Practices
+## 最佳实践
 
-### For Large PDFs (500+ pages)
+### 针对大 PDF（500+ 页）
 
 1. Use parallel processing:
    ```bash
@@ -488,7 +488,7 @@ python3 cli/pdf_extractor_poc.py large.pdf
 
 3. Monitor system resources
 
-### For Scanned PDFs
+### 针对扫描 PDF
 
 1. Use OCR with parallel processing:
    ```bash
@@ -498,7 +498,7 @@ python3 cli/pdf_extractor_poc.py large.pdf
 2. Test on sample pages first
 3. Use `--verbose` to monitor OCR performance
 
-### For Encrypted PDFs
+### 针对加密 PDF
 
 1. Use environment variable for password:
    ```bash
@@ -508,7 +508,7 @@ python3 cli/pdf_extractor_poc.py large.pdf
 
 2. Clear history after use to remove password
 
-### For PDFs with Tables
+### 含表格的 PDF
 
 1. Enable table extraction:
    ```bash
@@ -520,9 +520,9 @@ python3 cli/pdf_extractor_poc.py large.pdf
 
 ---
 
-## API Reference
+## API 参考
 
-### PDFExtractor Class
+### PDFExtractor 类
 
 ```python
 from pdf_extractor_poc import PDFExtractor
@@ -547,7 +547,7 @@ extractor = PDFExtractor(
 result = extractor.extract_all()
 ```
 
-### Configuration Options
+### 配置项
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -567,7 +567,7 @@ result = extractor.extract_all()
 
 ---
 
-## Summary
+## 总结
 
 ✅ **6 Advanced Features** implemented (Priority 2 & 3)
 ✅ **3x Performance Boost** with parallel processing
@@ -577,60 +577,4 @@ result = extractor.extract_all()
 ✅ **Intelligent Caching** for faster re-runs
 
 The PDF extractor now handles virtually any PDF scenario with maximum performance!
-# PDF 高级特性（优先级 2 与 3）
-
-## 概览
-
-本文覆盖 PDF 提取与抓取的高级特性，包括扫描 PDF 的 OCR、密码保护 PDF、表格提取、缓存与并行处理。
-
-## 特性
-
-- 针对扫描/图片型 PDF 的 OCR（pytesseract）
-- 加密 PDF 的密码处理
-- 表格提取
-- 中间结果缓存
-- 并行页面处理
-
-## OCR
-
-### 依赖
-- 需要安装 `pytesseract` 与 Pillow
-
-### 行为
-- 当页面文本极少时才触发 OCR
-- 未安装依赖时给出警告并跳过 OCR
-
-## 密码保护的 PDF
-
-### 处理方式
-- 提供密码参数初始化
-- 正确识别加密 PDF
-- 错误密码与缺失密码的报错与处理
-
-## 表格提取
-
-### 方法
-- 启用表格提取标志后进行页面表格检测
-- 记录表格的行/列数与边界框
-- 支持单页多表格与异常处理
-
-## 缓存
-
-### 策略
-- 初始化缓存
-- 支持设置与获取缓存值
-- 未命中返回 None
-- 可禁用或覆盖缓存
-
-## 并行处理
-
-### Workers 数量
-- 默认关闭
-- 自动检测可用 worker 数
-- 支持自定义并行度
-
-## 集成
-
-- 与质量评分与过滤协同
-- 在 CLI 与 MCP 中可用
-- 额外开销极低
+（以上为完整中文化；英文章节已移除）

@@ -1,194 +1,194 @@
 #!/bin/bash
-# Skill Seeker MCP Server - Quick Setup Script
-# This script automates the MCP server setup for Claude Code
+# Skill Seeker MCP 服务器 - 快速设置脚本
+# 此脚本用于自动化 Claude Code 的 MCP 服务器设置
 
-set -e  # Exit on error
+set -e  # 出错时退出
 
 echo "=================================================="
-echo "Skill Seeker MCP Server - Quick Setup"
+echo "Skill Seeker MCP 服务器 - 快速设置"
 echo "=================================================="
 echo ""
 
-# Colors for output
+# 输出颜色配置
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m' # 无颜色
 
-# Step 1: Check Python version
-echo "Step 1: Checking Python version..."
+# 步骤 1：检查 Python 版本
+echo "步骤 1：正在检查 Python 版本..."
 if ! command -v python3 &> /dev/null; then
-    echo -e "${RED}❌ Error: python3 not found${NC}"
-    echo "Please install Python 3.7 or higher"
+    echo -e "${RED}❌ 错误：未找到 python3${NC}"
+    echo "请安装 Python 3.7 或更高版本"
     exit 1
 fi
 
 PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
-echo -e "${GREEN}✓${NC} Python $PYTHON_VERSION found"
+echo -e "${GREEN}✓${NC} 已找到 Python $PYTHON_VERSION"
 echo ""
 
-# Step 2: Get repository path
+# 步骤 2：获取仓库路径
 REPO_PATH=$(pwd)
-echo "Step 2: Repository location"
-echo "Path: $REPO_PATH"
+echo "步骤 2：仓库位置"
+echo "路径：$REPO_PATH"
 echo ""
 
-# Step 3: Install dependencies
-echo "Step 3: Installing Python dependencies..."
+# 步骤 3：安装依赖
+echo "步骤 3：正在安装 Python 依赖..."
 
-# Check if we're in a virtual environment
+# 检查是否在虚拟环境中
 if [[ -n "$VIRTUAL_ENV" ]]; then
-    echo -e "${GREEN}✓${NC} Virtual environment detected: $VIRTUAL_ENV"
+    echo -e "${GREEN}✓${NC} 检测到虚拟环境：$VIRTUAL_ENV"
     PIP_INSTALL_CMD="pip install"
 elif [[ -d "venv" ]]; then
-    echo -e "${YELLOW}⚠${NC} Virtual environment found but not activated"
-    echo "Activating venv..."
+    echo -e "${YELLOW}⚠${NC} 发现虚拟环境但未激活"
+    echo "正在激活 venv..."
     source venv/bin/activate
     PIP_INSTALL_CMD="pip install"
 else
-    echo -e "${YELLOW}⚠${NC} No virtual environment found"
-    echo "It's recommended to use a virtual environment to avoid conflicts."
+    echo -e "${YELLOW}⚠${NC} 未发现虚拟环境"
+    echo "建议使用虚拟环境以避免冲突。"
     echo ""
-    read -p "Would you like to create one now? (y/n) " -n 1 -r
+    read -p "是否现在创建一个？(y/n) " -n 1 -r
     echo ""
 
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo "Creating virtual environment..."
+        echo "正在创建虚拟环境..."
         python3 -m venv venv || {
-            echo -e "${RED}❌ Failed to create virtual environment${NC}"
-            echo "Falling back to system install..."
+            echo -e "${RED}❌ 创建虚拟环境失败${NC}"
+            echo "回退到系统安装..."
             PIP_INSTALL_CMD="pip3 install --user --break-system-packages"
         }
 
         if [[ -d "venv" ]]; then
             source venv/bin/activate
             PIP_INSTALL_CMD="pip install"
-            echo -e "${GREEN}✓${NC} Virtual environment created and activated"
+            echo -e "${GREEN}✓${NC} 虚拟环境已创建并激活"
         fi
     else
-        echo "Proceeding with system install (using --user --break-system-packages)..."
-        echo -e "${YELLOW}Note:${NC} This may override system-managed packages"
+        echo "继续使用系统安装 (使用 --user --break-system-packages)..."
+        echo -e "${YELLOW}注意：${NC} 这可能会覆盖系统管理的包"
         PIP_INSTALL_CMD="pip3 install --user --break-system-packages"
     fi
 fi
 
-echo "This will install: mcp, requests, beautifulsoup4"
-read -p "Continue? (y/n) " -n 1 -r
+echo "将安装：mcp, requests, beautifulsoup4"
+read -p "继续吗？(y/n) " -n 1 -r
 echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Installing MCP server dependencies..."
-    $PIP_INSTALL_CMD -r skill_seeker_mcp/requirements.txt || {
-        echo -e "${RED}❌ Failed to install MCP dependencies${NC}"
+    echo "正在安装 MCP 服务器依赖..."
+    $PIP_INSTALL_CMD -r src/skill_seekers/mcp/requirements.txt || {
+        echo -e "${RED}❌ 安装 MCP 依赖失败${NC}"
         exit 1
     }
 
-    echo "Installing CLI tool dependencies..."
+    echo "正在安装 CLI 工具依赖..."
     $PIP_INSTALL_CMD requests beautifulsoup4 || {
-        echo -e "${RED}❌ Failed to install CLI dependencies${NC}"
+        echo -e "${RED}❌ 安装 CLI 依赖失败${NC}"
         exit 1
     }
 
-    echo -e "${GREEN}✓${NC} Dependencies installed successfully"
+    echo -e "${GREEN}✓${NC} 依赖安装成功"
 else
-    echo "Skipping dependency installation"
+    echo "跳过依赖安装"
 fi
 echo ""
 
-# Step 4: Test MCP server
-echo "Step 4: Testing MCP server..."
-timeout 3 python3 skill_seeker_mcp/server.py 2>/dev/null || {
+# 步骤 4：测试 MCP 服务器
+echo "步骤 4：正在测试 MCP 服务器..."
+timeout 3 python3 src/skill_seekers/mcp/server.py 2>/dev/null || {
     if [ $? -eq 124 ]; then
-        echo -e "${GREEN}✓${NC} MCP server starts correctly (timeout expected)"
+        echo -e "${GREEN}✓${NC} MCP 服务器启动正常 (预期超时)"
     else
-        echo -e "${YELLOW}⚠${NC} MCP server test inconclusive, but may still work"
+        echo -e "${YELLOW}⚠${NC} MCP 服务器测试结果不确定，但仍可能工作"
     fi
 }
 echo ""
 
-# Step 5: Optional - Run tests
-echo "Step 5: Run test suite? (optional)"
-read -p "Run MCP tests to verify everything works? (y/n) " -n 1 -r
+# 步骤 5：可选 - 运行测试
+echo "步骤 5：运行测试套件？(可选)"
+read -p "运行 MCP 测试以验证一切正常？(y/n) " -n 1 -r
 echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    # Check if pytest is installed
+    # 检查是否安装了 pytest
     if ! command -v pytest &> /dev/null; then
-        echo "Installing pytest..."
+        echo "正在安装 pytest..."
         $PIP_INSTALL_CMD pytest || {
-            echo -e "${YELLOW}⚠${NC} Could not install pytest, skipping tests"
+            echo -e "${YELLOW}⚠${NC} 无法安装 pytest，跳过测试"
         }
     fi
 
     if command -v pytest &> /dev/null; then
-        echo "Running MCP server tests..."
+        echo "正在运行 MCP 服务器测试..."
         python3 -m pytest tests/test_mcp_server.py -v --tb=short || {
-            echo -e "${RED}❌ Some tests failed${NC}"
-            echo "The server may still work, but please check the errors above"
+            echo -e "${RED}❌ 部分测试失败${NC}"
+            echo "服务器可能仍可工作，但请检查上述错误"
         }
     fi
 else
-    echo "Skipping tests"
+    echo "跳过测试"
 fi
 echo ""
 
-# Step 6: Configure Claude Code
-echo "Step 6: Configure Claude Code"
+# 步骤 6：配置 Claude Code
+echo "步骤 6：配置 Claude Code"
 echo "=================================================="
 echo ""
-echo "You need to add this configuration to Claude Code:"
+echo "您需要将此配置添加到 Claude Code："
 echo ""
-echo -e "${YELLOW}Configuration file:${NC} ~/.config/claude-code/mcp.json"
+echo -e "${YELLOW}配置文件：${NC} ~/.config/claude-code/mcp.json"
 echo ""
-echo "Add this JSON configuration (paths are auto-detected for YOUR system):"
+echo "添加此 JSON 配置（路径已针对您的系统自动检测）："
 echo ""
 echo -e "${GREEN}{"
 echo "  \"mcpServers\": {"
 echo "    \"skill-seeker\": {"
 echo "      \"command\": \"python3\","
 echo "      \"args\": ["
-echo "        \"$REPO_PATH/skill_seeker_mcp/server.py\""
+echo "        \"$REPO_PATH/src/skill_seekers/mcp/server.py\""
 echo "      ],"
 echo "      \"cwd\": \"$REPO_PATH\""
 echo "    }"
 echo "  }"
 echo -e "}${NC}"
 echo ""
-echo -e "${YELLOW}Note:${NC} The paths above are YOUR actual paths (not placeholders!)"
+echo -e "${YELLOW}注意：${NC} 上述路径是您的实际路径（不是占位符！）"
 echo ""
 
-# Ask if user wants auto-configure
+# 询问用户是否自动配置
 echo ""
-read -p "Auto-configure Claude Code now? (y/n) " -n 1 -r
+read -p "现在自动配置 Claude Code 吗？(y/n) " -n 1 -r
 echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    # Check if config already exists
+    # 检查配置是否已存在
     if [ -f ~/.config/claude-code/mcp.json ]; then
-        echo -e "${YELLOW}⚠ Warning: ~/.config/claude-code/mcp.json already exists${NC}"
-        echo "Current contents:"
+        echo -e "${YELLOW}⚠ 警告：~/.config/claude-code/mcp.json 已存在${NC}"
+        echo "当前内容："
         cat ~/.config/claude-code/mcp.json
         echo ""
-        read -p "Overwrite? (y/n) " -n 1 -r
+        read -p "覆盖吗？(y/n) " -n 1 -r
         echo ""
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo "Skipping auto-configuration"
-            echo "Please manually add the skill-seeker server to your config"
+            echo "跳过自动配置"
+            echo "请手动将 skill-seeker 服务器添加到您的配置中"
             exit 0
         fi
     fi
 
-    # Create config directory
+    # 创建配置目录
     mkdir -p ~/.config/claude-code
 
-    # Write configuration with actual expanded path
+    # 使用实际扩展路径写入配置
     cat > ~/.config/claude-code/mcp.json << EOF
 {
   "mcpServers": {
     "skill-seeker": {
       "command": "python3",
       "args": [
-        "$REPO_PATH/skill_seeker_mcp/server.py"
+        "$REPO_PATH/src/skill_seekers/mcp/server.py"
       ],
       "cwd": "$REPO_PATH"
     }
@@ -196,77 +196,77 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 }
 EOF
 
-    echo -e "${GREEN}✓${NC} Configuration written to ~/.config/claude-code/mcp.json"
+    echo -e "${GREEN}✓${NC} 配置已写入 ~/.config/claude-code/mcp.json"
     echo ""
-    echo "Configuration contents:"
+    echo "配置内容："
     cat ~/.config/claude-code/mcp.json
     echo ""
 
-    # Verify the path exists
-    if [ -f "$REPO_PATH/skill_seeker_mcp/server.py" ]; then
-        echo -e "${GREEN}✓${NC} Verified: MCP server file exists at $REPO_PATH/skill_seeker_mcp/server.py"
+    # 验证路径是否存在
+    if [ -f "$REPO_PATH/src/skill_seekers/mcp/server.py" ]; then
+        echo -e "${GREEN}✓${NC} 验证通过：MCP 服务器文件存在于 $REPO_PATH/src/skill_seekers/mcp/server.py"
     else
-        echo -e "${RED}❌ Warning: MCP server not found at $REPO_PATH/skill_seeker_mcp/server.py${NC}"
-        echo "Please check the path!"
+        echo -e "${RED}❌ 警告：未在 $REPO_PATH/src/skill_seekers/mcp/server.py 找到 MCP 服务器${NC}"
+        echo "请检查路径！"
     fi
 else
-    echo "Skipping auto-configuration"
-    echo "Please manually configure Claude Code using the JSON above"
+    echo "跳过自动配置"
+    echo "请使用上面的 JSON 手动配置 Claude Code"
     echo ""
-    echo "IMPORTANT: Replace \$REPO_PATH with the actual path: $REPO_PATH"
+    echo "重要：将 \$REPO_PATH 替换为实际路径：$REPO_PATH"
 fi
 echo ""
 
-# Step 7: Test the configuration
+# 步骤 7：测试配置
 if [ -f ~/.config/claude-code/mcp.json ]; then
-    echo "Step 7: Testing MCP configuration..."
-    echo "Checking if paths are correct..."
+    echo "步骤 7：正在测试 MCP 配置..."
+    echo "正在检查路径是否正确..."
 
-    # Extract the configured path
+    # 提取配置的路径
     if command -v jq &> /dev/null; then
         CONFIGURED_PATH=$(jq -r '.mcpServers["skill-seeker"].args[0]' ~/.config/claude-code/mcp.json 2>/dev/null || echo "")
         if [ -n "$CONFIGURED_PATH" ] && [ -f "$CONFIGURED_PATH" ]; then
-            echo -e "${GREEN}✓${NC} MCP server path is valid: $CONFIGURED_PATH"
+            echo -e "${GREEN}✓${NC} MCP 服务器路径有效：$CONFIGURED_PATH"
         elif [ -n "$CONFIGURED_PATH" ]; then
-            echo -e "${YELLOW}⚠${NC} Warning: Configured path doesn't exist: $CONFIGURED_PATH"
+            echo -e "${YELLOW}⚠${NC} 警告：配置的路径不存在：$CONFIGURED_PATH"
         fi
     else
-        echo "Install 'jq' for config validation: brew install jq (macOS) or apt install jq (Linux)"
+        echo "安装 'jq' 以进行配置验证：brew install jq (macOS) 或 apt install jq (Linux)"
     fi
 fi
 echo ""
 
-# Step 8: Final instructions
+# 步骤 8：最终说明
 echo "=================================================="
-echo "Setup Complete!"
+echo "设置完成！"
 echo "=================================================="
 echo ""
-echo "Next steps:"
+echo "后续步骤："
 echo ""
-echo "  1. ${YELLOW}Restart Claude Code${NC} (quit and reopen, don't just close window)"
-echo "  2. In Claude Code, test with: ${GREEN}\"List all available configs\"${NC}"
-echo "  3. You should see 9 Skill Seeker tools available"
+echo "  1. ${YELLOW}重启 Claude Code${NC} (退出并重新打开，不仅仅是关闭窗口)"
+echo "  2. 在 Claude Code 中，使用以下命令测试：${GREEN}\"List all available configs\"${NC}"
+echo "  3. 您应该能看到 9 个可用的 Skill Seeker 工具"
 echo ""
-echo "Available MCP Tools:"
-echo "  • generate_config   - Create new config files"
-echo "  • estimate_pages    - Estimate scraping time"
-echo "  • scrape_docs       - Scrape documentation"
-echo "  • package_skill     - Create .zip files"
-echo "  • list_configs      - Show available configs"
-echo "  • validate_config   - Validate config files"
+echo "可用的 MCP 工具："
+echo "  • generate_config   - 创建新配置文件"
+echo "  • estimate_pages    - 估算抓取时间"
+echo "  • scrape_docs       - 抓取文档"
+echo "  • package_skill     - 创建 .zip 文件"
+echo "  • list_configs      - 显示可用配置"
+echo "  • validate_config   - 验证配置文件"
 echo ""
-echo "Example commands to try in Claude Code:"
+echo "在 Claude Code 中尝试的示例命令："
 echo "  • ${GREEN}List all available configs${NC}"
 echo "  • ${GREEN}Validate configs/react.json${NC}"
 echo "  • ${GREEN}Generate config for Tailwind at https://tailwindcss.com/docs${NC}"
 echo ""
-echo "Documentation:"
-echo "  • MCP Setup Guide: ${YELLOW}docs/MCP_SETUP.md${NC}"
-echo "  • Full docs: ${YELLOW}README.md${NC}"
+echo "文档："
+echo "  • MCP 设置指南：${YELLOW}docs/MCP_SETUP.md${NC}"
+echo "  • 完整文档：${YELLOW}README.md${NC}"
 echo ""
-echo "Troubleshooting:"
-echo "  • Check logs: ~/Library/Logs/Claude Code/ (macOS)"
-echo "  • Test server: python3 skill_seeker_mcp/server.py"
-echo "  • Run tests: python3 -m pytest tests/test_mcp_server.py -v"
+echo "故障排除："
+echo "  • 检查日志：~/Library/Logs/Claude Code/ (macOS)"
+echo "  • 测试服务器：python3 src/skill_seekers/mcp/server.py"
+echo "  • 运行测试：python3 -m pytest tests/test_mcp_server.py -v"
 echo ""
-echo "Happy skill creating! 🚀"
+echo "祝您创建技能愉快！ 🚀"

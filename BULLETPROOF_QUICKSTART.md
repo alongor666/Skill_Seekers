@@ -1,270 +1,288 @@
-# Bulletproof Quick Start Guide
+# 防弹级快速上手指南
 
-**Target Audience:** Complete beginners | Never used Python/git before? Start here!
+**适用人群：** 完全新手｜从未使用过 Python/git？从这里开始！
 
-**Time:** 15-30 minutes total (including all installations)
+**耗时：** 共计 15-30 分钟（包含所有安装）
 
-**Result:** Working Skill Seeker installation + your first Claude skill created
-
----
-
-## 📋 What You'll Need
-
-Before starting, you need:
-- A computer (macOS, Linux, or Windows with WSL)
-- Internet connection
-- 30 minutes of time
-
-That's it! We'll install everything else together.
+**结果：** 完成 Skill Seeker 安装，并创建你的第一个 Claude 技能
 
 ---
 
-## Step 1: Install Python (5 minutes)
+## 📋 你需要准备什么
 
-### Check if You Already Have Python
+开始之前，你只需要：
 
-Open Terminal (macOS/Linux) or Command Prompt (Windows) and type:
+- 一台电脑（macOS、Linux，或安装了 WSL 的 Windows）
+- 可用的网络连接
+- 约 30 分钟时间
+
+就这些！其他内容我们将一起完成安装。
+
+---
+
+## 第 1 步：安装 Python（约 5 分钟）
+
+### 检查是否已安装 Python
+
+在终端（macOS/Linux）或命令提示符（Windows）中输入：
 
 ```bash
 python3 --version
 ```
 
-**✅ If you see:** `Python 3.10.x` or `Python 3.11.x` or higher → **Skip to Step 2!**
+**✅ 如果看到：**`Python 3.10.x`、`Python 3.11.x` 或更高版本 → **直接进入第 2 步！**
 
-**❌ If you see:** `command not found` or version less than 3.10 → **Continue below**
+**❌ 如果看到：**`command not found` 或版本低于 3.10 → **继续往下**
 
-### Install Python
+### 安装 Python
 
-#### macOS:
+#### macOS：
+
 ```bash
-# Install Homebrew (if not installed)
+# 安装 Homebrew（若未安装）
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Install Python
+# 安装 Python
 brew install python3
 ```
 
-**Verify:**
+**验证：**
+
 ```bash
 python3 --version
-# Should show: Python 3.11.x or similar
+# 期望：显示 Python 3.11.x 或类似版本
 ```
 
-#### Linux (Ubuntu/Debian):
+#### Linux（Ubuntu/Debian）：
+
 ```bash
 sudo apt update
 sudo apt install python3 python3-pip
 ```
 
-**Verify:**
+**验证：**
+
 ```bash
 python3 --version
 pip3 --version
 ```
 
-#### Windows:
-1. Download Python from: https://www.python.org/downloads/
-2. Run installer
-3. **IMPORTANT:** Check "Add Python to PATH" during installation
-4. Open Command Prompt and verify:
+#### Windows：
+
+1. 前往 https://www.python.org/downloads/ 下载 Python
+2. 运行安装程序
+3. **重要：** 安装时勾选 “Add Python to PATH”
+4. 打开命令提示符并验证：
+
 ```bash
 python --version
 ```
 
-**✅ Success looks like:**
+**✅ 期望结果：**
+
 ```
 Python 3.11.5
 ```
 
 ---
 
-## Step 2: Install Git (3 minutes)
+## 第 2 步：安装 Git（约 3 分钟）
 
-### Check if You Have Git
+### 检查是否已安装 Git
 
 ```bash
 git --version
 ```
 
-**✅ If you see:** `git version 2.x.x` → **Skip to Step 3!**
+**✅ 如果看到：**`git version 2.x.x` → **直接进入第 3 步！**
 
-**❌ If not installed:**
+**❌ 如果未安装：**
 
-#### macOS:
+#### macOS：
+
 ```bash
 brew install git
 ```
 
-#### Linux:
+#### Linux：
+
 ```bash
 sudo apt install git
 ```
 
-#### Windows:
-Download from: https://git-scm.com/download/win
+#### Windows：
 
-**Verify:**
+下载地址：https://git-scm.com/download/win
+
+**验证：**
+
 ```bash
 git --version
-# Should show: git version 2.x.x
+# 期望：显示 git version 2.x.x
 ```
 
 ---
 
-## Step 3: Get Skill Seeker (2 minutes)
+## 第 3 步：获取 Skill Seeker（约 2 分钟）
 
-### Choose Where to Put It
+### 选择项目存放位置
 
-Pick a location for the project. Good choices:
-- macOS/Linux: `~/Projects/` or `~/Documents/`
-  - Note: `~` means your home directory (`$HOME` or `/Users/yourname` on macOS, `/home/yourname` on Linux)
-- Windows: `C:\Users\YourName\Projects\`
+推荐位置：
 
-### Clone the Repository
+- macOS/Linux：`~/Projects/` 或 `~/Documents/`
+  - 说明：`~` 表示用户主目录（macOS 为 `/Users/你的用户名`，Linux 为 `/home/你的用户名`）
+- Windows：`C:\Users\你的用户名\Projects\`
+
+### 克隆仓库
 
 ```bash
-# Create Projects directory (if it doesn't exist)
+# 若不存在则创建 Projects 目录
 mkdir -p ~/Projects
 cd ~/Projects
 
-# Clone Skill Seeker
+# 克隆 Skill Seeker
 git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
 
-# Enter the directory
+# 进入目录
 cd Skill_Seekers
 ```
 
-**✅ Success looks like:**
+**✅ 期望输出：**
+
 ```
 Cloning into 'Skill_Seekers'...
 remote: Enumerating objects: 245, done.
 remote: Counting objects: 100% (245/245), done.
 ```
 
-**Verify you're in the right place:**
+**验证当前目录是否正确：**
+
 ```bash
 pwd
-# Should show something like:
-#   macOS: /Users/yourname/Projects/Skill_Seekers
-#   Linux: /home/yourname/Projects/Skill_Seekers
-# (Replace 'yourname' with YOUR actual username)
+# 期望类似：
+#   macOS: /Users/你的用户名/Projects/Skill_Seekers
+#   Linux: /home/你的用户名/Projects/Skill_Seekers
 
 ls
-# Should show: README.md, cli/, mcp/, configs/, etc.
+# 期望：README.md、cli/、mcp/、configs/ 等
 ```
 
-**❌ If `git clone` fails:**
+**❌ 若 `git clone` 失败：**
+
 ```bash
-# Check internet connection
+# 检查网络连接
 ping google.com
 
-# Or download ZIP manually:
+# 或手动下载 ZIP：
 # https://github.com/yusufkaraaslan/Skill_Seekers/archive/refs/heads/main.zip
-# Then unzip and cd into it
+# 解压后进入对应目录
 ```
 
 ---
 
-## Step 4: Setup Virtual Environment & Install Dependencies (3 minutes)
+## 第 4 步：创建虚拟环境并安装依赖（约 3 分钟）
 
-A virtual environment keeps Skill Seeker's dependencies isolated and prevents conflicts.
+虚拟环境用于隔离 Skill Seeker 的依赖，避免与系统环境冲突。
 
 ```bash
-# Make sure you're in the Skill_Seekers directory
-cd ~/Projects/Skill_Seekers  # ~ means your home directory ($HOME)
-                             # Adjust if you chose a different location
+# 确认当前在 Skill_Seekers 目录
+cd ~/Projects/Skill_Seekers  # ~ 表示主目录（$HOME）
 
-# Create virtual environment
+# 创建虚拟环境
 python3 -m venv venv
 
-# Activate it
+# 激活虚拟环境
 source venv/bin/activate  # macOS/Linux
-# Windows users: venv\Scripts\activate
+# Windows：venv\Scripts\activate
 ```
 
-**✅ Success looks like:**
+**✅ 期望提示：**
+
 ```
 (venv) username@computer Skill_Seekers %
 ```
-Notice `(venv)` appears in your prompt - this means the virtual environment is active!
+
+出现 `(venv)` 表示虚拟环境已激活！
 
 ```bash
-# Now install packages (only needed once)
+# 安装依赖（仅首次）
 pip install requests beautifulsoup4 pytest
 
-# Save the dependency list
+# 保存依赖列表
 pip freeze > requirements.txt
 ```
 
-**✅ Success looks like:**
+**✅ 期望输出：**
+
 ```
 Successfully installed requests-2.32.5 beautifulsoup4-4.14.2 pytest-8.4.2 ...
 ```
 
-**Optional - Only if you want API-based enhancement (not needed for LOCAL enhancement):**
+**可选（仅当你需要 API 增强，默认本地增强不需要）：**
+
 ```bash
 pip install anthropic
 ```
 
-**Important Notes:**
-- **Every time** you open a new terminal to use Skill Seeker, run `source venv/bin/activate` first
-- You'll know it's active when you see `(venv)` in your terminal prompt
-- To deactivate later: just type `deactivate`
+**重要提示：**
 
-**❌ If python3 not found:**
+- 每次打开新终端使用 Skill Seeker 前，请先运行 `source venv/bin/activate`
+- 看到终端提示有 `(venv)` 即代表已激活
+- 需要退出时输入 `deactivate` 即可
+
+**❌ 若找不到 python3：**
+
 ```bash
-# Try without the 3
+# 尝试不带 3
 python -m venv venv
 ```
 
-**❌ If permission denied:**
+**❌ 若出现权限问题：**
+
 ```bash
-# Virtual environment approach doesn't need sudo - you might have the wrong path
-# Make sure you're in the Skill_Seekers directory:
+# 使用虚拟环境无需 sudo，可能是路径错误
+# 确认当前在 Skill_Seekers 目录：
 pwd
-# Should show something like:
-#   macOS: /Users/yourname/Projects/Skill_Seekers
-#   Linux: /home/yourname/Projects/Skill_Seekers
-# (Replace 'yourname' with YOUR actual username)
+# 期望类似：/Users/你的用户名/Projects/Skill_Seekers
 ```
 
 ---
 
-## Step 5: Test Your Installation (1 minute)
+## 第 5 步：验证安装（约 1 分钟）
 
-Let's make sure everything works:
+确认一切正常：
 
 ```bash
-# Test the main script can run
+# 运行主脚本帮助
 skill-seekers scrape --help
 ```
 
-**✅ Success looks like:**
+**✅ 期望输出：**
+
 ```
 usage: doc_scraper.py [-h] [--config CONFIG] [--interactive] ...
 ```
 
-**❌ If you see "No such file or directory":**
-```bash
-# Check you're in the right directory
-pwd
-# Should show path ending in /Skill_Seekers
+**❌ 若看到 “No such file or directory” ：**
 
-# List files
-ls cli/
-# Should show: doc_scraper.py, estimate_pages.py, etc.
+```bash
+# 检查当前目录
+pwd  # 应以 /Skill_Seekers 结尾
+
+# 列出文件
+ls cli/  # 应看到 doc_scraper.py、estimate_pages.py 等
 ```
 
 ---
 
-## Step 6: Create Your First Skill! (5-10 minutes)
+## 第 6 步：创建你的第一个技能！（约 5-10 分钟）
 
-Let's create a simple skill using a preset configuration.
+让我们用一个预设配置来创建技能。
 
-### Option A: Small Test (Recommended First Time)
+### 方案 A：小型测试（首次推荐）
 
 ```bash
-# Create a config for a small site first
+# 先为小型站点创建一个配置
 cat > configs/test.json << 'EOF'
 {
   "name": "test-skill",
@@ -275,18 +293,20 @@ cat > configs/test.json << 'EOF'
 }
 EOF
 
-# Run the scraper
+# 运行抓取
 skill-seekers scrape --config configs/test.json
 ```
 
-**What happens:**
-1. Scrapes 5 pages from Tailwind CSS docs
-2. Creates `output/test-skill/` directory
-3. Generates SKILL.md and reference files
+**会发生什么：**
 
-**⏱️ Time:** ~30 seconds
+1. 抓取 Tailwind CSS 文档的 5 个页面
+2. 创建目录 `output/test-skill/`
+3. 生成 SKILL.md 与参考文档
 
-**✅ Success looks like:**
+**⏱️ 耗时：**约 30 秒
+
+**✅ 期望输出：**
+
 ```
 Scraping: https://tailwindcss.com/docs/installation
 Page 1/5: Installation
@@ -295,40 +315,42 @@ Page 2/5: Editor Setup
 ✅ Skill created at: output/test-skill/
 ```
 
-### Option B: Full Example (React Docs)
+### 方案 B：完整示例（React 文档）
 
 ```bash
-# Use the React preset
+# 使用 React 预设
 skill-seekers scrape --config configs/react.json --max-pages 50
 ```
 
-**⏱️ Time:** ~5 minutes
+**⏱️ 耗时：**约 5 分钟
 
-**What you get:**
-- `output/react/SKILL.md` - Main skill file
-- `output/react/references/` - Organized documentation
+**你将得到：**
 
-### Verify It Worked
+- `output/react/SKILL.md` - 主技能文件
+- `output/react/references/` - 分类整理的文档
+
+### 验证结果
 
 ```bash
-# Check the output
+# 检查输出
 ls output/test-skill/
-# Should show: SKILL.md, references/, scripts/, assets/
+# 期望：SKILL.md、references/、scripts/、assets/
 
-# Look at the generated skill
+# 查看生成的 SKILL.md
 head output/test-skill/SKILL.md
 ```
 
 ---
 
-## Step 7: Package for Claude (30 seconds)
+## 第 7 步：为 Claude 打包（约 30 秒）
 
 ```bash
-# Package the skill
+# 打包技能
 skill-seekers package output/test-skill/
 ```
 
-**✅ Success looks like:**
+**✅ 期望输出：**
+
 ```
 ✅ Skill packaged successfully!
 📦 Created: output/test-skill.zip
@@ -337,182 +359,188 @@ skill-seekers package output/test-skill/
 Ready to upload to Claude AI!
 ```
 
-**Now you have:** `output/test-skill.zip` ready to upload to Claude!
+**现在你已拥有：**可上传到 Claude 的 `output/test-skill.zip`！
 
 ---
 
-## Step 8: Upload to Claude (2 minutes)
+## 第 8 步：上传到 Claude（约 2 分钟）
 
-1. Go to https://claude.ai
-2. Click your profile → Settings
-3. Click "Knowledge" or "Skills"
-4. Click "Upload Skill"
-5. Select `output/test-skill.zip`
-6. Done! Claude can now use this skill
+1. 打开 https://claude.ai
+2. 点击头像 → Settings
+3. 点击 “Knowledge” 或 “Skills”
+4. 点击 “Upload Skill”
+5. 选择 `output/test-skill.zip`
+6. 完成！Claude 即可使用该技能
 
 ---
 
-## 🎉 Success! What's Next?
+## 🎉 成功！接下来做什么？
 
-You now have a working Skill Seeker installation! Here's what you can do:
+你已完成 Skill Seeker 的安装！你可以：
 
-### Try Other Presets
+### 试试其他预设
 
 ```bash
-# See all available presets
+# 查看所有预设
 ls configs/
 
-# Try Vue.js
+# 尝试 Vue.js
 skill-seekers scrape --config configs/vue.json --max-pages 50
 
-# Try Django
+# 尝试 Django
 skill-seekers scrape --config configs/django.json --max-pages 50
 ```
 
-### Create Custom Skills
+### 创建自定义技能
 
 ```bash
-# Interactive mode - answer questions
+# 交互模式——按提示回答
 skill-seekers scrape --interactive
 
-# Or create config for any website
+# 或为任意网站创建配置
 skill-seekers scrape \
   --name myframework \
   --url https://docs.myframework.com/ \
   --description "My favorite framework"
 ```
 
-### Use with Claude Code (Advanced)
+### 配合 Claude Code 使用（进阶）
 
-If you have Claude Code installed:
+若已安装 Claude Code：
 
 ```bash
-# One-time setup
+# 一次性设置
 ./setup_mcp.sh
 
-# Then use natural language in Claude Code:
+# 然后在 Claude Code 中用自然语言指令：
 # "Generate a skill for Svelte docs"
 # "Package the skill at output/svelte/"
 ```
 
-**See:** [docs/MCP_SETUP.md](docs/MCP_SETUP.md) for full MCP setup
+**详见：**[docs/MCP_SETUP.md](docs/MCP_SETUP.md)
 
 ---
 
-## 🔧 Troubleshooting
+## 🔧 故障排查
 
-### "Command not found" errors
+### “Command not found” 错误
 
-**Problem:** `python3: command not found`
+**问题：**`python3: command not found`
 
-**Solution:** Python not installed or not in PATH
-- macOS/Linux: Reinstall Python with brew/apt
-- Windows: Reinstall Python, check "Add to PATH"
-- Try `python` instead of `python3`
+**解决：**Python 未安装或未加入 PATH
 
-### "Permission denied" errors
+- macOS/Linux：使用 brew/apt 重新安装
+- Windows：重新安装并勾选 “Add to PATH”
+- 尝试使用 `python` 代替 `python3`
 
-**Problem:** Can't install packages or run scripts
+### “Permission denied” 错误
 
-**Solution:**
+**问题：**无法安装依赖或运行脚本
+
+**解决：**
+
 ```bash
-# Use --user flag
+# 使用 --user 参数
 pip3 install --user requests beautifulsoup4
 
-# Or make script executable
+# 或赋予执行权限
 chmod +x cli/doc_scraper.py
 ```
 
-### "No such file or directory"
+### “No such file or directory”
 
-**Problem:** Can't find cli/doc_scraper.py
+**问题：**找不到 cli/doc_scraper.py
 
-**Solution:** You're not in the right directory
+**解决：**当前目录错误
+
 ```bash
-# Go to the Skill_Seekers directory
-cd ~/Projects/Skill_Seekers  # Adjust your path
+# 切换到 Skill_Seekers 目录
+cd ~/Projects/Skill_Seekers  # 请按你的路径调整
 
-# Verify
-ls cli/
-# Should show doc_scraper.py
+# 验证
+ls cli/  # 应看到 doc_scraper.py
 ```
 
-### "ModuleNotFoundError"
+### “ModuleNotFoundError”
 
-**Problem:** Missing Python packages
+**问题：**缺少 Python 依赖
 
-**Solution:**
+**解决：**
+
 ```bash
-# Install dependencies again
+# 重新安装依赖
 pip3 install requests beautifulsoup4
 
-# If that fails, try:
+# 若仍失败，尝试：
 pip3 install --user requests beautifulsoup4
 ```
 
-### Scraping is slow or fails
+### 抓取很慢或失败
 
-**Problem:** Takes forever or gets errors
+**问题：**耗时很久或报错
 
-**Solution:**
+**解决：**
+
 ```bash
-# Use smaller max_pages for testing
+# 先用更小的页数测试
 skill-seekers scrape --config configs/react.json --max-pages 10
 
-# Check internet connection
+# 检查网络连接
 ping google.com
 
-# Check the website is accessible
-curl -I https://docs.yoursite.com
+# 检查网站可达性
+curl -I https://docs/yoursite.com
 ```
 
-### Still stuck?
+### 仍然有问题？
 
-1. **Check our detailed troubleshooting guide:** [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-2. **Open an issue:** https://github.com/yusufkaraaslan/Skill_Seekers/issues
-3. **Include this info:**
-   - Operating system (macOS 13, Ubuntu 22.04, Windows 11, etc.)
-   - Python version (`python3 --version`)
-   - Full error message
-   - What command you ran
-
----
-
-## 📚 Next Steps
-
-- **Read the full README:** [README.md](README.md)
-- **Learn about presets:** [configs/](configs/)
-- **Try MCP integration:** [docs/MCP_SETUP.md](docs/MCP_SETUP.md)
-- **Advanced usage:** [docs/](docs/)
+1. **查看详细排错指南：**[TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+2. **提交 Issue：**https://github.com/yusufkaraaslan/Skill_Seekers/issues
+3. **请附带信息：**
+   - 操作系统（macOS 13、Ubuntu 22.04、Windows 11 等）
+   - Python 版本（`python3 --version`）
+   - 完整错误信息
+   - 运行的具体命令
 
 ---
 
-## ✅ Quick Reference
+## 📚 下一步
+
+- **阅读完整 README：**[README.md](README.md)
+- **了解预设：**[configs/](configs/)
+- **尝试 MCP 集成：**[docs/MCP_SETUP.md](docs/MCP_SETUP.md)
+- **高级用法：**[docs/](docs/)
+
+---
+
+## ✅ 快速参考
 
 ```bash
-# Your typical workflow:
+# 典型工作流：
 
-# 1. Create/use a config
+# 1. 创建/使用配置
 skill-seekers scrape --config configs/react.json --max-pages 50
 
-# 2. Package it
+# 2. 打包
 skill-seekers package output/react/
 
-# 3. Upload output/react.zip to Claude
+# 3. 上传 output/react.zip 到 Claude
 
-# Done! 🎉
+# 完成！🎉
 ```
 
-**Common locations:**
-- **Configs:** `configs/*.json`
-- **Output:** `output/skill-name/`
-- **Packaged skills:** `output/skill-name.zip`
+**常见位置：**
 
-**Time estimates:**
-- Small skill (5-10 pages): 30 seconds
-- Medium skill (50-100 pages): 3-5 minutes
-- Large skill (500+ pages): 15-30 minutes
+- **配置：**`configs/*.json`
+- **输出：**`output/skill-name/`
+- **打包技能：**`output/skill-name.zip`
+
+**时间预估：**
+
+- 小型技能（5-10 页）：约 30 秒
+- 中型技能（50-100 页）：约 3-5 分钟
+- 大型技能（500+ 页）：约 15-30 分钟
 
 ---
 
-**Still confused?** That's okay! Open an issue and we'll help you get started: https://github.com/yusufkaraaslan/Skill_Seekers/issues/new
+**仍然不确定？** 没关系！创建一个 Issue，我们会帮助你开始：https://github.com/yusufkaraaslan/Skill_Seekers/issues/new

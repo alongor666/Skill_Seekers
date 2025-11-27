@@ -1,29 +1,29 @@
-# AI-Powered SKILL.md Enhancement
+# SKILL.md 的 AI 增强（中文唯一版本）
 
-Two scripts are available to dramatically improve your SKILL.md file:
-1. **`enhance_skill_local.py`** - Uses Claude Code Max (no API key, **recommended**)
-2. **`enhance_skill.py`** - Uses Anthropic API (~$0.15-$0.30 per skill)
+提供两种脚本以显著提升 SKILL.md 的质量：
+1. `enhance_skill_local.py` — 使用 Claude Code Max（无需 API Key，推荐）
+2. `enhance_skill.py` — 使用 Anthropic API（约 $0.15-$0.30/技能）
 
-Both analyze reference documentation and extract the best examples and guidance.
+两者都会分析参考文档并抽取最佳示例与指导。
 
-## Why Use Enhancement?
+## 为什么需要增强？
 
-**Problem:** The auto-generated SKILL.md is often too generic:
-- Empty Quick Reference section
-- No practical code examples
-- Generic "When to Use" triggers
-- Doesn't highlight key features
+问题：自动生成的 SKILL.md 往往过于通用：
+- Quick Reference 为空
+- 缺少实用代码示例
+- 触发条件过于泛化
+- 关键特性没有高亮
 
-**Solution:** Let Claude read your reference docs and create a much better SKILL.md with:
-- ✅ Best code examples extracted from documentation
-- ✅ Practical quick reference with real patterns
-- ✅ Domain-specific guidance
-- ✅ Clear navigation tips
-- ✅ Key concepts explained
+解决：让 Claude 阅读你的参考文档并生成更好的 SKILL.md，包含：
+- ✅ 文档中提炼的最佳代码示例
+- ✅ 可落地的快速参考与真实模式
+- ✅ 领域特定指导
+- ✅ 清晰导航提示
+- ✅ 关键概念解释
 
-## Quick Start (LOCAL - No API Key)
+## 快速开始（本地，无需 API Key）
 
-**Recommended for Claude Code Max users:**
+适用于 Claude Code Max 用户：
 
 ```bash
 # Option 1: Standalone enhancement
@@ -33,28 +33,28 @@ python3 cli/enhance_skill_local.py output/steam-inventory/
 python3 cli/doc_scraper.py --config configs/steam-inventory.json --enhance-local
 ```
 
-**What happens:**
-1. Opens new terminal window
-2. Runs Claude Code with enhancement prompt
-3. Claude analyzes reference files (~15-20K chars)
-4. Generates enhanced SKILL.md (30-60 seconds)
-5. Terminal auto-closes when done
+过程：
+1. 打开新终端窗口
+2. 以增强提示运行 Claude Code
+3. Claude 分析参考文件（约 15-20K 字符）
+4. 生成增强版 SKILL.md（30-60 秒）
+5. 完成后终端自动关闭
 
-**Requirements:**
-- Claude Code Max plan (you're already using it!)
-- macOS (auto-launch works) or manual terminal run on other OS
+要求：
+- Claude Code Max 方案
+- macOS 自动启动（其他系统可手动运行）
 
-## API-Based Enhancement (Alternative)
+## API 增强（备选）
 
 **If you prefer API-based approach:**
 
-### Installation
+### 安装
 
 ```bash
 pip3 install anthropic
 ```
 
-### Setup API Key
+### 配置 API Key
 
 ```bash
 # Option 1: Environment variable (recommended)
@@ -64,7 +64,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 python3 cli/enhance_skill.py output/react/ --api-key sk-ant-...
 ```
 
-### Usage
+### 用法
 
 ```bash
 # Standalone enhancement
@@ -77,7 +77,7 @@ python3 cli/doc_scraper.py --config configs/steam-inventory.json --enhance
 python3 cli/enhance_skill.py output/react/ --dry-run
 ```
 
-## What It Does
+## 行为说明
 
 1. **Reads reference files** (api_reference.md, webapi.md, etc.)
 2. **Sends to Claude** with instructions to:
@@ -88,7 +88,7 @@ python3 cli/enhance_skill.py output/react/ --dry-run
 3. **Backs up original** SKILL.md to SKILL.md.backup
 4. **Saves enhanced version** as new SKILL.md
 
-## Example Enhancement
+## 增强前后对比示例
 
 ### Before (Auto-Generated)
 ```markdown
@@ -124,14 +124,14 @@ bool success = SteamInventory()->GetAllItems( &resultHandle );
 [... 8 more practical examples ...]
 ```
 
-## Cost Estimate
+## 成本预估
 
 - **Input**: ~50,000-100,000 tokens (reference docs)
 - **Output**: ~4,000 tokens (enhanced SKILL.md)
 - **Model**: claude-sonnet-4-20250514
 - **Estimated cost**: $0.15-$0.30 per skill
 
-## Troubleshooting
+## 故障排除
 
 ### "No API key provided"
 ```bash
@@ -160,7 +160,7 @@ mv output/steam-inventory/SKILL.md.backup output/steam-inventory/SKILL.md
 python3 cli/enhance_skill.py output/steam-inventory/
 ```
 
-## Tips
+## 使用建议
 
 1. **Run after scraping completes** - Enhancement works best with complete reference docs
 2. **Review the output** - AI is good but not perfect, check the generated SKILL.md
@@ -168,7 +168,7 @@ python3 cli/enhance_skill.py output/steam-inventory/
 4. **Re-run if needed** - Each run may produce slightly different results
 5. **Works offline after first run** - Reference files are local
 
-## Real-World Results
+## 真实案例结果
 
 **Test Case: steam-economy skill**
 - **Before:** 75 lines, generic template, empty Quick Reference
@@ -182,7 +182,7 @@ The LOCAL enhancement successfully:
 - Created navigation guidance for beginners through advanced users
 - Added best practices for security, economy design, and API integration
 
-## Limitations
+## 限制
 
 **LOCAL Enhancement (`enhance_skill_local.py`):**
 - Requires Claude Code Max plan
@@ -200,7 +200,7 @@ The LOCAL enhancement successfully:
 - Can't understand context beyond the reference docs
 - Doesn't modify reference files (only SKILL.md)
 
-## Enhancement Options Comparison
+## 增强方案对比
 
 | Aspect | Manual Edit | LOCAL Enhancement | API Enhancement |
 |--------|-------------|-------------------|-----------------|
@@ -214,7 +214,7 @@ The LOCAL enhancement successfully:
 | Quality | High (if expert) | 9/10 | 9/10 |
 | **Recommended?** | For experts only | ✅ **Yes** | If no Max plan |
 
-## When to Use
+## 何时使用
 
 **Use enhancement when:**
 - You want high-quality SKILL.md quickly
@@ -229,7 +229,7 @@ The LOCAL enhancement successfully:
 - You know the framework intimately
 - Documentation has no code examples
 
-## Advanced: Customization
+## 进阶：定制增强提示
 
 To customize how Claude enhances the SKILL.md, edit `enhance_skill.py` and modify the `_build_enhancement_prompt()` method around line 130.
 
@@ -243,49 +243,27 @@ ADDITIONAL REQUIREMENTS:
 """
 ```
 
-## See Also
+## 参考
 
 - [README.md](../README.md) - Main documentation
 - [CLAUDE.md](CLAUDE.md) - Architecture guide
 - [doc_scraper.py](../doc_scraper.py) - Main scraping tool
-# SKILL.md 的 AI 增强
+## 中文快速摘要
 
-## 概览
-
-本文说明如何使用本地 Claude Code 或 Anthropic API 自动增强 SKILL.md，使其具备结构化导航、精选示例与更佳阐述。
-
-## 选项
-
-- 本地增强（Claude Code Max，无需 API Key）
-- API 增强（Anthropic Sonnet 4，需 Key）
-
-## 本地增强
-
-### 命令
+### 本地增强
 ```bash
 python3 cli/enhance_skill_local.py output/<name>/
 ```
+行为：打开新终端运行 Claude Code；分析 `references/*`；备份 `SKILL.md.backup`；输出增强版 `SKILL.md`。
 
-### 发生什么
-- 打开新终端运行 Claude Code
-- 自动分析 references/*
-- 备份原始 SKILL.md 为 `SKILL.md.backup`
-- 输出增强后的 SKILL.md
-
-## API 增强
-
-### 命令
+### API 增强
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 python3 cli/enhance_skill.py output/<name>/
 ```
+成本：约 $0.01-$0.10/技能（视文档大小）。
 
-### 成本
-- 约 $0.01-$0.10/技能（视文档大小）
-
-## 最佳实践
-
+### 最佳实践
 - 自动备份原始 SKILL.md
 - 保持参考文件与导航一致
-- 多数工作流优先使用本地增强
-- 仅在需要自动化/批量时使用 API 增强
+- 优先使用本地增强；批量或自动化场景下使用 API 增强

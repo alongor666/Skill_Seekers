@@ -1,80 +1,80 @@
-# Troubleshooting Guide
+# 故障排查指南
 
-Common issues and solutions when using Skill Seeker.
+使用 Skill Seeker 过程中常见问题与解决方法。
 
 ---
 
-## Installation Issues
+## 安装相关问题
 
-### Python Not Found
+### 找不到 Python
 
-**Error:**
+**错误：**
 ```
 python3: command not found
 ```
 
-**Solutions:**
-1. **Check if Python is installed:**
+**解决：**
+1. **检查是否安装 Python：**
    ```bash
    which python3
-   python --version  # Try without the 3
+   python --version  # 尝试不带 3 的命令
    ```
 
-2. **Install Python:**
-   - **macOS:** `brew install python3`
-   - **Linux:** `sudo apt install python3 python3-pip`
-   - **Windows:** Download from python.org, check "Add to PATH"
+2. **安装 Python：**
+   - **macOS：**`brew install python3`
+   - **Linux：**`sudo apt install python3 python3-pip`
+   - **Windows：**到 python.org 下载并勾选 “Add to PATH”
 
-3. **Use python instead of python3:**
+3. **使用 python 代替 python3：**
    ```bash
    python cli/doc_scraper.py --help
    ```
 
-### Module Not Found
+### 模块缺失
 
-**Error:**
+**错误：**
 ```
 ModuleNotFoundError: No module named 'requests'
 ModuleNotFoundError: No module named 'bs4'
 ModuleNotFoundError: No module named 'mcp'
 ```
 
-**Solutions:**
-1. **Install dependencies:**
+**解决：**
+1. **安装依赖：**
    ```bash
    pip3 install requests beautifulsoup4
-   pip3 install -r mcp/requirements.txt  # For MCP
+   pip3 install -r mcp/requirements.txt  # MCP 依赖
    ```
 
-2. **Use --user flag if permission denied:**
+2. **权限不足时使用 --user：**
    ```bash
    pip3 install --user requests beautifulsoup4
    ```
 
-3. **Check pip is working:**
+3. **确认 pip 正常：**
    ```bash
    pip3 --version
    ```
 
-### Permission Denied
+### 权限不足
 
-**Error:**
+**错误：**
 ```
 Permission denied: '/usr/local/lib/python3.x/...'
 ```
 
-**Solutions:**
-1. **Use --user flag:**
+**解决：**
+1. **使用 --user 参数：**
    ```bash
    pip3 install --user requests beautifulsoup4
    ```
 
-2. **Use sudo (not recommended):**
+2. **使用 sudo（不推荐）：**
    ```bash
    sudo pip3 install requests beautifulsoup4
    ```
 
-3. **Use virtual environment (best practice):**
+3. **使用虚拟环境（最佳实践）：**
    ```bash
    python3 -m venv venv
    source venv/bin/activate
@@ -83,72 +83,72 @@ Permission denied: '/usr/local/lib/python3.x/...'
 
 ---
 
-## Runtime Issues
+## 运行时问题
 
-### File Not Found
+### 找不到文件
 
-**Error:**
+**错误：**
 ```
 FileNotFoundError: [Errno 2] No such file or directory: 'cli/doc_scraper.py'
 ```
 
-**Solutions:**
-1. **Check you're in the Skill_Seekers directory:**
+**解决：**
+1. **检查是否位于 Skill_Seekers 目录：**
    ```bash
    pwd
-   # Should show: .../Skill_Seekers
+   # 期望：.../Skill_Seekers
 
    ls
-   # Should show: README.md, cli/, mcp/, configs/
+   # 期望：README.md、cli/、mcp/、configs/
    ```
 
-2. **Change to the correct directory:**
+2. **切换到正确目录：**
    ```bash
-   cd ~/Projects/Skill_Seekers  # Adjust path
+   cd ~/Projects/Skill_Seekers  # 按需调整路径
    ```
 
-### Config File Not Found
+### 找不到配置文件
 
-**Error:**
+**错误：**
 ```
 FileNotFoundError: configs/react.json
 ```
 
-**Solutions:**
-1. **Check config exists:**
+**解决：**
+1. **检查配置是否存在：**
    ```bash
    ls configs/
-   # Should show: godot.json, react.json, vue.json, etc.
+   # 期望：godot.json、react.json、vue.json 等
    ```
 
-2. **Use full path:**
+2. **使用绝对路径：**
    ```bash
    skill-seekers scrape --config $(pwd)/configs/react.json
    ```
 
-3. **Create missing config:**
+3. **交互方式创建缺失配置：**
    ```bash
    skill-seekers scrape --interactive
    ```
 
 ---
 
-## MCP Setup Issues
+## MCP 安装相关问题
 
-### MCP Server Not Loading
+### MCP 服务器未加载
 
-**Symptoms:**
-- Tools don't appear in Claude Code
-- "List all available configs" doesn't work
+**现象：**
+- Claude Code 中不显示工具
+- “List all available configs” 无法执行
 
-**Solutions:**
+**解决：**
 
-1. **Check configuration file:**
+1. **检查配置文件：**
    ```bash
    cat ~/.config/claude-code/mcp.json
    ```
 
-2. **Verify paths are ABSOLUTE (not placeholders):**
+2. **确保路径为绝对路径（不使用占位符）：**
    ```json
    {
      "mcpServers": {
@@ -160,203 +160,201 @@ FileNotFoundError: configs/react.json
      }
    }
    ```
-   ❌ **Bad:** `$REPO_PATH` or `/path/to/Skill_Seekers`
-   ✅ **Good:** `/Users/john/Projects/Skill_Seekers`
+   ❌ 错误示例：`$REPO_PATH` 或 `/path/to/Skill_Seekers`
+   ✅ 正确示例：`/Users/john/Projects/Skill_Seekers`
 
-3. **Test server manually:**
+3. **手动测试服务器：**
    ```bash
    cd ~/Projects/Skill_Seekers
    python3 mcp/server.py
-   # Should start without errors (Ctrl+C to stop)
+   # 若无错误则正常（Ctrl+C 停止）
    ```
 
-4. **Re-run setup script:**
+4. **重新运行安装脚本：**
    ```bash
    ./setup_mcp.sh
-   # Select "y" for auto-configure
+   # 选择 "y" 自动配置
    ```
 
-5. **RESTART Claude Code completely:**
-   - Quit (don't just close window)
-   - Reopen
+5. **彻底重启 Claude Code：**
+   - 完全退出（不要只关闭窗口）
+   - 重新打开
 
-### Placeholder Paths in Config
+### 配置中使用了占位符路径
 
-**Problem:** Config has `$REPO_PATH` or `/Users/username/` instead of real paths
+**问题：**配置包含 `$REPO_PATH` 或 `/Users/username/` 等占位符
 
-**Solution:**
+**解决：**
 ```bash
-# Get your actual path
+# 获取实际路径
 cd ~/Projects/Skill_Seekers
 pwd
-# Copy this path
+# 复制该路径
 
-# Edit config
+# 编辑配置
 nano ~/.config/claude-code/mcp.json
 
-# Replace ALL instances of placeholders with your actual path
-# Save (Ctrl+O, Enter, Ctrl+X)
+# 将所有占位符替换为实际路径
+# 保存（Ctrl+O、回车、Ctrl+X）
 
-# Restart Claude Code
+# 重启 Claude Code
 ```
 
-### Tools Appear But Don't Work
+### 工具显示但不可用
 
-**Symptoms:**
-- Tools listed but commands fail
-- "Error executing tool" messages
+**现象：**
+- 工具已列出但命令执行失败
+- 出现 “Error executing tool” 提示
 
-**Solutions:**
+**解决：**
 
-1. **Check working directory:**
+1. **检查工作目录：**
    ```json
    {
      "cwd": "/FULL/PATH/TO/Skill_Seekers"
    }
    ```
 
-2. **Verify files exist:**
+2. **确认文件存在：**
    ```bash
    ls cli/doc_scraper.py
    ls mcp/server.py
    ```
 
-3. **Test CLI tools directly:**
+3. **直接测试 CLI 工具：**
    ```bash
    skill-seekers scrape --help
    ```
 
 ---
 
-## Scraping Issues
+## 抓取相关问题
 
-### Slow or Hanging
+### 速度慢或卡住
 
-**Solutions:**
+**解决：**
 
-1. **Check network connection:**
+1. **检查网络连接：**
    ```bash
    ping google.com
    curl -I https://docs.yoursite.com
    ```
 
-2. **Use smaller max_pages for testing:**
+2. **测试更小的 max_pages：**
    ```bash
    skill-seekers scrape --config configs/test.json --max-pages 5
    ```
 
-3. **Increase rate_limit in config:**
+3. **提高配置中的 rate_limit：**
    ```json
    {
-     "rate_limit": 1.0  // Increase from 0.5
+     "rate_limit": 1.0  // 从 0.5 增加
    }
    ```
 
-### No Content Extracted
+### 抓取到页面但内容为空
 
-**Problem:** Pages scraped but content is empty
+**解决：**
 
-**Solutions:**
-
-1. **Check selector in config:**
+1. **检查配置中的选择器：**
    ```bash
-   # Test with browser dev tools
-   # Look for: article, main, div[role="main"], div.content
+   # 在浏览器开发者工具中尝试
+   # 关注：article、main、div[role="main"]、div.content
    ```
 
-2. **Verify website is accessible:**
+2. **验证站点可访问：**
    ```bash
    curl https://docs.example.com
    ```
 
-3. **Try different selectors:**
+3. **尝试不同的选择器：**
    ```json
    {
      "selectors": {
-       "main_content": "article"  // Try: main, div.content, etc.
+       "main_content": "article"  // 可尝试 main、div.content 等
      }
    }
    ```
 
-### Rate Limiting / 429 Errors
+### 访问限制 / 429 错误
 
-**Error:**
+**错误：**
 ```
 HTTP Error 429: Too Many Requests
 ```
 
-**Solutions:**
+**解决：**
 
-1. **Increase rate_limit:**
+1. **增加 rate_limit：**
    ```json
    {
-     "rate_limit": 2.0  // Wait 2 seconds between requests
+     "rate_limit": 2.0  // 两次请求之间等待 2 秒
    }
    ```
 
-2. **Reduce max_pages:**
+2. **降低 max_pages：**
    ```json
    {
-     "max_pages": 50  // Scrape fewer pages
+     "max_pages": 50  // 抓取更少页面
    }
    ```
 
-3. **Try again later:**
+3. **稍后重试：**
    ```bash
-   # Wait an hour and retry
+   # 等一小时后再试
    ```
 
 ---
 
-## Platform-Specific Issues
+## 平台特定问题
 
 ### macOS
 
-**Issue:** Can't run `./setup_mcp.sh`
+**问题：**无法运行 `./setup_mcp.sh`
 
-**Solution:**
+**解决：**
 ```bash
 chmod +x setup_mcp.sh
 ./setup_mcp.sh
 ```
 
-**Issue:** Homebrew not installed
+**问题：**未安装 Homebrew
 
-**Solution:**
+**解决：**
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ### Linux
 
-**Issue:** pip3 not found
+**问题：**找不到 pip3
 
-**Solution:**
+**解决：**
 ```bash
 sudo apt update
 sudo apt install python3-pip
 ```
 
-**Issue:** Permission errors
+**问题：**权限错误
 
-**Solution:**
+**解决：**
 ```bash
-# Use --user flag
+# 使用 --user 参数
 pip3 install --user requests beautifulsoup4
 ```
 
-### Windows (WSL)
+### Windows（WSL）
 
-**Issue:** Python not in PATH
+**问题：**Python 未加入 PATH
 
-**Solution:**
-1. Reinstall Python
-2. Check "Add Python to PATH"
-3. Or add manually to PATH
+**解决：**
+1. 重新安装 Python
+2. 勾选 “Add Python to PATH”
+3. 或手动加入 PATH
 
-**Issue:** Line ending errors
+**问题：**换行符导致脚本错误
 
-**Solution:**
+**解决：**
 ```bash
 dos2unix setup_mcp.sh
 ./setup_mcp.sh
@@ -364,83 +362,83 @@ dos2unix setup_mcp.sh
 
 ---
 
-## Verification Commands
+## 验证命令
 
-Use these to check your setup:
+用于快速检查环境：
 
 ```bash
-# 1. Check Python
-python3 --version  # Should be 3.10+
+# 1. 检查 Python
+python3 --version  # 应为 3.10+
 
-# 2. Check dependencies
+# 2. 检查依赖
 pip3 list | grep requests
 pip3 list | grep beautifulsoup4
 pip3 list | grep mcp
 
-# 3. Check files exist
+# 3. 检查文件是否存在
 ls cli/doc_scraper.py
 ls mcp/server.py
 ls configs/
 
-# 4. Check MCP config
+# 4. 检查 MCP 配置
 cat ~/.config/claude-code/mcp.json
 
-# 5. Test scraper
+# 5. 测试抓取器
 skill-seekers scrape --help
 
-# 6. Test MCP server
+# 6. 测试 MCP 服务器
 timeout 3 python3 mcp/server.py || echo "Server OK"
 
-# 7. Check git repo
+# 7. 查看仓库状态
 git status
 git log --oneline -5
 ```
 
 ---
 
-## Getting Help
+## 获取帮助
 
-If none of these solutions work:
+若以上方法仍无法解决：
 
-1. **Check existing issues:**
+1. **查看现有 Issue：**
    https://github.com/yusufkaraaslan/Skill_Seekers/issues
 
-2. **Open a new issue with:**
-   - Your OS (macOS 13, Ubuntu 22.04, etc.)
-   - Python version (`python3 --version`)
-   - Full error message
-   - What command you ran
-   - Output of verification commands above
+2. **创建新 Issue，并附带：**
+   - 操作系统（macOS 13、Ubuntu 22.04 等）
+   - Python 版本（`python3 --version`）
+   - 完整错误信息
+   - 执行的命令
+   - 上述“验证命令”的输出
 
-3. **Include this debug info:**
+3. **附加调试信息：**
    ```bash
-   # System info
+   # 系统信息
    uname -a
    python3 --version
    pip3 --version
 
-   # Skill Seeker info
-   cd ~/Projects/Skill_Seekers  # Your path
+   # Skill Seeker 信息
+   cd ~/Projects/Skill_Seekers  # 你的路径
    pwd
    git log --oneline -1
    ls -la cli/ mcp/ configs/
 
-   # MCP config (if using MCP)
+   # MCP 配置（若使用 MCP）
    cat ~/.config/claude-code/mcp.json
    ```
 
 ---
 
-## Quick Fixes Checklist
+## 快速检查清单
 
-- [ ] In the Skill_Seekers directory? (`pwd`)
-- [ ] Python 3.10+ installed? (`python3 --version`)
-- [ ] Dependencies installed? (`pip3 list | grep requests`)
-- [ ] Config file exists? (`ls configs/yourconfig.json`)
-- [ ] Internet connection working? (`ping google.com`)
-- [ ] For MCP: Config uses absolute paths? (not `$REPO_PATH`)
-- [ ] For MCP: Claude Code restarted? (quit and reopen)
+- [ ] 当前在 Skill_Seekers 目录？（`pwd`）
+- [ ] 已安装 Python 3.10+？（`python3 --version`）
+- [ ] 依赖已安装？（`pip3 list | grep requests`）
+- [ ] 配置文件存在？（`ls configs/yourconfig.json`）
+- [ ] 网络连接正常？（`ping google.com`）
+- [ ] MCP：配置使用绝对路径？（不是 `$REPO_PATH`）
+- [ ] MCP：Claude Code 已重启？（完全退出后重开）
 
 ---
 
-**Still stuck?** Open an issue: https://github.com/yusufkaraaslan/Skill_Seekers/issues/new
+**仍然卡住？** 创建 Issue：https://github.com/yusufkaraaslan/Skill_Seekers/issues/new

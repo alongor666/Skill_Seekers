@@ -1,31 +1,31 @@
-# Testing MCP Server in Claude Code
+# 在 Claude Code 中测试 MCP 服务器（中文唯一版本）
 
-This guide shows you how to test the Skill Seeker MCP server **through actual Claude Code** using the MCP protocol (not just Python function calls).
+本文演示如何通过真实的 Claude Code（使用 MCP 协议，而不是 Python 函数调用）来测试 Skill Seeker 的 MCP 服务器。
 
-## Important: What We Tested vs What You Need to Test
+## 重要：我测试了什么 vs 你需要测试什么
 
-### What I Tested (Python Direct Calls) ✅
-I tested the MCP server **functions** by calling them directly with Python:
+### 我测试的内容（Python 直接调用） ✅
+我通过直接调用 Python 中的 MCP 服务器函数进行了单元验证：
 ```python
 await server.list_configs_tool({})
 await server.generate_config_tool({...})
 ```
 
-This verified the **code works**, but didn't test the **MCP protocol integration**.
+这确认了代码本身可工作，但没有验证 MCP 协议集成。
 
-### What You Need to Test (Actual MCP Protocol) 🎯
-You need to test via **Claude Code** using the MCP protocol:
+### 你需要测试的内容（真实 MCP 协议） 🎯
+需要通过 Claude Code 使用 MCP 协议进行测试：
 ```
-In Claude Code:
+在 Claude Code 中：
 > List all available configs
 > mcp__skill-seeker__list_configs
 ```
 
-This verifies the **full integration** works.
+这将验证完整集成流程是否正常。
 
 ## Setup Instructions
 
-### Step 1: Configure Claude Code
+### 第 1 步：配置 Claude Code
 
 Create the MCP configuration file:
 
@@ -37,7 +37,7 @@ mkdir -p ~/.config/claude-code
 nano ~/.config/claude-code/mcp.json
 ```
 
-Add this configuration (replace `/path/to/` with your actual path):
+填入如下内容（将 `/path/to/` 替换为你的实际路径）：
 
 ```json
 {
@@ -53,16 +53,16 @@ Add this configuration (replace `/path/to/` with your actual path):
 }
 ```
 
-Or use the setup script:
+或使用脚本：
 ```bash
 ./setup_mcp.sh
 ```
 
-### Step 2: Restart Claude Code
+### 第 2 步：重启 Claude Code
 
 **IMPORTANT:** Completely quit and restart Claude Code (don't just close the window).
 
-### Step 3: Verify MCP Server Loaded
+### 第 3 步：验证 MCP 服务器加载
 
 In Claude Code, check if the server loaded:
 
@@ -70,7 +70,7 @@ In Claude Code, check if the server loaded:
 Show me all available MCP tools
 ```
 
-You should see 6 tools with the prefix `mcp__skill-seeker__`:
+你应当看到以 `mcp__skill-seeker__` 为前缀的 6 个工具：
 - `mcp__skill-seeker__list_configs`
 - `mcp__skill-seeker__generate_config`
 - `mcp__skill-seeker__validate_config`
@@ -78,21 +78,21 @@ You should see 6 tools with the prefix `mcp__skill-seeker__`:
 - `mcp__skill-seeker__scrape_docs`
 - `mcp__skill-seeker__package_skill`
 
-## Testing All 6 MCP Tools
+## 测试全部 MCP 工具
 
-### Test 1: list_configs
+### 测试 1：list_configs
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 List all available Skill Seeker configs
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__list_configs
 ```
 
-**Expected Output:**
+期望输出：
 ```
 📋 Available Configs:
 
@@ -104,14 +104,14 @@ Use mcp__skill-seeker__list_configs
   ...
 ```
 
-### Test 2: generate_config
+### 测试 2：generate_config
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 Generate a config for Astro documentation at https://docs.astro.build with max 15 pages
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__generate_config with:
 - name: astro-test
@@ -120,24 +120,24 @@ Use mcp__skill-seeker__generate_config with:
 - max_pages: 15
 ```
 
-**Expected Output:**
+期望输出：
 ```
 ✅ Config created: configs/astro-test.json
 ```
 
-### Test 3: validate_config
+### 测试 3：validate_config
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 Validate the astro-test config
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__validate_config for configs/astro-test.json
 ```
 
-**Expected Output:**
+期望输出：
 ```
 ✅ Config is valid!
   Name: astro-test
@@ -145,63 +145,63 @@ Use mcp__skill-seeker__validate_config for configs/astro-test.json
   Max pages: 15
 ```
 
-### Test 4: estimate_pages
+### 测试 4：estimate_pages
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 Estimate pages for the astro-test config
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__estimate_pages for configs/astro-test.json
 ```
 
-**Expected Output:**
+期望输出：
 ```
 📊 ESTIMATION RESULTS
 Estimated Total: ~25 pages
 Recommended max_pages: 75
 ```
 
-### Test 5: scrape_docs
+### 测试 5：scrape_docs
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 Scrape docs using the astro-test config
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__scrape_docs with configs/astro-test.json
 ```
 
-**Expected Output:**
+期望输出：
 ```
 ✅ Skill built: output/astro-test/
 Scraped X pages
 Created Y categories
 ```
 
-### Test 6: package_skill
+### 测试 6：package_skill
 
-**In Claude Code, type:**
+在 Claude Code 中输入：
 ```
 Package the astro-test skill
 ```
 
-**Or explicitly:**
+或明确指定：
 ```
 Use mcp__skill-seeker__package_skill for output/astro-test/
 ```
 
-**Expected Output:**
+期望输出：
 ```
 ✅ Package created: output/astro-test.zip
 Size: X KB
 ```
 
-## Complete Workflow Test
+## 完整工作流测试
 
 Test the entire workflow in Claude Code with natural language:
 
@@ -225,17 +225,17 @@ Step 6:
 > Package skill at output/svelte/
 ```
 
-Expected result: `output/svelte.zip` ready to upload to Claude!
+期望结果：生成 `output/svelte.zip` 可直接上传。
 
-## Troubleshooting
+## 故障排除
 
-### Issue: Tools Not Appearing
+### 问题：工具未出现
 
-**Symptoms:**
+症状：
 - Claude Code doesn't recognize skill-seeker commands
 - No `mcp__skill-seeker__` tools listed
 
-**Solutions:**
+解决：
 
 1. Check configuration exists:
    ```bash
@@ -261,20 +261,20 @@ Expected result: `output/svelte.zip` ready to upload to Claude!
    - macOS: `~/Library/Logs/Claude Code/`
    - Linux: `~/.config/claude-code/logs/`
 
-### Issue: "Permission Denied"
+### 问题：权限不足
 
 ```bash
 chmod +x skill_seeker_mcp/server.py
 ```
 
-### Issue: "Module Not Found"
+### 问题：模块未找到
 
 ```bash
 pip3 install -r skill_seeker_mcp/requirements.txt
 pip3 install requests beautifulsoup4
 ```
 
-## Verification Checklist
+## 验证清单
 
 Use this checklist to verify MCP integration:
 
@@ -289,7 +289,7 @@ Use this checklist to verify MCP integration:
 - [ ] Can generate a test config
 - [ ] Can scrape and package a small skill
 
-## What Makes This Different from My Tests
+## 和我之前测试的不同点
 
 | What I Tested | What You Should Test |
 |---------------|---------------------|
@@ -299,7 +299,7 @@ Use this checklist to verify MCP integration:
 | Validates code works | Validates Claude Code integration |
 | Quick unit testing | Real-world usage testing |
 
-## Success Criteria
+## 成功标准
 
 ✅ **MCP Integration is Working When:**
 
@@ -309,7 +309,7 @@ Use this checklist to verify MCP integration:
 4. All through natural language commands in Claude Code
 5. No Python code needed - just conversation!
 
-## Next Steps After Successful Testing
+## 成功后下一步
 
 Once MCP integration works:
 
@@ -330,7 +330,7 @@ Once MCP integration works:
    - Share successful skills created
    - Suggest improvements
 
-## Reference
+## 参考
 
 - **Full Setup Guide:** [docs/MCP_SETUP.md](docs/MCP_SETUP.md)
 - **MCP Documentation:** [mcp/README.md](mcp/README.md)
@@ -339,7 +339,7 @@ Once MCP integration works:
 
 ---
 
-**Important:** This document is for testing the **actual MCP protocol integration** with Claude Code, not just the Python functions. Make sure you're testing through Claude Code's UI, not Python scripts!
+重要：本文用于测试真实的 MCP 协议集成，不是仅测试 Python 函数。请确保通过 Claude Code 的 UI 进行测试，而非 Python 脚本！
 # 在 Claude Code 中测试 MCP 服务器
 
 本文演示如何通过真实的 Claude Code（使用 MCP 协议，而不仅是 Python 函数调用）来测试 Skill Seeker 的 MCP 服务器。

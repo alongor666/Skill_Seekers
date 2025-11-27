@@ -1,57 +1,56 @@
-# MCP Integration Test Results
+# MCP 集成测试结果
 
-Test documentation for Skill Seeker MCP server with Claude Code.
-
----
-
-## Test Overview
-
-**Goal:** Verify MCP server works correctly with actual Claude Code instance
-
-**Date:** [To be filled when tested]
-
-**Tester:** [To be filled]
-
-**Environment:**
-- OS: [macOS / Linux / Windows WSL]
-- Python Version: [e.g., 3.11.5]
-- Claude Code Version: [e.g., 1.0.0]
-- MCP Package Version: [e.g., 0.9.0]
+面向 Skill Seeker MCP 服务器与 Claude Code 的测试文档。
 
 ---
 
-## Setup Checklist
+## 测试概览
 
-- [ ] Python 3.7+ installed
-- [ ] Claude Code installed and running
-- [ ] Repository cloned
-- [ ] MCP dependencies installed (`pip3 install -r mcp/requirements.txt`)
-- [ ] CLI dependencies installed (`pip3 install requests beautifulsoup4`)
-- [ ] MCP server configured in `~/.config/claude-code/mcp.json`
-- [ ] Claude Code restarted after configuration
+**目标：**验证 MCP 服务器在真实 Claude Code 环境下工作正常
+
+**日期：**[测试时填写]
+**测试者：**[测试者姓名]
+
+**环境：**
+- OS：[macOS / Linux / Windows WSL]
+- Python 版本：[如 3.11.5]
+- Claude Code 版本：[如 1.0.0]
+- MCP 包版本：[如 0.9.0]
 
 ---
 
-## Test Cases
+## 安装检查清单
 
-### Test 1: List Configs
+- [ ] 已安装 Python 3.7+
+- [ ] 已安装并运行 Claude Code
+- [ ] 已克隆仓库
+- [ ] 已安装 MCP 依赖（`pip3 install -r mcp/requirements.txt`）
+- [ ] 已安装 CLI 依赖（`pip3 install requests beautifulsoup4`）
+- [ ] 已在 `~/.config/claude-code/mcp.json` 配置 MCP 服务器
+- [ ] 配置后已重启 Claude Code
+
+---
+
+## 测试用例
+
+### 测试 1：列出配置
 
 **Command:**
 ```
 List all available configs
 ```
 
-**Expected Result:**
-- Shows 7 preset configurations
-- Lists: godot, react, vue, django, fastapi, kubernetes, steam-economy-complete
-- Each with description
+**期望结果：**
+- 显示 7 个预设配置
+- 列出：godot、react、vue、django、fastapi、kubernetes、steam-economy-complete
+- 每项含简要描述
 
 **Actual Result:**
 ```
 [To be filled]
 ```
 
-**Status:** [ ] Pass / [ ] Fail
+**状态：**[ ] 通过 / [ ] 失败
 
 **Notes:**
 ```
@@ -60,17 +59,17 @@ List all available configs
 
 ---
 
-### Test 2: Validate Config
+### 测试 2：校验配置
 
 **Command:**
 ```
 Validate configs/react.json
 ```
 
-**Expected Result:**
-- Shows "Config is valid"
-- Displays config details (base_url, max_pages, rate_limit, categories)
-- No errors or warnings
+**期望结果：**
+- 显示 “Config is valid”
+- 展示配置详情（base_url、max_pages、rate_limit、categories）
+- 无错误或警告
 
 **Actual Result:**
 ```
@@ -86,18 +85,18 @@ Validate configs/react.json
 
 ---
 
-### Test 3: Generate Config
+### 测试 3：生成配置
 
 **Command:**
 ```
 Generate config for Tailwind CSS at https://tailwindcss.com/docs
 ```
 
-**Expected Result:**
-- Creates `configs/tailwind.json`
-- File contains valid JSON
-- Has required fields: name, base_url, description
-- Has default values for optional fields
+**期望结果：**
+- 创建 `configs/tailwind.json`
+- 文件为有效 JSON
+- 包含必填字段：name、base_url、description
+- 可选字段有默认值
 
 **Actual Result:**
 ```
@@ -127,7 +126,7 @@ cat configs/tailwind.json
 
 ---
 
-### Test 4: Estimate Pages
+### 测试 4：估计页面数
 
 **Command:**
 ```
@@ -147,10 +146,10 @@ Estimate pages for configs/react.json with max discovery 100
 [To be filled]
 ```
 
-**Performance:**
-- Time taken: [X seconds]
-- Pages discovered: [X]
-- Estimated total: [X]
+**性能：**
+- 耗时：[X 秒]
+- 发现页面数：[X]
+- 估计总数：[X]
 
 **Status:** [ ] Pass / [ ] Fail
 
@@ -161,27 +160,27 @@ Estimate pages for configs/react.json with max discovery 100
 
 ---
 
-### Test 5: Scrape Docs (Small Test)
+### 测试 5：抓取文档（小规模）
 
 **Command:**
 ```
 Scrape docs using configs/kubernetes.json with max 10 pages
 ```
 
-**Expected Result:**
-- Creates `output/kubernetes_data/` directory
-- Creates `output/kubernetes/` skill directory
-- Generates `output/kubernetes/SKILL.md`
-- Creates reference files in `output/kubernetes/references/`
-- Completes in ~1-2 minutes (for 10 pages)
-- No errors during scraping
+**期望结果：**
+- 创建 `output/kubernetes_data/` 目录
+- 创建 `output/kubernetes/` 技能目录
+- 生成 `output/kubernetes/SKILL.md`
+- 在 `output/kubernetes/references/` 生成参考文件
+- 约 1-2 分钟内完成（10 页）
+- 抓取过程中无错误
 
 **Actual Result:**
 ```
 [To be filled]
 ```
 
-**Files Created:**
+**生成的文件：**
 ```bash
 # Check directories
 ls output/kubernetes_data/
@@ -195,10 +194,10 @@ wc -l output/kubernetes/SKILL.md
 ls output/kubernetes/references/ | wc -l
 ```
 
-**Performance:**
-- Time taken: [X minutes]
-- Pages scraped: [X]
-- Reference files created: [X]
+**性能：**
+- 耗时：[X 分钟]
+- 抓取页面：[X]
+- 参考文件数：[X]
 
 **Status:** [ ] Pass / [ ] Fail
 
@@ -209,26 +208,26 @@ ls output/kubernetes/references/ | wc -l
 
 ---
 
-### Test 6: Package Skill
+### 测试 6：打包技能
 
 **Command:**
 ```
 Package skill at output/kubernetes/
 ```
 
-**Expected Result:**
-- Creates `output/kubernetes.zip`
-- File is valid ZIP archive
-- Contains SKILL.md and references/
-- Size is reasonable (< 10 MB for 10 pages)
-- Completes in < 5 seconds
+**期望结果：**
+- 创建 `output/kubernetes.zip`
+- 文件为有效 ZIP
+- 包含 SKILL.md 与 references/
+- 文件大小合理（10 页 < 10 MB）
+- < 5 秒内完成
 
 **Actual Result:**
 ```
 [To be filled]
 ```
 
-**File Verification:**
+**文件验证：**
 ```bash
 # Check file exists
 ls -lh output/kubernetes.zip
@@ -240,9 +239,9 @@ unzip -l output/kubernetes.zip
 unzip -t output/kubernetes.zip
 ```
 
-**Performance:**
-- Time taken: [X seconds]
-- ZIP file size: [X MB]
+**性能：**
+- 耗时：[X 秒]
+- ZIP 大小：[X MB]
 
 **Status:** [ ] Pass / [ ] Fail
 
@@ -253,9 +252,9 @@ unzip -t output/kubernetes.zip
 
 ---
 
-## Additional Tests
+## 其他测试
 
-### Test 7: Error Handling - Invalid Config
+### 测试 7：错误处理 - 无效配置
 
 **Command:**
 ```
@@ -276,7 +275,7 @@ Validate configs/nonexistent.json
 
 ---
 
-### Test 8: Error Handling - Invalid URL
+### 测试 8：错误处理 - 无效 URL
 
 **Command:**
 ```
@@ -297,7 +296,7 @@ Generate config for Test at not-a-valid-url
 
 ---
 
-### Test 9: Concurrent Tool Calls
+### 测试 9：并发工具调用
 
 **Commands (rapid succession):**
 ```
@@ -320,7 +319,7 @@ Generate config for Test at not-a-valid-url
 
 ---
 
-### Test 10: Large Scrape Operation
+### 测试 10：大规模抓取
 
 **Command:**
 ```
@@ -349,7 +348,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Performance Metrics
+## 性能指标
 
 | Operation | Expected Time | Actual Time | Status |
 |-----------|--------------|-------------|--------|
@@ -363,7 +362,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Issues Found
+## 发现的问题
 
 ### Issue 1: [Title]
 
@@ -409,7 +408,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Configuration Used
+## 使用的配置
 
 ```json
 {
@@ -427,7 +426,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Summary
+## 总结
 
 **Total Tests:** 10
 **Tests Passed:** [X]
@@ -443,7 +442,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Observations
+## 观察与结论
 
 ### What Worked Well
 - [Observation 1]
@@ -462,7 +461,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Next Steps
+## 下一步
 
 - [ ] Address critical issues
 - [ ] Re-test failed cases
@@ -473,7 +472,7 @@ Scrape docs using configs/react.json with max 100 pages
 
 ---
 
-## Appendix: Test Commands Reference
+## 附录：测试命令参考
 
 ```bash
 # Quick test sequence
@@ -503,7 +502,7 @@ ls output/tailwind.zip
 
 ---
 
-## Test Environment Setup Script
+## 测试环境准备脚本
 
 ```bash
 #!/bin/bash
@@ -537,7 +536,7 @@ echo "Next: Configure Claude Code MCP settings and restart"
 
 ---
 
-## Cleanup Script
+## 清理脚本
 
 ```bash
 #!/bin/bash
@@ -559,9 +558,9 @@ echo "Cleanup complete!"
 
 ---
 
-**Testing Status:** [ ] Not Started / [ ] In Progress / [ ] Completed
+**测试状态：**[ ] 未开始 / [ ] 进行中 / [ ] 已完成
 
-**Sign-off:**
-- Tester: [Name]
-- Date: [YYYY-MM-DD]
-- Approved: [ ] Yes / [ ] No
+**签字：**
+- 测试者：[姓名]
+- 日期：[YYYY-MM-DD]
+- 批准：[ ] 是 / [ ] 否

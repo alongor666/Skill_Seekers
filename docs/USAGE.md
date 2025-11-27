@@ -1,22 +1,22 @@
-# Complete Usage Guide for Skill Seeker
+# Skill Seeker 完整使用指南（中文唯一版本）
 
-Comprehensive reference for all commands, options, and workflows.
+涵盖全部命令、选项与工作流的完整参考。
 
-## Table of Contents
+## 目录
 
-- [Quick Reference](#quick-reference)
-- [Main Tool: doc_scraper.py](#main-tool-doc_scraperpy)
-- [Estimator: estimate_pages.py](#estimator-estimate_pagespy)
-- [Enhancement Tools](#enhancement-tools)
-- [Packaging Tool](#packaging-tool)
-- [Testing Tools](#testing-tools)
-- [Available Configs](#available-configs)
-- [Common Workflows](#common-workflows)
-- [Troubleshooting](#troubleshooting)
+- 快速参考
+- 主工具：doc_scraper.py
+- 估算器：estimate_pages.py
+- 增强工具
+- 打包工具
+- 测试工具
+- 可用配置
+- 常见工作流
+- 故障排除
 
 ---
 
-## Quick Reference
+## 快速参考
 
 ```bash
 # 1. Estimate pages (fast, 1-2 min)
@@ -37,9 +37,9 @@ python3 cli/run_tests.py
 
 ---
 
-## Main Tool: doc_scraper.py
+## 主工具：doc_scraper.py
 
-### Full Help
+### 完整帮助
 
 ```
 usage: doc_scraper.py [-h] [--interactive] [--config CONFIG] [--name NAME]
@@ -66,9 +66,9 @@ options:
   --api-key API_KEY     Anthropic API key for --enhance (or set ANTHROPIC_API_KEY)
 ```
 
-### Usage Examples
+### 使用示例
 
-**1. Use Preset Config (Recommended)**
+1）使用预设配置（推荐）
 ```bash
 python3 cli/doc_scraper.py --config configs/godot.json
 python3 cli/doc_scraper.py --config configs/react.json
@@ -77,7 +77,7 @@ python3 cli/doc_scraper.py --config configs/django.json
 python3 cli/doc_scraper.py --config configs/fastapi.json
 ```
 
-**2. Interactive Mode**
+2）交互模式
 ```bash
 python3 cli/doc_scraper.py --interactive
 # Wizard walks you through:
@@ -90,7 +90,7 @@ python3 cli/doc_scraper.py --interactive
 # - Max pages
 ```
 
-**3. Quick Mode (Minimal)**
+3）快速模式（最小化配置）
 ```bash
 python3 cli/doc_scraper.py \
   --name react \
@@ -98,7 +98,7 @@ python3 cli/doc_scraper.py \
   --description "React framework for building UIs"
 ```
 
-**4. Dry-Run (Preview)**
+4）试运行（预览）
 ```bash
 python3 cli/doc_scraper.py --config configs/react.json --dry-run
 # Shows what will be scraped without downloading data
@@ -106,7 +106,7 @@ python3 cli/doc_scraper.py --config configs/react.json --dry-run
 # Fast validation
 ```
 
-**5. Skip Scraping (Use Cached Data)**
+5）跳过抓取（使用缓存数据）
 ```bash
 python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
 # Uses existing output/godot_data/
@@ -114,7 +114,7 @@ python3 cli/doc_scraper.py --config configs/godot.json --skip-scrape
 # Useful for testing changes
 ```
 
-**6. With Local Enhancement**
+6）本地增强
 ```bash
 python3 cli/doc_scraper.py --config configs/react.json --enhance-local
 # Scrapes + enhances in one command
@@ -122,7 +122,7 @@ python3 cli/doc_scraper.py --config configs/react.json --enhance-local
 # No API key needed
 ```
 
-**7. With API Enhancement**
+7）API 增强
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 python3 cli/doc_scraper.py --config configs/react.json --enhance
@@ -131,7 +131,7 @@ python3 cli/doc_scraper.py --config configs/react.json --enhance
 python3 cli/doc_scraper.py --config configs/react.json --enhance --api-key sk-ant-...
 ```
 
-### Output Structure
+### 输出结构
 
 ```
 output/
@@ -156,9 +156,9 @@ output/
 
 ---
 
-## Estimator: estimate_pages.py
+## 估算器：estimate_pages.py
 
-### Full Help
+### 完整帮助
 
 ```
 usage: estimate_pages.py [-h] [--max-discovery MAX_DISCOVERY]
@@ -178,7 +178,7 @@ options:
                         HTTP request timeout in seconds (default: 30)
 ```
 
-### Usage Examples
+### 使用示例
 
 **1. Quick Estimate (100 pages)**
 ```bash
@@ -207,7 +207,7 @@ python3 cli/estimate_pages.py configs/django.json --timeout 60
 # Useful for slow servers
 ```
 
-### Output Example
+### 输出示例
 
 ```
 🔍 Estimating pages for: react
@@ -242,7 +242,7 @@ Base URL: https://react.dev/
    (Based on rate_limit: 0.5s)
 ```
 
-**What It Shows:**
+包含内容：
 - Estimated total pages to scrape
 - Whether current `max_pages` is sufficient
 - Recommended `max_pages` value
@@ -251,9 +251,9 @@ Base URL: https://react.dev/
 
 ---
 
-## Enhancement Tools
+## 增强工具
 
-### enhance_skill_local.py (Recommended)
+### enhance_skill_local.py（推荐）
 
 **No API key needed - uses Claude Code Max plan**
 
@@ -273,7 +273,7 @@ python3 cli/enhance_skill_local.py output/godot/
 # Cost: Free (uses your Claude Code Max plan)
 ```
 
-### enhance_skill.py (Alternative)
+### enhance_skill.py（备选）
 
 **Requires Anthropic API key**
 
@@ -301,7 +301,7 @@ python3 cli/enhance_skill.py output/godot/ --api-key sk-ant-...
 
 ---
 
-## Packaging Tool
+## 打包工具
 
 ### package_skill.py
 
@@ -324,7 +324,7 @@ python3 cli/package_skill.py output/godot/
 
 ---
 
-## Testing Tools
+## 测试工具
 
 ### run_tests.py
 
@@ -354,7 +354,7 @@ python3 cli/run_tests.py --suite integration
 python3 cli/run_tests.py --list
 ```
 
-### Individual Tests
+### 单项测试
 
 ```bash
 # Run single test file
@@ -371,9 +371,9 @@ python3 -m unittest tests.test_config_validation.TestConfigValidation.test_valid
 
 ---
 
-## Available Configs
+## 可用配置
 
-### Preset Configs (Ready to Use)
+### 预设配置（即刻使用）
 
 | Config | Framework | Pages | Description |
 |--------|-----------|-------|-------------|
@@ -384,7 +384,7 @@ python3 -m unittest tests.test_config_validation.TestConfigValidation.test_valid
 | `fastapi.json` | FastAPI | ~200 | FastAPI Python framework |
 | `steam-economy-complete.json` | Steam | ~100 | Steam Economy API docs |
 
-### View Config Details
+### 查看配置详情
 
 ```bash
 # List all configs
@@ -395,7 +395,7 @@ cat configs/react.json
 python3 -m json.tool configs/godot.json
 ```
 
-### Config Structure
+### 配置结构
 
 ```json
 {
@@ -428,9 +428,9 @@ python3 -m json.tool configs/godot.json
 
 ---
 
-## Common Workflows
+## 常见工作流
 
-### Workflow 1: Use Preset (Fastest)
+### 工作流 1：使用预设（最快）
 
 ```bash
 # 1. Estimate (optional, 1-2 min)
@@ -446,7 +446,7 @@ python3 cli/package_skill.py output/react/
 # Upload to Claude!
 ```
 
-### Workflow 2: Custom Documentation
+### 工作流 2：自定义文档
 
 ```bash
 # 1. Create config
@@ -476,7 +476,7 @@ python3 cli/enhance_skill_local.py output/my-docs/
 python3 cli/package_skill.py output/my-docs/
 ```
 
-### Workflow 3: Interactive Mode
+### 工作流 3：交互模式
 
 ```bash
 # 1. Start interactive wizard
@@ -497,7 +497,7 @@ python3 cli/enhance_skill_local.py output/my-framework/
 python3 cli/package_skill.py output/my-framework/
 ```
 
-### Workflow 4: Quick Mode
+### 工作流 4：快速模式
 
 ```bash
 python3 cli/doc_scraper.py \
@@ -507,7 +507,7 @@ python3 cli/doc_scraper.py \
   --enhance-local
 ```
 
-### Workflow 5: Rebuild from Cache
+### 工作流 5：缓存重建
 
 ```bash
 # Already scraped once?
@@ -521,7 +521,7 @@ python3 cli/enhance_skill_local.py output/godot/
 python3 cli/package_skill.py output/godot/
 ```
 
-### Workflow 6: Testing New Config
+### 工作流 6：测试新配置
 
 ```bash
 # 1. Create test config with low max_pages
@@ -552,9 +552,9 @@ ls output/test-site/references/
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-### Issue: "Rate limit exceeded"
+### 问题：Rate limit exceeded（限速超出）
 
 ```bash
 # Increase rate_limit in config
@@ -568,7 +568,7 @@ ls output/test-site/references/
 }
 ```
 
-### Issue: "Too many pages"
+### 问题：Too many pages（页面过多）
 
 ```bash
 # Estimate first
@@ -583,7 +583,7 @@ python3 cli/estimate_pages.py configs/my-config.json
 }
 ```
 
-### Issue: "No content extracted"
+### 问题：No content extracted（无内容提取）
 
 ```bash
 # Wrong selectors
@@ -600,7 +600,7 @@ curl -s https://docs.example.com/ | grep -i 'article\|main\|content'
 # Update config with correct selector
 ```
 
-### Issue: "Tests failing"
+### 问题：Tests failing（测试失败）
 
 ```bash
 # Run specific failing test
@@ -610,7 +610,7 @@ python3 -m unittest tests.test_config_validation.TestConfigValidation.test_name 
 # Verify expectations match implementation
 ```
 
-### Issue: "Enhancement fails"
+### 问题：Enhancement fails（增强失败）
 
 ```bash
 # Local enhancement:
@@ -625,7 +625,7 @@ echo $ANTHROPIC_API_KEY
 python3 cli/enhance_skill.py output/react/ --api-key sk-ant-...
 ```
 
-### Issue: "Package fails"
+### 问题：Package fails（打包失败）
 
 ```bash
 # Verify SKILL.md exists
@@ -635,7 +635,7 @@ ls output/my-skill/SKILL.md
 python3 cli/doc_scraper.py --config configs/my-skill.json --skip-scrape
 ```
 
-### Issue: "Can't find output"
+### 问题：无法找到输出
 
 ```bash
 # Check output directory
@@ -653,9 +653,9 @@ ls output/{name}.zip
 
 ---
 
-## Advanced Usage
+## 高级用法
 
-### Custom Selectors
+### 自定义选择器
 
 ```json
 {
@@ -668,7 +668,7 @@ ls output/{name}.zip
 }
 ```
 
-### URL Pattern Filtering
+### URL 模式过滤
 
 ```json
 {
@@ -689,7 +689,7 @@ ls output/{name}.zip
 }
 ```
 
-### Custom Categories
+### 自定义分类
 
 ```json
 {
@@ -703,7 +703,7 @@ ls output/{name}.zip
 }
 ```
 
-### Multiple Start URLs
+### 多起始 URL
 
 ```json
 {
@@ -718,7 +718,7 @@ ls output/{name}.zip
 
 ---
 
-## Performance Tips
+## 性能提示
 
 1. **Estimate first**: Save 20-40 minutes by validating config
 2. **Use dry-run**: Test selectors before full scrape
@@ -731,7 +731,7 @@ ls output/{name}.zip
 
 ---
 
-## Environment Variables
+## 环境变量
 
 ```bash
 # Anthropic API key (for API enhancement)
@@ -743,7 +743,7 @@ export SKILL_SEEKER_OUTPUT_DIR=/path/to/output
 
 ---
 
-## Exit Codes
+## 退出码
 
 - `0`: Success
 - `1`: Error (general)
@@ -751,7 +751,7 @@ export SKILL_SEEKER_OUTPUT_DIR=/path/to/output
 
 ---
 
-## File Locations
+## 文件位置
 
 ```
 Skill_Seekers/
@@ -769,7 +769,7 @@ Skill_Seekers/
 
 ---
 
-## Getting Help
+## 获取帮助
 
 ```bash
 # Tool-specific help
@@ -789,7 +789,7 @@ cat README.md              # Project overview
 
 ---
 
-## Summary
+## 总结
 
 **Essential Commands:**
 ```bash

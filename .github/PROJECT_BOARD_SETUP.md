@@ -1,14 +1,14 @@
-# GitHub Project Board Setup for Skill Seekers
+# Skill Seekers 的 GitHub 项目看板配置
 
-## 🎯 Project Board Configuration
+## 🎯 看板配置
 
-### Project Name: **Skill Seekers Development Roadmap**
+### 项目名称：**Skill Seekers Development Roadmap**
 
-### Board Type: **Table** with custom fields
+### 看板类型：**Table**（含自定义字段）
 
 ---
 
-## 📊 Project Columns/Status
+## 📊 看板列/状态
 
 1. **📋 Backlog** - Ideas and future features
 2. **🎯 Ready** - Prioritized and ready to start
@@ -19,15 +19,15 @@
 
 ---
 
-## 🏷️ Labels to Create
+## 🏷️ 需要创建的标签
 
-### Priority Labels
+### 优先级标签
 - `priority: critical` - 🔴 Red - Must be fixed immediately
 - `priority: high` - 🟠 Orange - Important feature/fix
 - `priority: medium` - 🟡 Yellow - Normal priority
 - `priority: low` - 🟢 Green - Nice to have
 
-### Type Labels
+### 类型标签
 - `type: feature` - 🆕 New functionality
 - `type: bug` - 🐛 Something isn't working
 - `type: enhancement` - ✨ Improve existing feature
@@ -36,7 +36,7 @@
 - `type: performance` - ⚡ Performance improvements
 - `type: security` - 🔒 Security-related
 
-### Component Labels
+### 组件标签
 - `component: scraper` - Core scraping engine
 - `component: enhancement` - AI enhancement system
 - `component: mcp` - MCP server integration
@@ -45,7 +45,7 @@
 - `component: website` - Website/documentation
 - `component: tests` - Testing infrastructure
 
-### Status Labels
+### 状态标签
 - `status: blocked` - Blocked by dependency
 - `status: needs-discussion` - Needs team discussion
 - `status: help-wanted` - Looking for contributors
@@ -53,10 +53,10 @@
 
 ---
 
-## 🎯 Milestones
+## 🎯 里程碑
 
-### Milestone 1: **v1.1.0 - Website Launch** (Due: 2 weeks)
-**Goal:** Launch skillseekersweb.com with documentation
+### 里程碑 1：**v1.1.0 - Website Launch**（预计：2 周）
+**目标：**上线 skillseekersweb.com 并完成文档
 
 **Issues:**
 - Website landing page design
@@ -66,8 +66,8 @@
 - SEO optimization
 - Analytics integration
 
-### Milestone 2: **v1.2.0 - Core Improvements** (Due: 1 month)
-**Goal:** Address technical debt and user feedback
+### 里程碑 2：**v1.2.0 - Core Improvements**（预计：1 个月）
+**目标：**解决技术债与用户反馈
 
 **Issues:**
 - URL normalization/deduplication
@@ -76,8 +76,8 @@
 - Selector validation tool
 - Incremental update system
 
-### Milestone 3: **v2.0.0 - Advanced Features** (Due: 2 months)
-**Goal:** Major feature additions
+### 里程碑 3：**v2.0.0 - Advanced Features**（预计：2 个月）
+**目标：**增加重大特性
 
 **Issues:**
 - Parallel scraping with async
@@ -89,40 +89,40 @@
 
 ---
 
-## 📝 Issues to Create
+## 📝 需创建的 Issues
 
-### 🌐 Website Development (Milestone: v1.1.0)
+### 🌐 网站建设（里程碑：v1.1.0）
 
-#### Issue #1: Create skillseekersweb.com Landing Page
-**Labels:** `type: feature`, `priority: high`, `component: website`
-**Description:**
-Design and implement professional landing page with:
-- Hero section with demo
-- Feature highlights
-- GitHub stats integration
-- CTA buttons (GitHub, Docs)
-- Responsive design
+#### Issue #1：创建 skillseekersweb.com 落地页
+**标签：**`type: feature`, `priority: high`, `component: website`
+**描述：**
+设计并实现专业落地页，包含：
+- 带演示的首屏区域（Hero）
+- 亮点特性展示
+- GitHub 统计集成
+- CTA 按钮（GitHub、文档）
+- 响应式设计
 
-**Acceptance Criteria:**
-- [ ] Mobile responsive
-- [ ] Load time < 2s
-- [ ] SEO optimized
-- [ ] Analytics tracking
-- [ ] Contact form working
+**验收标准：**
+- [ ] 移动端适配
+- [ ] 加载时间 < 2s
+- [ ] SEO 优化
+- [ ] 分析追踪
+- [ ] 联系表单有效
 
 ---
 
-#### Issue #2: Migrate Documentation to Website
-**Labels:** `type: documentation`, `priority: high`, `component: website`
-**Description:**
-Convert existing markdown docs to website format:
-- Quick Start guide
-- Installation instructions
-- Configuration guide
-- MCP setup tutorial
-- API reference
+#### Issue #2：迁移文档至网站
+**标签：**`type: documentation`, `priority: high`, `component: website`
+**描述：**
+将现有 markdown 文档转换为网站格式：
+- 快速开始指南
+- 安装说明
+- 配置指南
+- MCP 安装教程
+- API 参考
 
-**Files to migrate:**
+**需迁移文件：**
 - README.md
 - QUICKSTART.md
 - docs/CLAUDE.md
@@ -132,37 +132,37 @@ Convert existing markdown docs to website format:
 
 ---
 
-#### Issue #3: Create Preset Showcase Gallery
+#### Issue #3：创建预设展示画廊
 **Labels:** `type: feature`, `priority: medium`, `component: website`
-**Description:**
-Interactive gallery showing all 8 preset configurations:
-- Visual cards for each preset
-- Download/copy config buttons
-- Live preview of generated skills
-- Search/filter functionality
+**描述：**
+交互式画廊展示全部 8 个预设配置：
+- 每个预设的可视化卡片
+- 配置下载/复制按钮
+- 生成技能的实时预览
+- 搜索/筛选功能
 
-**Presets to showcase:**
+**需展示的预设：**
 - Godot, React, Vue, Django, FastAPI, Tailwind, Kubernetes, Astro
 
 ---
 
-#### Issue #4: Set Up Blog with Release Notes
+#### Issue #4：搭建含发布说明的博客
 **Labels:** `type: feature`, `priority: medium`, `component: website`
-**Description:**
-Create blog section for:
-- Release announcements
-- Tutorial articles
-- Technical deep-dives
-- Use case studies
+**描述：**
+创建博客区用于：
+- 版本发布公告
+- 教程文章
+- 技术深度解析
+- 使用案例
 
-**Platform options:**
+**平台选项：**
 - Next.js + MDX
 - Ghost CMS
 - Hashnode integration
 
 ---
 
-#### Issue #5: SEO Optimization
+#### Issue #5：SEO 优化
 **Labels:** `type: enhancement`, `priority: medium`, `component: website`
 **Description:**
 - Meta tags optimization
@@ -174,80 +174,80 @@ Create blog section for:
 
 ---
 
-### 🔧 Core Improvements (Milestone: v1.2.0)
+### 🔧 核心改进（里程碑：v1.2.0）
 
-#### Issue #6: Implement URL Normalization
+#### Issue #6：实现 URL 规范化
 **Labels:** `type: enhancement`, `priority: high`, `component: scraper`
-**Description:**
-Prevent duplicate scraping of same page with different query params.
+**描述：**
+避免同一页面因不同查询参数被重复抓取。
 
-**Current Issue:**
+**现状问题：**
 - `/page?sort=asc` and `/page?sort=desc` treated as different pages
 - Wastes bandwidth and storage
 
-**Solution:**
+**解决方案：**
 - Strip query parameters (configurable)
 - Normalize fragments
 - Canonical URL detection
 
-**Code Location:** `cli/doc_scraper.py:49-64` (is_valid_url)
+**代码位置：**`cli/doc_scraper.py:49-64`（is_valid_url）
 
 ---
 
-#### Issue #7: Memory Optimization for Large Docs
+#### Issue #7：大型文档的内存优化
 **Labels:** `type: performance`, `priority: high`, `component: scraper`
-**Description:**
-Current implementation loads all pages in memory (4GB+ for 40K pages).
+**描述：**
+当前实现会将所有页面加载到内存（40K 页约 4GB+）。
 
-**Improvements needed:**
+**需要的改进：**
 - Streaming/chunking for 10K+ pages
 - Disk-based intermediate storage
 - Generator-based processing
 - Memory profiling
 
-**Code Location:** `cli/doc_scraper.py:228-251` (scrape_all)
+**代码位置：**`cli/doc_scraper.py:228-251`（scrape_all）
 
 ---
 
-#### Issue #8: Add HTML Parser Fallback
+#### Issue #8：增加 HTML 解析回退方案
 **Labels:** `type: enhancement`, `priority: medium`, `component: scraper`
-**Description:**
-Add lxml fallback for malformed HTML.
+**描述：**
+为不规范 HTML 增加 lxml 回退。
 
-**Current:** Uses built-in 'html.parser'
-**Proposed:** Try 'lxml' → 'html5lib' → 'html.parser'
+**当前：**使用内置 `html.parser`
+**建议：**尝试 `lxml` → `html5lib` → `html.parser`
 
-**Benefits:**
+**收益：**
 - Better handling of broken HTML
 - Faster parsing with lxml
 - More robust extraction
 
-**Code Location:** `cli/doc_scraper.py:66-133` (extract_content)
+**代码位置：**`cli/doc_scraper.py:66-133`（extract_content）
 
 ---
 
-#### Issue #9: Create Selector Validation Tool
+#### Issue #9：创建选择器验证工具
 **Labels:** `type: feature`, `priority: medium`, `component: cli`
-**Description:**
-Interactive CLI tool to test CSS selectors before full scrape.
+**描述：**
+在完整抓取前，用交互式 CLI 工具测试 CSS 选择器。
 
-**Features:**
+**功能：**
 - Input URL + selector
 - Preview extracted content
 - Suggest alternative selectors
 - Test code block detection
 - Validate before scraping
 
-**New file:** `cli/validate_selectors.py`
+**新文件：**`cli/validate_selectors.py`
 
 ---
 
-#### Issue #10: Implement Incremental Updates
+#### Issue #10：实现增量更新
 **Labels:** `type: feature`, `priority: low`, `component: scraper`
-**Description:**
-Only re-scrape changed pages.
+**描述：**
+仅重新抓取变更页面。
 
-**Features:**
+**功能：**
 - Track page modification times (Last-Modified header)
 - Store checksums/hashes
 - Compare on re-run
@@ -256,48 +256,48 @@ Only re-scrape changed pages.
 
 ---
 
-### 🆕 Advanced Features (Milestone: v2.0.0)
+### 🆕 高级特性（里程碑：v2.0.0）
 
-#### Issue #11: Parallel Scraping with Async
+#### Issue #11：异步并行抓取
 **Labels:** `type: performance`, `priority: medium`, `component: scraper`
-**Description:**
-Implement async requests for faster scraping.
+**描述：**
+通过异步请求提升抓取速度。
 
-**Current:** Sequential requests (slow)
-**Proposed:**
+**当前：**顺序请求（较慢）
+**建议：**
 - `asyncio` + `aiohttp`
 - Configurable concurrency (default: 5)
 - Respect rate limiting
 - Thread pool for CPU-bound work
 
-**Expected improvement:** 3-5x faster scraping
+**预期提升：**抓取速度提升 3-5 倍
 
 ---
 
-#### Issue #12: Image and Diagram Extraction
+#### Issue #12：图片与图示提取
 **Labels:** `type: feature`, `priority: low`, `component: scraper`
-**Description:**
-Extract images with alt-text and captions.
+**描述：**
+提取带 alt 文本与说明的图片。
 
-**Use cases:**
+**应用场景：**
 - Architecture diagrams
 - Flow charts
 - Screenshots
 - Code visual examples
 
-**Storage:**
+**存储：**
 - Download to `assets/images/`
 - Store alt-text and captions
 - Reference in SKILL.md
 
 ---
 
-#### Issue #13: Export to Multiple Formats
+#### Issue #13：多格式导出
 **Labels:** `type: feature`, `priority: low`, `component: cli`
-**Description:**
-Support export beyond Claude .zip format.
+**描述：**
+支持除 Claude .zip 之外的导出。
 
-**Formats:**
+**格式：**
 - Markdown (flat structure)
 - PDF (with styling)
 - EPUB (e-book format)
@@ -305,42 +305,42 @@ Support export beyond Claude .zip format.
 - MkDocs format
 - JSON API format
 
-**New file:** `cli/export_skill.py`
+**新文件：**`cli/export_skill.py`
 
 ---
 
-#### Issue #14: Interactive Config Builder
+#### Issue #14：交互式配置构建器
 **Labels:** `type: feature`, `priority: medium`, `component: cli`
-**Description:**
-Web-based or TUI config builder.
+**描述：**
+基于 Web 或终端 UI 的配置构建器。
 
-**Features:**
+**功能：**
 - Test URL selector in real-time
 - Preview categorization
 - Estimate page count live
 - Save/export config
 - Import from existing site structure
 
-**Options:**
+**方案选项：**
 - Terminal UI (textual library)
 - Web UI (Flask + React)
 - Electron app
 
 ---
 
-#### Issue #15: Cloud Deployment Option
+#### Issue #15：云端部署选项
 **Labels:** `type: feature`, `priority: low`, `component: deployment`
-**Description:**
-Deploy as cloud service.
+**描述：**
+以云服务形式部署。
 
-**Features:**
+**功能：**
 - Web interface for scraping
 - Job queue system
 - Scheduled re-scraping
 - Multi-user support
 - API endpoints
 
-**Tech stack:**
+**技术栈：**
 - Backend: FastAPI
 - Queue: Celery + Redis
 - Database: PostgreSQL
@@ -348,35 +348,35 @@ Deploy as cloud service.
 
 ---
 
-### 🐛 Bug Fixes
+### 🐛 缺陷修复
 
-#### Issue #16: Fix Package Path in Output
+#### Issue #16：修正输出中的打包路径
 **Labels:** `type: bug`, `priority: low`, `component: cli`
-**Description:**
-doc_scraper.py shows wrong path: `/mnt/skills/examples/skill-creator/scripts/cli/package_skill.py`
+**描述：**
+`doc_scraper.py` 展示了错误路径：`/mnt/skills/examples/skill-creator/scripts/cli/package_skill.py`
 
-**Expected:** `python3 cli/package_skill.py output/godot/`
+**期望：**`python3 cli/package_skill.py output/godot/`
 
-**Code Location:** `cli/doc_scraper.py:789` (end of main())
+**代码位置：**`cli/doc_scraper.py:789`（main() 末尾）
 
 ---
 
-#### Issue #17: Handle Network Timeouts Gracefully
+#### Issue #17：优雅处理网络超时
 **Labels:** `type: bug`, `priority: medium`, `component: scraper`
-**Description:**
-Improve error handling for network failures.
+**描述：**
+改进网络失败的错误处理。
 
-**Current behavior:** Crashes on timeout
-**Expected:** Retry with exponential backoff, skip after 3 attempts
+**当前：**超时直接崩溃
+**期望：**指数回退重试，3 次失败后跳过
 
 ---
 
-### 📚 Documentation
+### 📚 文档
 
-#### Issue #18: Create Video Tutorial Series
+#### Issue #18：制作视频教程系列
 **Labels:** `type: documentation`, `priority: medium`, `component: website`
-**Description:**
-YouTube tutorial series:
+**描述：**
+YouTube 教程系列：
 1. Quick Start (5 min)
 2. Custom Config Creation (10 min)
 3. MCP Integration Guide (8 min)
@@ -385,10 +385,10 @@ YouTube tutorial series:
 
 ---
 
-#### Issue #19: Write Contributing Guide
+#### Issue #19：编写贡献指南
 **Labels:** `type: documentation`, `priority: medium`, `component: documentation`
-**Description:**
-Create CONTRIBUTING.md with:
+**描述：**
+编写 `CONTRIBUTING.md`，包含：
 - Code style guidelines
 - Testing requirements
 - PR process
@@ -397,15 +397,15 @@ Create CONTRIBUTING.md with:
 
 ---
 
-### 🧪 Testing
+### 🧪 测试
 
-#### Issue #20: Increase Test Coverage to 90%+
+#### Issue #20：将测试覆盖率提升至 90%+
 **Labels:** `type: tests`, `priority: medium`, `component: tests`
-**Description:**
-Current: 96 tests
-Target: 150+ tests with 90% coverage
+**描述：**
+当前：96 个测试
+目标：150+ 个测试，90% 覆盖率
 
-**Areas needing coverage:**
+**需要覆盖的领域：**
 - Edge cases in language detection
 - Error handling paths
 - MCP server tools
@@ -414,9 +414,9 @@ Target: 150+ tests with 90% coverage
 
 ---
 
-## 🎯 Custom Fields for Project Board
+## 🎯 项目看板的自定义字段
 
-Add these custom fields to track more information:
+添加如下自定义字段以追踪更多信息：
 
 1. **Effort** (Single Select)
    - XS (< 2 hours)
@@ -444,9 +444,9 @@ Add these custom fields to track more information:
 
 ---
 
-## 📋 Quick Setup Steps
+## 📋 快速设置步骤
 
-### Option 1: Manual Setup (Web Interface)
+### 方案 1：手动设置（网页端）
 
 1. **Go to:** https://github.com/yusufkaraaslan/Skill_Seekers
 2. **Click:** "Projects" tab → "New project"
@@ -459,7 +459,7 @@ Add these custom fields to track more information:
 9. **Create issues** (copy descriptions above)
 10. **Add issues to project board**
 
-### Option 2: GitHub CLI (After Installation)
+### 方案 2：GitHub CLI（安装后）
 
 ```bash
 # Install GitHub CLI
@@ -496,26 +496,26 @@ gh issue create --title "Create skillseekersweb.com Landing Page" \
 
 ---
 
-## 🚀 Recommended Priority Order
+## 🚀 推荐优先顺序
 
-### Week 1: Website Foundation
+### 第 1 周：网站基础
 1. Issue #1: Landing page
 2. Issue #2: Documentation migration
 3. Issue #5: SEO optimization
 
-### Week 2: Core Improvements
+### 第 2 周：核心改进
 4. Issue #6: URL normalization
 5. Issue #7: Memory optimization
 6. Issue #9: Selector validation tool
 
-### Week 3-4: Polish & Growth
+### 第 3-4 周：打磨与扩展
 7. Issue #3: Preset showcase
 8. Issue #4: Blog setup
 9. Issue #18: Video tutorials
 
 ---
 
-## 📊 Success Metrics
+## 📊 成功指标
 
 Track these KPIs on your project board:
 
@@ -528,7 +528,7 @@ Track these KPIs on your project board:
 
 ---
 
-## 🤝 Community Engagement
+## 🤝 社区参与
 
 Add these as recurring tasks:
 
@@ -539,4 +539,4 @@ Add these as recurring tasks:
 
 ---
 
-This project board structure will help organize development, track progress, and coordinate with contributors!
+该项目看板结构可帮助你组织开发、追踪进度并与贡献者协作！

@@ -1,52 +1,52 @@
 ---
-name: Bug Report
-about: Report a bug or issue with Skill Seekers
+name: 缺陷报告
+about: 报告 Skill Seekers 的缺陷或问题
 title: '[BUG] '
 labels: 'type: bug'
 assignees: ''
 ---
 
-## 🐛 Bug Description
+## 🐛 缺陷描述
 
-A clear and concise description of what the bug is.
+清晰简洁地描述遇到的问题。
 
-## 🔄 Steps to Reproduce
+## 🔄 复现步骤
 
-1. Go to '...'
-2. Run command '...'
-3. See error
+1. 进入 '...'
+2. 运行命令 '...'
+3. 观察错误
 
-## ✅ Expected Behavior
+## ✅ 期望行为
 
-What you expected to happen.
+说明你期望的正确结果。
 
-## ❌ Actual Behavior
+## ❌ 实际行为
 
-What actually happened.
+说明实际发生的情况。
 
-## 📋 Environment
+## 📋 环境信息
 
-- **OS:** [e.g., macOS 14.0, Ubuntu 22.04, Windows 11]
-- **Python Version:** [e.g., 3.10, 3.11]
-- **Skill Seekers Version:** [e.g., v1.0.0]
-- **Installation Method:** [pip, git clone, etc.]
+- **操作系统：**（例如 macOS 14.0、Ubuntu 22.04、Windows 11）
+- **Python 版本：**（例如 3.10、3.11）
+- **Skill Seekers 版本：**（例如 v1.0.0）
+- **安装方式：**（pip、git clone 等）
 
-## 📊 Error Output
+## 📊 错误输出
 
 ```
-Paste the full error message or traceback here
+请粘贴完整错误信息或回溯
 ```
 
-## 📸 Screenshots
+## 📸 截图
 
-If applicable, add screenshots to help explain the problem.
+如适用，请添加截图帮助说明问题。
 
-## 🔍 Additional Context
+## 🔍 其他上下文
 
-- Config file used (if applicable)
-- Documentation URL being scraped
-- Any custom modifications made
+- 使用的配置文件（如适用）
+- 正在抓取的文档 URL
+- 任何自定义修改
 
-## 🎯 Possible Solution
+## 🎯 可能的解决方案
 
-If you have an idea of how to fix this, please share!
+如你已有修复思路，请一并分享！

@@ -1,54 +1,54 @@
-# How to Upload Skills to Claude
+# 如何将技能上传到 Claude（中文唯一版本）
 
-## Quick Answer
+## 快速答案
 
-**You have 3 options to upload the `.zip` file:**
+上传 `.zip` 文件有 3 种方式：
 
-### Option 1: Automatic Upload (Recommended for CLI)
+### 方案一：自动上传（CLI 推荐）
 
 ```bash
-# Set your API key (one-time setup)
+# 一次性设置 API Key
 export ANTHROPIC_API_KEY=sk-ant-...
 
-# Package and upload automatically
+# 打包并自动上传
 python3 cli/package_skill.py output/react/ --upload
 
-# OR upload existing .zip
+# 或上传现有 .zip
 python3 cli/upload_skill.py output/react.zip
 ```
 
 ✅ **Fully automatic** | No manual steps | Requires API key
 
-### Option 2: Manual Upload (No API Key)
+### 方案二：手动上传（无需 API Key）
 
 ```bash
-# Package the skill
+# 打包技能
 python3 cli/package_skill.py output/react/
 
-# This will:
-# 1. Create output/react.zip
-# 2. Open output/ folder automatically
-# 3. Show clear upload instructions
+# 该命令将：
+# 1. 生成 output/react.zip
+# 2. 自动打开 output/ 文件夹
+# 3. 显示清晰的上传指引
 
-# Then upload manually to https://claude.ai/skills
+# 然后手动访问 https://claude.ai/skills 上传
 ```
 
 ✅ **No API key needed** | Works for everyone | Simple
 
-### Option 3: Claude Code MCP (Easiest)
+### 方案三：Claude Code MCP（最省心）
 
 ```
-In Claude Code, just say:
+在 Claude Code 直接说：
 "Package and upload the React skill"
 
-# Automatically packages and uploads!
+# 自动打包并上传！
 ```
 
 ✅ **Natural language** | Fully automatic | Best UX
 
 ---
 
-## What's Inside the Zip?
+## Zip 包含什么？
 
 The `.zip` file contains:
 
@@ -63,12 +63,12 @@ steam-economy.zip
     └── ...               ← Other categorized docs
 ```
 
-**Note:** The zip only includes what Claude needs. It excludes:
-- `.backup` files
-- Build artifacts
-- Temporary files
+注意：Zip 仅包含 Claude 需要的内容，排除：
+- `.backup` 文件
+- 构建产物
+- 临时文件
 
-## What Does package_skill.py Do?
+## package_skill.py 做什么？
 
 The package script:
 
@@ -78,7 +78,7 @@ The package script:
 4. **Includes all files** except backups
 5. **Saves to** `output/` directory
 
-**Example:**
+示例：
 ```bash
 python3 cli/package_skill.py output/steam-economy/
 
@@ -95,9 +95,9 @@ python3 cli/package_skill.py output/steam-economy/
    Size: 14,290 bytes (14.0 KB)
 ```
 
-## Complete Workflow
+## 完整工作流
 
-### Step 1: Scrape & Build
+### 第一步：抓取与构建
 ```bash
 python3 cli/doc_scraper.py --config configs/steam-economy.json
 ```
@@ -106,7 +106,7 @@ python3 cli/doc_scraper.py --config configs/steam-economy.json
 - `output/steam-economy_data/` (raw scraped data)
 - `output/steam-economy/` (skill directory)
 
-### Step 2: Enhance (Recommended)
+### 第二步：增强（推荐）
 ```bash
 python3 cli/enhance_skill_local.py output/steam-economy/
 ```
@@ -120,7 +120,7 @@ python3 cli/enhance_skill_local.py output/steam-economy/
 - `output/steam-economy/SKILL.md` (enhanced)
 - `output/steam-economy/SKILL.md.backup` (original)
 
-### Step 3: Package
+### 第三步：打包
 ```bash
 python3 cli/package_skill.py output/steam-economy/
 ```
@@ -128,21 +128,21 @@ python3 cli/package_skill.py output/steam-economy/
 **Output:**
 - `output/steam-economy.zip` ← **THIS IS WHAT YOU UPLOAD**
 
-### Step 4: Upload to Claude
+### 第四步：上传至 Claude
 1. Go to Claude (claude.ai)
 2. Click "Add Skill" or skill upload button
 3. Select `output/steam-economy.zip`
 4. Done!
 
-## What Files Are Required?
+## 需要哪些文件？
 
-**Minimum required structure:**
+最小必需结构：
 ```
 your-skill/
 └── SKILL.md          ← Required! Claude reads this first
 ```
 
-**Recommended structure:**
+推荐结构：
 ```
 your-skill/
 ├── SKILL.md          ← Main skill file (required)
@@ -151,7 +151,7 @@ your-skill/
     └── *.md          ← Category files
 ```
 
-**Optional (can add manually):**
+可选（可手动添加）：
 ```
 your-skill/
 ├── SKILL.md
@@ -162,7 +162,7 @@ your-skill/
     └── *.txt
 ```
 
-## File Size Limits
+## 文件大小与限制
 
 The package script shows size after packaging:
 ```
@@ -170,21 +170,21 @@ The package script shows size after packaging:
    Size: 14,290 bytes (14.0 KB)
 ```
 
-**Typical sizes:**
+常见大小：
 - Small skill: 5-20 KB
 - Medium skill: 20-100 KB
 - Large skill: 100-500 KB
 
 Claude has generous size limits, so most documentation-based skills fit easily.
 
-## Quick Reference
+## 快速参考
 
-### Package a Skill
+### 打包单个技能
 ```bash
 python3 cli/package_skill.py output/steam-economy/
 ```
 
-### Package Multiple Skills
+### 批量打包技能
 ```bash
 # Package all skills in output/
 for dir in output/*/; do
@@ -194,12 +194,12 @@ for dir in output/*/; do
 done
 ```
 
-### Check What's in a Zip
+### 查看 Zip 内容
 ```bash
 unzip -l output/steam-economy.zip
 ```
 
-### Test a Packaged Skill Locally
+### 本地测试已打包技能
 ```bash
 # Extract to temp directory
 mkdir temp-test
@@ -207,9 +207,9 @@ unzip output/steam-economy.zip -d temp-test/
 cat temp-test/SKILL.md
 ```
 
-## Troubleshooting
+## 故障排除
 
-### "SKILL.md not found"
+### “SKILL.md not found”
 ```bash
 # Make sure you scraped and built first
 python3 cli/doc_scraper.py --config configs/steam-economy.json
@@ -218,7 +218,7 @@ python3 cli/doc_scraper.py --config configs/steam-economy.json
 python3 cli/package_skill.py output/steam-economy/
 ```
 
-### "Directory not found"
+### “Directory not found”
 ```bash
 # Check what skills are available
 ls output/
@@ -227,7 +227,7 @@ ls output/
 python3 cli/package_skill.py output/YOUR-SKILL-NAME/
 ```
 
-### Zip is Too Large
+### Zip 过大
 Most skills are small, but if yours is large:
 ```bash
 # Check size
@@ -241,7 +241,7 @@ Reference files are usually small. Large sizes often mean:
 - Many images (skills typically don't need images)
 - Large code examples (these are fine, just be aware)
 
-## What Does Claude Do With the Zip?
+## Claude 如何使用 Zip？
 
 When you upload a skill zip:
 
@@ -256,7 +256,7 @@ When you upload a skill zip:
    - Find specific APIs, examples, concepts
 4. **Activates automatically** - When you ask about topics matching the skill
 
-## Example: Using the Packaged Skill
+## 示例：使用已打包技能
 
 After uploading `steam-economy.zip`:
 
@@ -268,9 +268,9 @@ After uploading `steam-economy.zip`:
 - Searches references/microtransactions.md
 - Provides detailed answer with code examples
 
-## API-Based Automatic Upload
+## 基于 API 的自动上传
 
-### Setup (One-Time)
+### 配置（一次性）
 
 ```bash
 # Get your API key from https://console.anthropic.com/
@@ -280,7 +280,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 echo 'export ANTHROPIC_API_KEY=sk-ant-...' >> ~/.bashrc  # or ~/.zshrc
 ```
 
-### Usage
+### 使用
 
 ```bash
 # Upload existing .zip
@@ -290,7 +290,7 @@ python3 cli/upload_skill.py output/react.zip
 python3 cli/package_skill.py output/react/ --upload
 ```
 
-### How It Works
+### 工作原理
 
 The upload tool uses the Anthropic `/v1/skills` API endpoint to:
 1. Read your .zip file
@@ -298,7 +298,7 @@ The upload tool uses the Anthropic `/v1/skills` API endpoint to:
 3. Upload to Claude's skill storage
 4. Verify upload success
 
-### Troubleshooting
+### 故障排除
 
 **"ANTHROPIC_API_KEY not set"**
 ```bash
@@ -323,32 +323,32 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 ---
 
-## Summary
+## 总结
 
-**What you need to do:**
+你需要做的：
 
-### With API Key (Automatic):
+有 API Key（自动）：
 1. ✅ Scrape: `python3 cli/doc_scraper.py --config configs/YOUR-CONFIG.json`
 2. ✅ Enhance: `python3 cli/enhance_skill_local.py output/YOUR-SKILL/`
 3. ✅ Package & Upload: `python3 cli/package_skill.py output/YOUR-SKILL/ --upload`
 4. ✅ Done! Skill is live in Claude
 
-### Without API Key (Manual):
+无 API Key（手动）：
 1. ✅ Scrape: `python3 cli/doc_scraper.py --config configs/YOUR-CONFIG.json`
 2. ✅ Enhance: `python3 cli/enhance_skill_local.py output/YOUR-SKILL/`
 3. ✅ Package: `python3 cli/package_skill.py output/YOUR-SKILL/`
 4. ✅ Upload: Go to https://claude.ai/skills and upload the `.zip`
 
-**What you upload:**
+需要上传的文件：
 - The `.zip` file from `output/` directory
 - Example: `output/steam-economy.zip`
 
-**What's in the zip:**
+Zip 内含：
 - `SKILL.md` (required)
 - `references/*.md` (recommended)
 - Any scripts/assets you added (optional)
 
-That's it! 🚀
+就这些！🚀
 # 如何将技能上传到 Claude
 
 ## 快速答案

@@ -1,48 +1,48 @@
-# Pull Request
+# 拉取请求（Pull Request）
 
-## 📋 Description
+## 📋 描述
 
-Brief description of changes made.
+简要说明本次改动内容与目的。
 
-## 🔗 Related Issues
+## 🔗 关联问题
 
-Closes #(issue number)
-Relates to #(issue number)
+Closes #（问题编号）
+Relates to #（问题编号）
 
-## 🎯 Type of Change
+## 🎯 变更类型
 
-- [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
-- [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] 📚 Documentation update
-- [ ] ♻️ Code refactoring
-- [ ] ⚡ Performance improvement
-- [ ] 🧪 Test update
+- [ ] 🐛 缺陷修复（非破坏性修复问题）
+- [ ] ✨ 新功能（非破坏性新增能力）
+- [ ] 💥 破坏性变更（可能影响现有功能）
+- [ ] 📚 文档更新
+- [ ] ♻️ 代码重构
+- [ ] ⚡ 性能优化
+- [ ] 🧪 测试更新
 
-## ✅ Checklist
+## ✅ 检查清单
 
-- [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published
+- [ ] 代码遵循项目风格规范
+- [ ] 已进行自我审查
+- [ ] 关键/复杂逻辑已添加必要注释
+- [ ] 相关文档已更新
+- [ ] 变更未引入新的警告
+- [ ] 已添加覆盖修复/功能的测试用例
+- [ ] 本地测试全部通过
+- [ ] 依赖的变更已合并并发布
 
-## 🧪 Testing
+## 🧪 测试说明
 
-Describe the tests you ran to verify your changes.
+说明为验证本次改动所执行的测试。
 
-**Test Configuration:**
-- Python version:
-- OS:
-- Dependencies installed:
+**测试环境：**
+- Python 版本：
+- 操作系统：
+- 关键依赖：
 
-## 📸 Screenshots (if applicable)
+## 📸 截图（如适用）
 
-Add screenshots to demonstrate visual changes.
+请附上可视化改动的截图。
 
-## 📝 Additional Notes
+## 📝 其他说明
 
-Any additional information reviewers should know.
+补充审阅者需要了解的上下文信息。

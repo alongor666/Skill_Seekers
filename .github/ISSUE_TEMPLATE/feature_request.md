@@ -1,39 +1,39 @@
 ---
-name: Feature Request
-about: Suggest a new feature for Skill Seekers
+name: 功能需求
+about: 为 Skill Seekers 建议新的功能
 title: '[FEATURE] '
 labels: 'type: feature'
 assignees: ''
 ---
 
-## 🚀 Feature Description
+## 🚀 功能描述
 
-A clear and concise description of the feature you'd like to see.
+清晰简洁地描述你希望新增的功能。
 
-## 💡 Use Case
+## 💡 使用场景
 
-Describe the problem this feature would solve. What is the user trying to accomplish?
+说明该功能要解决的问题与用户要达成的目标。
 
-## 📋 Proposed Solution
+## 📋 建议方案
 
-Describe how you envision this feature working.
+描述你预期的功能工作方式。
 
-## 🔄 Alternatives Considered
+## 🔄 替代方案
 
-Have you considered any alternative solutions or workarounds?
+是否考虑过其他方案或变通办法？
 
-## 📊 Expected Impact
+## 📊 预期影响
 
-- **Priority:** Low / Medium / High / Critical
-- **Effort:** XS / S / M / L / XL
-- **Users Affected:** Describe who would benefit
+- **优先级：**Low / Medium / High / Critical
+- **工作量：**XS / S / M / L / XL
+- **受益用户：**哪些用户会受益
 
-## 📝 Additional Context
+## 📝 其他上下文
 
-Add any other context, screenshots, or examples about the feature request.
+请补充与该需求相关的上下文、截图或示例。
 
-## ✅ Acceptance Criteria
+## ✅ 验收标准
 
-- [ ] Criteria 1
-- [ ] Criteria 2
-- [ ] Criteria 3
+- [ ] 标准 1
+- [ ] 标准 2
+- [ ] 标准 3

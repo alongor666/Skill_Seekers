@@ -1,41 +1,41 @@
 ---
-name: Documentation Improvement
-about: Suggest improvements to documentation
+name: 文档改进
+about: 建议改进或补充文档
 title: '[DOCS] '
 labels: 'type: documentation'
 assignees: ''
 ---
 
-## 📚 Documentation Issue
+## 📚 文档问题
 
-What documentation needs to be improved, added, or fixed?
+需要改进、补充或修复的文档内容是什么？
 
-## 📍 Location
+## 📍 位置
 
-- **File:** [e.g., README.md, docs/CLAUDE.md]
-- **Section:** [e.g., Installation, Configuration]
-- **URL:** [if applicable]
+- **文件：**（例如 README.md、docs/CLAUDE.md）
+- **章节：**（例如 Installation、Configuration）
+- **URL：**（如适用）
 
-## ❌ Current State
+## ❌ 当前状态
 
-Describe what's currently unclear, missing, or incorrect.
+描述目前不清晰、缺失或错误的内容。
 
-## ✅ Proposed Improvement
+## ✅ 建议的改进
 
-How should the documentation be changed?
+你希望如何修改这部分文档？
 
-## 🎯 Target Audience
+## 🎯 目标受众
 
-Who would benefit from this documentation improvement?
-- [ ] New users
-- [ ] Advanced users
-- [ ] Contributors
-- [ ] API users
+哪些用户会从此改进中受益？
+- [ ] 新用户
+- [ ] 高级用户
+- [ ] 贡献者
+- [ ] API 使用者
 
-## 📝 Additional Context
+## 📝 其他上下文
 
-Any additional context or examples that would help.
+请补充有助于理解的上下文或示例。
 
-## 🔗 Related Issues
+## 🔗 关联问题
 
-Link to any related issues or PRs.
+请链接任何相关的 Issues 或 PR。

@@ -1,15 +1,15 @@
-# Complete MCP Setup Guide for Claude Code
+# Claude Code 的 MCP 完整设置指南
 
-Step-by-step guide to set up the Skill Seeker MCP server with Claude Code.
+逐步指导在 Claude Code 中设置 Skill Seeker 的 MCP 服务器。
 
-**✅ Fully Tested and Working**: All 9 MCP tools verified in production use with Claude Code
-- ✅ 34 comprehensive unit tests (100% pass rate)
-- ✅ Integration tested via actual Claude Code MCP protocol
-- ✅ All 9 tools working with natural language commands (includes upload support!)
+**✅ 已全面测试并可用**：9 个 MCP 工具在 Claude Code 生产场景下验证通过
+- ✅ 34 个单元测试（100% 通过）
+- ✅ 通过真实 Claude Code MCP 协议集成测试
+- ✅ 9 个工具均支持自然语言（包含上传）
 
 ---
 
-## Table of Contents
+## 目录
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)

@@ -1,41 +1,41 @@
-# Changelog
+# 变更日志
 
-All notable changes to Skill Seeker will be documented in this file.
+本文件记录 Skill Seeker 的所有重要变更。
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+格式参考 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
+并遵循 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 ## [Unreleased]
 
 ### Added
-- (No unreleased changes yet)
+- （暂无未发布变更）
 
 ---
 
 ## [2.0.0] - 2025-11-11
 
-### 🎉 Major Release: PyPI Publication + Modern Python Packaging
+### 🎉 重大版本：发布至 PyPI + 现代 Python 打包
 
-**Skill Seekers is now available on PyPI!** Install with: `pip install skill-seekers`
+**Skill Seekers 现已发布至 PyPI！** 安装：`pip install skill-seekers`
 
 This is a major milestone release featuring complete restructuring for modern Python packaging, comprehensive testing improvements, and publication to the Python Package Index.
 
-### 🚀 Major Changes
+### 🚀 主要变更
 
-#### PyPI Publication
+#### 发布至 PyPI
 - **Published to PyPI** - https://pypi.org/project/skill-seekers/
 - **Installation:** `pip install skill-seekers` or `uv tool install skill-seekers`
 - **No cloning required** - Install globally or in virtual environments
 - **Automatic dependency management** - All dependencies handled by pip/uv
 
-#### Modern Python Packaging
+#### 现代 Python 打包
 - **pyproject.toml-based configuration** - Standard PEP 621 metadata
 - **src/ layout structure** - Best practice package organization
 - **Entry point scripts** - `skill-seekers` command available globally
 - **Proper dependency groups** - Separate dev, test, and MCP dependencies
 - **Build backend** - setuptools-based build with uv support
 
-#### Unified CLI Interface
+#### 统一 CLI 接口
 - **Single `skill-seekers` command** - Git-style subcommands
 - **Subcommands:** `scrape`, `github`, `pdf`, `unified`, `enhance`, `package`, `upload`, `estimate`
 - **Consistent interface** - All tools accessible through one entry point
@@ -43,7 +43,7 @@ This is a major milestone release featuring complete restructuring for modern Py
 
 ### Added
 
-#### Testing Infrastructure
+#### 测试基础设施
 - **379 passing tests** (up from 299) - Comprehensive test coverage
 - **0 test failures** - All tests passing successfully
 - **Test suite improvements:**
@@ -53,7 +53,7 @@ This is a major milestone release featuring complete restructuring for modern Py
   - Fixed MCP server import tests
   - Added pytest configuration in pyproject.toml
 
-#### Documentation
+#### 文档
 - **Updated README.md** - PyPI badges, reordered installation options
 - **FUTURE_RELEASES.md** - Roadmap for upcoming features
 - **Installation guides** - Simplified with PyPI as primary method
@@ -61,7 +61,7 @@ This is a major milestone release featuring complete restructuring for modern Py
 
 ### Changed
 
-#### Package Structure
+#### 包结构
 - **Moved to src/ layout:**
   - `src/skill_seekers/` - Main package
   - `src/skill_seekers/cli/` - CLI tools
@@ -69,43 +69,43 @@ This is a major milestone release featuring complete restructuring for modern Py
 - **Import paths updated** - All imports use proper package structure
 - **Entry points configured** - All CLI tools available as commands
 
-#### Import Fixes
+#### 导入修复
 - **Fixed `merge_sources.py`** - Corrected conflict_detector import (`.conflict_detector`)
 - **Fixed MCP server tests** - Updated to use `skill_seekers.mcp.server` imports
 - **Fixed test paths** - All tests updated for src/ layout
 
 ### Fixed
 
-#### Critical Bugs
+#### 严重缺陷
 - **Import path errors** - Fixed relative imports in CLI modules
 - **MCP test isolation** - Added proper MCP availability checks
 - **Package installation** - Resolved entry point conflicts
 - **Dependency resolution** - All dependencies properly specified
 
-#### Test Improvements
+#### 测试改进
 - **17 test fixes** - Updated for modern package structure
 - **MCP test guards** - Proper skipif decorators for MCP tests
 - **CLI test updates** - Accept both exit codes 0 and 2 for help
 - **Path validation** - Tests verify correct package structure
 
-### Technical Details
+### 技术细节
 
-#### Build System
+#### 构建系统
 - **Build backend:** setuptools.build_meta
 - **Build command:** `uv build`
 - **Publish command:** `uv publish`
 - **Distribution formats:** wheel + source tarball
 
-#### Dependencies
+#### 依赖
 - **Core:** requests, beautifulsoup4, PyGithub, mcp, httpx
 - **PDF:** PyMuPDF, Pillow, pytesseract
 - **Dev:** pytest, pytest-cov, pytest-anyio, mypy
 - **MCP:** mcp package for Claude Code integration
 
-### Migration Guide
+### 迁移指南
 
-#### For Users
-**Old way:**
+#### 面向用户
+**旧方式：**
 ```bash
 git clone https://github.com/yusufkaraaslan/Skill_Seekers.git
 cd Skill_Seekers
@@ -113,28 +113,28 @@ pip install -r requirements.txt
 python3 cli/doc_scraper.py --config configs/react.json
 ```
 
-**New way:**
+**新方式：**
 ```bash
 pip install skill-seekers
 skill-seekers scrape --config configs/react.json
 ```
 
-#### For Developers
+#### 面向开发者
 - Update imports: `from cli.* → from skill_seekers.cli.*`
 - Use `pip install -e ".[dev]"` for development
 - Run tests: `python -m pytest`
 - Entry points instead of direct script execution
 
-### Breaking Changes
+### 破坏性变更
 - **CLI interface changed** - Use `skill-seekers` command instead of `python3 cli/...`
 - **Import paths changed** - Package now at `skill_seekers.*` instead of `cli.*`
 - **Installation method changed** - PyPI recommended over git clone
 
-### Deprecations
+### 弃用项
 - **Direct script execution** - Still works but deprecated (use `skill-seekers` command)
 - **Old import patterns** - Legacy imports still work but will be removed in v3.0
 
-### Compatibility
+### 兼容性
 - **Python 3.10+** required
 - **Backward compatible** - Old scripts still work with legacy CLI
 - **Config files** - No changes required

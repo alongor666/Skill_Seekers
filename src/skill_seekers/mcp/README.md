@@ -1,23 +1,23 @@
-# Skill Seeker MCP Server
+# Skill Seeker MCP 服务器
 
-Model Context Protocol (MCP) server for Skill Seeker - enables Claude Code to generate documentation skills directly.
+面向 Skill Seeker 的 Model Context Protocol（MCP）服务器——使 Claude Code 能直接生成文档技能。
 
-## What is This?
+## 这是什么？
 
-This MCP server allows Claude Code to use Skill Seeker's tools directly through natural language commands. Instead of running CLI commands manually, you can ask Claude Code to:
+该 MCP 服务器使 Claude Code 可通过自然语言直接调用 Skill Seeker 工具。无需手动运行 CLI 命令，你可以让 Claude Code：
 
-- Generate config files for any documentation site
-- Estimate page counts before scraping
-- Scrape documentation and build skills
-- Package skills into `.zip` files
-- List and validate configurations
-- Split large documentation (10K-40K+ pages) into focused sub-skills
-- Generate intelligent router/hub skills for split documentation
-- **NEW:** Scrape PDF documentation and extract code/images
+- 为任意文档站点生成配置文件
+- 在抓取前估计页面数量
+- 抓取文档并构建技能
+- 将技能打包为 `.zip` 文件
+- 列出并校验配置
+- 将大型文档（1 万-4 万+ 页）拆分为聚焦子技能
+- 为拆分文档生成智能路由/枢纽技能
+- **新增：**抓取 PDF 文档并提取代码/图片
 
-## Quick Start
+## 快速开始
 
-### 1. Install Dependencies
+### 1. 安装依赖
 
 ```bash
 # From repository root
@@ -25,20 +25,18 @@ pip3 install -r mcp/requirements.txt
 pip3 install requests beautifulsoup4
 ```
 
-### 2. Quick Setup (Automated)
+### 2. 快速设置（自动化）
 
 ```bash
-# Run the setup script
-./setup_mcp.sh
-
-# Follow the prompts - it will:
-# - Install dependencies
-# - Test the server
-# - Generate configuration
-# - Guide you through Claude Code setup
+# 运行安装脚本
+# 按提示操作，脚本将：
+# - 安装依赖
+# - 测试服务器
+# - 生成配置
+# - 引导完成 Claude Code 设置
 ```
 
-### 3. Manual Setup
+### 3. 手动设置
 
 Add to `~/.config/claude-code/mcp.json`:
 
@@ -56,27 +54,27 @@ Add to `~/.config/claude-code/mcp.json`:
 }
 ```
 
-**Replace `/path/to/Skill_Seekers`** with your actual repository path!
+**将 `/path/to/Skill_Seekers` 替换为你的实际仓库路径！**
 
-### 4. Restart Claude Code
+### 4. 重启 Claude Code
 
-Quit and reopen Claude Code (don't just close the window).
+完全退出并重新打开 Claude Code（不是仅关闭窗口）。
 
-### 5. Test
+### 5. 测试
 
 In Claude Code, type:
 ```
 List all available configs
 ```
 
-You should see a list of preset configurations (Godot, React, Vue, etc.).
+应能看到预设配置列表（Godot、React、Vue 等）。
 
-## Available Tools
+## 可用工具
 
-The MCP server exposes 10 tools:
+该 MCP 服务器提供 10 个工具：
 
 ### 1. `generate_config`
-Create a new configuration file for any documentation website.
+为任意文档网站创建新的配置文件。
 
 **Parameters:**
 - `name` (required): Skill name (e.g., "tailwind")
@@ -91,7 +89,7 @@ Generate config for Tailwind CSS at https://tailwindcss.com/docs
 ```
 
 ### 2. `estimate_pages`
-Estimate how many pages will be scraped from a config (fast, no data downloaded).
+快速估计配置将抓取的页面数（不下载数据）。
 
 **Parameters:**
 - `config_path` (required): Path to config file (e.g., "configs/react.json")
@@ -103,7 +101,7 @@ Estimate pages for configs/react.json
 ```
 
 ### 3. `scrape_docs`
-Scrape documentation and build Claude skill.
+抓取文档并构建 Claude 技能。
 
 **Parameters:**
 - `config_path` (required): Path to config file
@@ -117,7 +115,7 @@ Scrape docs using configs/react.json
 ```
 
 ### 4. `package_skill`
-Package a skill directory into a `.zip` file ready for Claude upload. Automatically uploads if ANTHROPIC_API_KEY is set.
+将技能目录打包为可上传到 Claude 的 `.zip`。若设置了 ANTHROPIC_API_KEY 将自动上传。
 
 **Parameters:**
 - `skill_dir` (required): Path to skill directory (e.g., "output/react/")
@@ -129,7 +127,7 @@ Package skill at output/react/
 ```
 
 ### 5. `upload_skill`
-Upload a skill .zip file to Claude automatically (requires ANTHROPIC_API_KEY).
+自动将技能 `.zip` 上传至 Claude（需要 ANTHROPIC_API_KEY）。
 
 **Parameters:**
 - `skill_zip` (required): Path to skill .zip file (e.g., "output/react.zip")
@@ -140,7 +138,7 @@ Upload output/react.zip using upload_skill
 ```
 
 ### 6. `list_configs`
-List all available preset configurations.
+列出所有可用的预设配置。
 
 **Parameters:** None
 
@@ -150,7 +148,7 @@ List all available configs
 ```
 
 ### 7. `validate_config`
-Validate a config file for errors.
+校验配置文件是否存在错误。
 
 **Parameters:**
 - `config_path` (required): Path to config file
@@ -161,7 +159,7 @@ Validate configs/godot.json
 ```
 
 ### 8. `split_config`
-Split large documentation config into multiple focused skills. For 10K+ page documentation.
+将大型文档配置拆分为多个聚焦技能。适用于 1 万+ 页文档。
 
 **Parameters:**
 - `config_path` (required): Path to config JSON file (e.g., "configs/godot.json")
@@ -181,7 +179,7 @@ Split configs/godot.json using router strategy with 5000 pages per skill
 - **size** - Split every N pages (for docs without clear categories)
 
 ### 9. `generate_router`
-Generate router/hub skill for split documentation. Creates intelligent routing to sub-skills.
+为拆分文档生成路由/枢纽技能，实现到子技能的智能路由。
 
 **Parameters:**
 - `config_pattern` (required): Config pattern for sub-skills (e.g., "configs/godot-*.json")
@@ -199,7 +197,7 @@ Generate router for configs/godot-*.json
 - Users can ask questions naturally, router directs to appropriate sub-skill
 
 ### 10. `scrape_pdf`
-Scrape PDF documentation and build Claude skill. Extracts text, code blocks, images, and tables from PDF files with advanced features.
+抓取 PDF 文档并构建 Claude 技能。支持从 PDF 提取文本、代码块、图片与表格等高级能力。
 
 **Parameters:**
 - `config_path` (optional): Path to PDF config JSON file (e.g., "configs/manual_pdf.json")
@@ -224,7 +222,7 @@ Extract tables: --pdf docs/data.pdf --extract-tables
 Fast parallel processing: --pdf docs/large.pdf --parallel --workers 8
 ```
 
-**What it does:**
+**能力概述：**
 - Extracts text and markdown from PDF pages
 - Detects code blocks using 3 methods (font, indent, pattern)
 - Detects programming language with confidence scoring (19+ languages)
@@ -239,15 +237,15 @@ Fast parallel processing: --pdf docs/large.pdf --parallel --workers 8
 - Categorizes content automatically
 - Generates complete skill structure (SKILL.md + references)
 
-**Performance:**
+**性能：**
 - Sequential: ~30-60 seconds per 100 pages
 - Parallel (8 workers): ~10-20 seconds per 100 pages (3x faster)
 
-**See:** `docs/PDF_SCRAPER.md` for complete PDF documentation guide
+**参考：**完整 PDF 指南见 `docs/PDF_SCRAPER.md`
 
-## Example Workflows
+## 示例工作流
 
-### Generate a New Skill from Scratch
+### 从零生成新技能
 
 ```
 User: Generate config for Svelte at https://svelte.dev/docs
@@ -268,7 +266,7 @@ Claude: ✅ Created: output/svelte.zip
       Ready to upload to Claude!
 ```
 
-### Use Existing Preset
+### 使用现有预设
 
 ```
 User: List all available configs
@@ -284,7 +282,7 @@ User: Package skill at output/react/
 Claude: ✅ Created: output/react.zip
 ```
 
-### Validate Before Scraping
+### 抓取前先校验
 
 ```
 User: Validate configs/godot.json
@@ -300,7 +298,7 @@ User: Scrape docs using configs/godot.json
 Claude: [Starts scraping...]
 ```
 
-### PDF Documentation - NEW
+### PDF 文档 - 新增
 
 ```
 User: Scrape PDF at docs/api-manual.pdf and create skill named api-docs
@@ -318,7 +316,7 @@ Claude: ✅ Created: output/api-docs.zip
         Ready to upload to Claude!
 ```
 
-### Large Documentation (40K Pages)
+### 大型文档（40K 页）
 
 ```
 User: Estimate pages for configs/godot.json
@@ -366,9 +364,9 @@ Claude: ✅ 6 skills packaged:
         Users just ask questions naturally - router handles routing!
 ```
 
-## Architecture
+## 架构
 
-### Server Structure
+### 服务器结构
 
 ```
 mcp/
@@ -377,7 +375,7 @@ mcp/
 └── README.md          # This file
 ```
 
-### How It Works
+### 工作原理
 
 1. **Claude Code** sends MCP requests to the server
 2. **Server** routes requests to appropriate tool functions
@@ -385,7 +383,7 @@ mcp/
 4. **CLI scripts** perform actual work (scraping, packaging, etc.)
 5. **Results** returned to Claude Code via MCP protocol
 
-### Tool Implementation
+### 工具实现
 
 Each tool is implemented as an async function:
 
@@ -407,9 +405,9 @@ result = subprocess.run([
 ], capture_output=True, text=True)
 ```
 
-## Testing
+## 测试
 
-The MCP server has comprehensive test coverage:
+该 MCP 服务器具备完善的测试覆盖：
 
 ```bash
 # Run MCP server tests (25 tests)
@@ -418,7 +416,7 @@ python3 -m pytest tests/test_mcp_server.py -v
 # Expected output: 25 passed in ~0.3s
 ```
 
-### Test Coverage
+### 测试覆盖
 
 - **Server initialization** (2 tests)
 - **Tool listing** (2 tests)
@@ -436,15 +434,15 @@ python3 -m pytest tests/test_mcp_server.py -v
 
 **Total: 34 tests | Pass rate: 100%**
 
-## Troubleshooting
+## 故障排查
 
-### MCP Server Not Loading
+### MCP 服务器未加载
 
-**Symptoms:**
+**现象：**
 - Tools don't appear in Claude Code
 - No response to skill-seeker commands
 
-**Solutions:**
+**解决：**
 
 1. Check configuration:
    ```bash
@@ -468,15 +466,15 @@ python3 -m pytest tests/test_mcp_server.py -v
    - macOS: `~/Library/Logs/Claude Code/`
    - Linux: `~/.config/claude-code/logs/`
 
-### "ModuleNotFoundError: No module named 'mcp'"
+### “ModuleNotFoundError: No module named 'mcp'”
 
 ```bash
 pip3 install -r mcp/requirements.txt
 ```
 
-### Tools Appear But Don't Work
+### 工具显示但不可用
 
-**Solutions:**
+**解决：**
 
 1. Verify `cwd` in config points to repository root
 2. Check CLI tools exist:
@@ -491,15 +489,15 @@ pip3 install -r mcp/requirements.txt
    python3 cli/doc_scraper.py --help
    ```
 
-### Slow Operations
+### 操作缓慢
 
 1. Check rate limit in configs (increase if needed)
 2. Use smaller `max_pages` for testing
 3. Use `skip_scrape` to avoid re-downloading data
 
-## Advanced Configuration
+## 高级配置
 
-### Using Virtual Environment
+### 使用虚拟环境
 
 ```bash
 # Create venv
@@ -510,7 +508,7 @@ pip install requests beautifulsoup4
 which python3  # Copy this path
 ```
 
-Configure Claude Code to use venv Python:
+配置 Claude Code 使用 venv 的 Python：
 
 ```json
 {
@@ -524,9 +522,9 @@ Configure Claude Code to use venv Python:
 }
 ```
 
-### Debug Mode
+### 调试模式
 
-Enable verbose logging:
+启用详细日志：
 
 ```json
 {
@@ -543,9 +541,9 @@ Enable verbose logging:
 }
 ```
 
-### With API Enhancement
+### 配合 API 增强
 
-For API-based enhancement (requires Anthropic API key):
+若使用基于 API 的增强（需要 Anthropic API Key）：
 
 ```json
 {
@@ -562,7 +560,7 @@ For API-based enhancement (requires Anthropic API key):
 }
 ```
 
-## Performance
+## 性能
 
 | Operation | Time | Notes |
 |-----------|------|-------|
@@ -579,18 +577,18 @@ For API-based enhancement (requires Anthropic API key):
 | Package skill | 5-10s | Creates .zip |
 | Package multi | 30-60s | Packages 5-10 skills |
 
-## Documentation
+## 文档
 
 - **Full Setup Guide**: [docs/MCP_SETUP.md](../docs/MCP_SETUP.md)
 - **Main README**: [README.md](../README.md)
 - **Usage Guide**: [docs/USAGE.md](../docs/USAGE.md)
 - **Testing Guide**: [docs/TESTING.md](../docs/TESTING.md)
 
-## Support
+## 支持
 
 - **Issues**: [GitHub Issues](https://github.com/yusufkaraaslan/Skill_Seekers/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/yusufkaraaslan/Skill_Seekers/discussions)
 
-## License
+## 许可证
 
 MIT License - See [LICENSE](../LICENSE) for details

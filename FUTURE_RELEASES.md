@@ -1,288 +1,288 @@
-# Future Releases Roadmap
+# 未来发布路线图
 
-This document outlines planned features, improvements, and the vision for upcoming releases of Skill Seekers.
+本文档概述了 Skill Seekers 未来版本的规划功能、改进和愿景。
 
-## Release Philosophy
+## 发布理念
 
-We follow semantic versioning (MAJOR.MINOR.PATCH) and maintain backward compatibility wherever possible. Each release focuses on delivering value to users while maintaining code quality and test coverage.
+我们遵循语义化版本控制（主版本号.次版本号.修订号），并在可行的情况下保持向后兼容。每次发布都以实现用户价值为核心，同时确保代码质量和测试覆盖率。
 
 ---
 
-## Next Release: v2.1.0 (Estimated: December 2025)
+## 下一个版本：v2.1.0（预计：2025 年 12 月）
 
-**Focus:** Test Coverage & Quality Improvements
+**重点：** 测试覆盖率和质量改进
 
-### Planned Features
+### 计划功能
 
-#### Testing & Quality
-- [ ] **Fix 12 unified scraping tests** - Complete test coverage for unified multi-source scraping
-  - ConfigValidator expecting dict instead of file path
-  - ConflictDetector expecting dict pages, not list
-  - Full integration test suite for unified workflow
+#### 测试与质量
+- [ ] **修复 12 个统一抓取测试** - 完成统一多源抓取测试的全面覆盖
+  - ConfigValidator 期望接收字典而非文件路径
+  - ConflictDetector 期望接收字典页面而非列表
+  - 为统一工作流提供完整的集成测试套件
 
-- [ ] **Improve test coverage to 60%+** (currently 39%)
-  - Write tests for 0% coverage files:
-    - `generate_router.py` (110 lines) - Router skill generator
-    - `split_config.py` (165 lines) - Config splitter
-    - `unified_scraper.py` (208 lines) - Unified scraping CLI
-    - `package_multi.py` (37 lines) - Multi-package tool
-  - Improve coverage for low-coverage files:
+- [ ] **将测试覆盖率提高到 60% 以上**（目前为 39%）
+  - 为覆盖率为 0% 的文件编写测试：
+    - `generate_router.py` (110 行) - 路由技能生成器
+    - `split_config.py` (165 行) - 配置拆分器
+    - `unified_scraper.py` (208 行) - 统一抓取命令行界面
+    - `package_multi.py` (37 行) - 多包工具
+  - 提高低覆盖率文件的覆盖率：
     - `mcp/server.py` (9% → 60%)
     - `enhance_skill.py` (11% → 60%)
     - `code_analyzer.py` (19% → 60%)
 
-- [ ] **Fix MCP test skipping issue** - 29 MCP tests pass individually but skip in full suite
-  - Resolve pytest isolation issue
-  - Ensure all tests run in CI/CD
+- [ ] **修复 MCP 测试跳过问题** - 29 个 MCP 测试单独通过，但在完整测试套件中被跳过
+  - 解决 pytest 隔离问题
+  - 确保所有测试在 CI/CD 中运行
 
-#### Features
-- [ ] **Task H1.3: Create example project folder**
-  - Real-world example projects using Skill Seekers
-  - Step-by-step tutorials
-  - Before/after comparisons
+#### 功能
+- [ ] **任务 H1.3：创建示例项目文件夹**
+  - 使用 Skill Seekers 的真实世界示例项目
+  - 分步教程
+  - 前后对比
 
-- [ ] **Task J1.1: Install MCP package for testing**
-  - Better MCP integration testing
-  - Automated MCP server tests in CI
+- [ ] **任务 J1.1：安装 MCP 包以进行测试**
+  - 更好的 MCP 集成测试
+  - 在 CI 中实现自动化的 MCP 服务器测试
 
-- [ ] **Enhanced error handling**
-  - Better error messages for common issues
-  - Graceful degradation for missing dependencies
-  - Recovery from partial failures
+- [ ] **增强的错误处理**
+  - 为常见问题提供更好的错误消息
+  - 对缺失的依赖项进行优雅降级
+  - 从部分失败中恢复
 
-### Documentation
-- [ ] Video tutorials for common workflows
-- [ ] Troubleshooting guide expansion
-- [ ] Performance optimization guide
+### 文档
+- [ ] 常见工作流的视频教程
+- [ ] 故障排除指南扩展
+- [ ] 性能优化指南
 
 ---
 
-## Release: v2.2.0 (Estimated: Q1 2026)
+## 发布版本：v2.2.0（预计：2026 年第一季度）
 
-**Focus:** Web Presence & Community Growth
+**重点：** 网站建设与社区发展
 
-### Planned Features
+### 计划功能
 
-#### Community & Documentation
-- [ ] **Task A3.1: GitHub Pages website** (skillseekersweb.com)
-  - Interactive documentation
-  - Live demos and examples
-  - Getting started wizard
-  - Community showcase
+#### 社区与文档
+- [ ] **任务 A3.1：GitHub Pages 网站** (skillseekersweb.com)
+  - 交互式文档
+  - 实时演示和示例
+  - 入门向导
+  - 社区展示
 
-- [ ] **Plugin system foundation**
-  - Allow custom scrapers via plugins
-  - Plugin discovery and installation
-  - Plugin documentation generator
+- [ ] **插件系统基础**
+  - 允许通过插件自定义抓取器
+  - 插件发现和安装
+  - 插件文档生成器
 
-#### Enhancements
-- [ ] **Support for additional documentation formats**
-  - Sphinx documentation
-  - Docusaurus sites
+#### 增强功能
+- [ ] **支持其他文档格式**
+  - Sphinx 文档
+  - Docusaurus 网站
   - GitBook
   - Read the Docs
   - MkDocs Material
 
-- [ ] **Improved caching strategies**
-  - Intelligent cache invalidation
-  - Differential scraping (only changed pages)
-  - Cache compression
-  - Cross-session cache sharing
+- [ ] **改进的缓存策略**
+  - 智能缓存失效
+  - 差异化抓取（仅抓取已更改的页面）
+  - 缓存压缩
+  - 跨会话缓存共享
 
-#### Performance
-- [ ] **Scraping performance improvements**
-  - Connection pooling optimizations
-  - Smart rate limiting based on server response
-  - Adaptive concurrency
-  - Memory usage optimization for large docs
+#### 性能
+- [ ] **抓取性能改进**
+  - 连接池优化
+  - 基于服务器响应的智能速率限制
+  - 自适应并发
+  - 针对大型文档的内存使用优化
 
 ---
 
-## Release: v2.3.0 (Estimated: Q2 2026)
+## 发布版本：v2.3.0（预计：2026 年第二季度）
 
-**Focus:** Developer Experience & Integrations
+**重点：** 开发者体验与集成
 
-### Planned Features
+### 计划功能
 
-#### Developer Tools
-- [ ] **Web UI for config generation**
-  - Visual config builder
-  - Real-time preview
-  - Template library
-  - Export/import configs
+#### 开发者工具
+- [ ] **用于配置生成的 Web UI**
+  - 可视化配置构建器
+  - 实时预览
+  - 模板库
+  - 导入/导出配置
 
-- [ ] **CI/CD integration examples**
-  - GitHub Actions workflows
+- [ ] **CI/CD 集成示例**
+  - GitHub Actions 工作流
   - GitLab CI
-  - Jenkins pipelines
-  - Automated skill updates on doc changes
+  - Jenkins 流水线
+  - 文档变更时自动更新技能
 
-- [ ] **Docker containerization**
-  - Official Docker images
-  - docker-compose examples
-  - Kubernetes deployment guides
+- [ ] **Docker 容器化**
+  - 官方 Docker 镜像
+  - docker-compose 示例
+  - Kubernetes 部署指南
 
-#### API & Integrations
-- [ ] **GraphQL API support**
-  - Scrape GraphQL documentation
-  - Extract schema and queries
-  - Generate interactive examples
+#### API 与集成
+- [ ] **GraphQL API 支持**
+  - 抓取 GraphQL 文档
+  - 提取模式和查询
+  - 生成交互式示例
 
-- [ ] **REST API documentation formats**
+- [ ] **REST API 文档格式**
   - OpenAPI/Swagger
-  - Postman collections
+  - Postman 集合
   - API Blueprint
 
 ---
 
-## Long-term Vision (v3.0+)
+## 长期愿景 (v3.0+)
 
-### Major Features Under Consideration
+### 正在考虑的主要功能
 
-#### Advanced Scraping
-- [ ] **Real-time documentation monitoring**
-  - Watch for documentation changes
-  - Automatic skill updates
-  - Change notifications
-  - Version diff reports
+#### 高级抓取
+- [ ] **实时文档监控**
+  - 监控文档变更
+  - 自动更新技能
+  - 变更通知
+  - 版本差异报告
 
-- [ ] **Multi-language documentation**
-  - Automatic language detection
-  - Combined multi-language skills
-  - Translation quality checking
+- [ ] **多语言文档**
+  - 自动语言检测
+  - 合并多语言技能
+  - 翻译质量检查
 
-#### Collaboration
-- [ ] **Collaborative skill curation**
-  - Shared skill repositories
-  - Community ratings and reviews
-  - Collaborative editing
-  - Fork and merge workflows
+#### 协作
+- [ ] **协作式技能策划**
+  - 共享技能库
+  - 社区评分和评论
+  - 协作编辑
+  - 分支和合并工作流
 
-- [ ] **Skill marketplace**
-  - Discover community-created skills
-  - Share your skills
-  - Quality ratings
-  - Usage statistics
+- [ ] **技能市场**
+  - 发现社区创建的技能
+  - 分享你的技能
+  - 质量评级
+  - 使用统计
 
-#### AI & Intelligence
-- [ ] **Enhanced AI analysis**
-  - Better conflict detection algorithms
-  - Automatic documentation quality scoring
-  - Suggested improvements
-  - Code example validation
+#### 人工智能与智能化
+- [ ] **增强的 AI 分析**
+  - 更好的冲突检测算法
+  - 自动文档质量评分
+  - 建议改进
+  - 代码示例验证
 
-- [ ] **Semantic understanding**
-  - Natural language queries for skill content
-  - Intelligent categorization
-  - Auto-generated summaries
-  - Concept relationship mapping
-
----
-
-## Backlog Ideas
-
-### Features Requested by Community
-- [ ] Support for video tutorial transcription
-- [ ] Integration with Notion, Confluence, and other wikis
-- [ ] Jupyter notebook scraping and conversion
-- [ ] Live documentation preview during scraping
-- [ ] Skill versioning and update management
-- [ ] A/B testing for skill quality
-- [ ] Analytics dashboard (scraping stats, error rates, etc.)
-
-### Technical Improvements
-- [ ] Migration to modern async framework (httpx everywhere)
-- [ ] Improved type safety (full mypy strict mode)
-- [ ] Better logging and debugging tools
-- [ ] Performance profiling dashboard
-- [ ] Memory optimization for very large docs (100K+ pages)
-
-### Ecosystem
-- [ ] VS Code extension
-- [ ] IntelliJ/PyCharm plugin
-- [ ] Command-line interactive mode (TUI)
-- [ ] Skill diff tool (compare versions)
-- [ ] Skill merge tool (combine multiple skills)
+- [ ] **语义理解**
+  - 对技能内容进行自然语言查询
+  - 智能分类
+  - 自动生成摘要
+  - 概念关系映射
 
 ---
 
-## How to Influence the Roadmap
+## 待办事项
 
-### Priority System
+### 社区请求的功能
+- [ ] 支持视频教程转录
+- [ ] 与 Notion、Confluence 和其他维基集成
+- [ ] Jupyter 笔记抓取和转换
+- [ ] 抓取过程中的实时文档预览
+- [ ] 技能版本控制和更新管理
+- [ ] 技能质量的 A/B 测试
+- [ ] 分析仪表盘（抓取统计、错误率等）
 
-Features are prioritized based on:
-1. **User impact** - How many users will benefit?
-2. **Technical feasibility** - How complex is the implementation?
-3. **Community interest** - How many upvotes/requests?
-4. **Strategic alignment** - Does it fit our vision?
+### 技术改进
+- [ ] 迁移到现代异步框架（全面使用 httpx）
+- [ ] 改进类型安全性（完全 mypy 严格模式）
+- [ ] 更好的日志记录和调试工具
+- [ ] 性能分析仪表盘
+- [ ] 针对超大型文档（10 万页以上）的内存优化
 
-### Ways to Contribute
-
-#### 1. Vote on Features
-- ⭐ Star feature request issues
-- 💬 Comment with your use case
-- 🔼 Upvote discussions
-
-#### 2. Contribute Code
-See our [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) for:
-- **134 tasks** across 22 feature groups
-- Tasks categorized by difficulty and area
-- Clear acceptance criteria
-- Estimated effort levels
-
-Pick any task and submit a PR! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-#### 3. Share Feedback
-- Open issues for bugs or feature requests
-- Share your success stories
-- Suggest improvements to existing features
-- Report performance issues
-
-#### 4. Help with Documentation
-- Write tutorials
-- Improve existing docs
-- Translate documentation
-- Create video guides
+### 生态系统
+- [ ] VS Code 扩展
+- [ ] IntelliJ/PyCharm 插件
+- [ ] 命令行交互模式 (TUI)
+- [ ] 技能差异工具（比较版本）
+- [ ] 技能合并工具（合并多个技能）
 
 ---
 
-## Release Schedule
+## 如何影响路线图
 
-We aim for predictable releases:
+### 优先级系统
 
-- **Patch releases (2.0.x)**: As needed for critical bugs
-- **Minor releases (2.x.0)**: Every 2-3 months
-- **Major releases (x.0.0)**: Annually, with breaking changes announced 3 months in advance
+功能优先级基于：
+1. **用户影响** - 将有多少用户受益？
+2. **技术可行性** - 实现的复杂程度如何？
+3. **社区兴趣** - 有多少赞成/请求？
+4. **战略一致性** - 是否符合我们的愿景？
 
-### Current Schedule
+### 贡献方式
 
-| Version | Focus | ETA | Status |
+#### 1. 为功能投票
+- ⭐ 给功能请求问题加星标
+- 💬 评论并说明你的用例
+- 🔼 在讨论中投赞成票
+
+#### 2. 贡献代码
+请参阅我们的 [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) 以获取：
+- 跨越 22 个功能组的 **134 个任务**
+- 按难度和领域分类的任务
+- 明确的验收标准
+- 预估的工作量
+
+选择任何任务并提交拉取请求！有关指南，请参阅 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+#### 3. 分享反馈
+- 针对错误或功能请求提出问题
+- 分享你的成功案例
+- 建议对现有功能进行改进
+- 报告性能问题
+
+#### 4. 帮助完善文档
+- 编写教程
+- 改进现有文档
+- 翻译文档
+- 创建视频指南
+
+---
+
+## 发布计划
+
+我们的目标是可预测的发布：
+
+- **修订版 (2.0.x)**：根据需要发布，用于修复关键错误
+- **次版本 (2.x.0)**：每 2-3 个月发布一次
+- **主版本 (x.0.0)**：每年发布一次，重大变更将提前 3 个月宣布
+
+### 当前计划
+
+| 版本 | 重点 | 预计时间 | 状态 |
 |---------|-------|-----|--------|
-| v2.0.0 | PyPI Publication | 2025-11-11 | ✅ Released |
-| v2.1.0 | Test Coverage & Quality | Dec 2025 | 🚧 Planning |
-| v2.2.0 | Web Presence | Q1 2026 | 📋 Planned |
-| v2.3.0 | Developer Experience | Q2 2026 | 📋 Planned |
-| v3.0.0 | Major Evolution | 2026 | 💡 Conceptual |
+| v2.0.0 | PyPI 发布 | 2025-11-11 | ✅ 已发布 |
+| v2.1.0 | 测试覆盖率与质量 | 2025 年 12 月 | 🚧 规划中 |
+| v2.2.0 | 网站建设 | 2026 年第一季度 | 📋 已计划 |
+| v2.3.0 | 开发者体验 | 2026 年第二季度 | 📋 已计划 |
+| v3.0.0 | 重大演进 | 2026 | 💡 构思中 |
 
 ---
 
-## Stay Updated
+## 保持更新
 
-- 📋 **Project Board**: https://github.com/users/yusufkaraaslan/projects/2
-- 📚 **Full Roadmap**: [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md)
-- 📝 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
-- 💬 **Discussions**: https://github.com/yusufkaraaslan/Skill_Seekers/discussions
-- 🐛 **Issues**: https://github.com/yusufkaraaslan/Skill_Seekers/issues
+- 📋 **项目看板**: https://github.com/users/yusufkaraaslan/projects/2
+- 📚 **完整路线图**: [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md)
+- 📝 **更新日志**: [CHANGELOG.md](CHANGELOG.md)
+- 💬 **讨论**: https://github.com/yusufkaraaslan/Skill_Seekers/discussions
+- 🐛 **问题**: https://github.com/yusufkaraaslan/Skill_Seekers/issues
 
 ---
 
-## Questions?
+## 有问题吗？
 
-Have questions about the roadmap or want to suggest a feature?
+对路线图有疑问或想建议功能？
 
-1. Check if it's already in our [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md)
-2. Search [existing discussions](https://github.com/yusufkaraaslan/Skill_Seekers/discussions)
-3. Open a new discussion or issue
-4. Reach out in our community channels
+1. 检查它是否已在我们的 [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) 中
+2. 搜索 [现有讨论](https://github.com/yusufkaraaslan/Skill_Seekers/discussions)
+3. 发起新的讨论或问题
+4. 在我们的社区渠道中联系我们
 
-**Together, we're building the future of documentation-to-AI skill conversion!** 🚀
+**我们正在共同构建文档到 AI 技能转换的未来！** 🚀

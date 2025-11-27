@@ -1,23 +1,23 @@
-# Skill Seeker Development Roadmap
+# Skill Seeker 开发路线图
 
-## Vision
-Transform Skill Seeker into the easiest way to create Claude AI skills from **any knowledge source** - documentation websites, PDFs, codebases, GitHub repos, Office docs, and more - with both CLI and MCP interfaces.
+## 愿景
+将 Skill Seeker 打造成从**任意知识来源**（文档网站、PDF、代码库、GitHub 仓库、Office 文档等）快速创建 Claude AI 技能的最简途径，同时提供 CLI 与 MCP 两种界面。
 
-## 🎯 New Approach: Flexible, Incremental Development
+## 🎯 新方法：灵活的增量式开发
 
-**Philosophy:** Small tasks → Pick one → Complete → Move on
+**理念：**小任务 → 任选其一 → 完成 → 继续下一个
 
-Instead of rigid milestones, we now use a **flexible task-based approach**:
-- 100+ small, independent tasks across 10 categories
-- Pick any task, any order
-- Start small, ship often
-- No deadlines, just continuous progress
+不再采用僵硬的里程碑，而是使用**灵活的任务驱动**方式：
+- 10 个类别下 100+ 个小而独立的任务
+- 任务可自由选择、自由顺序
+- 从小着手，高频交付
+- 无硬性截止日期，持续推进即可
 
-**See:** [FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) for the complete task list!
+**详见：**[FLEXIBLE_ROADMAP.md](FLEXIBLE_ROADMAP.md) 获取完整任务清单！
 
 ---
 
-## 🎯 Milestones
+## 🎯 里程碑
 
 ### ✅ v1.0 - Production Release (COMPLETED - Oct 19, 2025)
 **Released:** October 19, 2025 | **Tag:** v1.0.0

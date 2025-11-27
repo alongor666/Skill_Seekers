@@ -1,40 +1,40 @@
-# Async Support Documentation
+# 异步支持文档
 
-## 🚀 Async Mode for High-Performance Scraping
+## 🚀 高性能抓取的异步模式
 
-As of this release, Skill Seeker supports **asynchronous scraping** for dramatically improved performance when scraping documentation websites.
-
----
-
-## ⚡ Performance Benefits
-
-| Metric | Sync (Threads) | Async | Improvement |
-|--------|----------------|-------|-------------|
-| **Pages/second** | ~15-20 | ~40-60 | **2-3x faster** |
-| **Memory per worker** | ~10-15 MB | ~1-2 MB | **80-90% less** |
-| **Max concurrent** | ~50-100 | ~500-1000 | **10x more** |
-| **CPU efficiency** | GIL-limited | Full cores | **Much better** |
+自本版本起，Skill Seeker 支持异步抓取，在抓取文档网站时显著提升性能。
 
 ---
 
-## 📋 How to Enable Async Mode
+## ⚡ 性能收益
 
-### Option 1: Command Line Flag
+| 指标 | 同步（线程） | 异步 | 提升 |
+|------|---------------|------|------|
+| **页/秒** | ~15-20 | ~40-60 | **快 2-3 倍** |
+| **每 worker 内存** | ~10-15 MB | ~1-2 MB | **降低 80-90%** |
+| **最大并发** | ~50-100 | ~500-1000 | **提升 10 倍** |
+| **CPU 效率** | 受 GIL 限制 | 充分利用多核 | **显著更好** |
+
+---
+
+## 📋 如何启用异步模式
+
+### 选项 1：命令行标志
 
 ```bash
-# Enable async mode with 8 workers for best performance
+# 启用异步模式并设置 8 个 worker 以获得最佳性能
 python3 cli/doc_scraper.py --config configs/react.json --async --workers 8
 
-# Quick mode with async
+# 使用异步模式的快速模式
 python3 cli/doc_scraper.py --name react --url https://react.dev/ --async --workers 8
 
-# Dry run with async to test
+# 使用异步模式进行测试性运行
 python3 cli/doc_scraper.py --config configs/godot.json --async --workers 4 --dry-run
 ```
 
-### Option 2: Configuration File
+### 选项 2：配置文件
 
-Add `"async_mode": true` to your config JSON:
+将 `"async_mode": true` 添加到你的配置 JSON 文件中：
 
 ```json
 {
@@ -47,7 +47,7 @@ Add `"async_mode": true` to your config JSON:
 }
 ```
 
-Then run normally:
+然后正常运行：
 
 ```bash
 python3 cli/doc_scraper.py --config configs/react-async.json
@@ -55,99 +55,99 @@ python3 cli/doc_scraper.py --config configs/react-async.json
 
 ---
 
-## 🎯 Recommended Settings
+## 🎯 推荐设置
 
-### Small Documentation (~100-500 pages)
+### 小型文档 (~100-500 页)
 ```bash
 --async --workers 4
 ```
 
-### Medium Documentation (~500-2000 pages)
+### 中型文档 (~500-2000 页)
 ```bash
 --async --workers 8
 ```
 
-### Large Documentation (2000+ pages)
+### 大型文档 (2000+ 页)
 ```bash
 --async --workers 8 --no-rate-limit
 ```
 
-**Note:** More workers isn't always better. Test with 4, then 8, to find optimal performance for your use case.
+**注意：** 更多的 worker 并不总是更好。先用 4 个测试，然后增加到 8 个，以找到适合你用例的最佳性能。
 
 ---
 
-## 🔧 Technical Implementation
+## 🔧 技术实现
 
-### What Changed
+### 变更内容
 
-**New Methods:**
-- `async def scrape_page_async()` - Async version of page scraping
-- `async def scrape_all_async()` - Async version of scraping loop
+**新方法：**
+- `async def scrape_page_async()` - 页面抓取的异步版本
+- `async def scrape_all_async()` - 抓取循环的异步版本
 
-**Key Technologies:**
-- **httpx.AsyncClient** - Async HTTP client with connection pooling
-- **asyncio.Semaphore** - Concurrency control (replaces threading.Lock)
-- **asyncio.gather()** - Parallel task execution
-- **asyncio.sleep()** - Non-blocking rate limiting
+**关键技术：**
+- **httpx.AsyncClient** - 支持连接池的异步 HTTP 客户端
+- **asyncio.Semaphore** - 并发控制（替代 threading.Lock）
+- **asyncio.gather()** - 并行任务执行
+- **asyncio.sleep()** - 非阻塞式速率限制
 
-**Backwards Compatibility:**
-- Async mode is **opt-in** (default: sync mode)
-- All existing configs work unchanged
-- Zero breaking changes
+**向后兼容性：**
+- 异步模式是 **可选的**（默认为同步模式）
+- 所有现有配置无需更改即可工作
+- 零破坏性变更
 
 ---
 
-## 📊 Benchmarks
+## 📊 基准测试
 
-### Test Case: React Documentation (7,102 chars, 500 pages)
+### 测试用例：React 文档 (7,102 个字符, 500 页)
 
-**Sync Mode (Threads):**
+**同步模式（线程）：**
 ```bash
 python3 cli/doc_scraper.py --config configs/react.json --workers 8
-# Time: ~45 minutes
-# Pages/sec: ~18
-# Memory: ~120 MB
+# 时间：约 45 分钟
+# 页/秒：约 18
+# 内存：约 120 MB
 ```
 
-**Async Mode:**
+**异步模式：**
 ```bash
 python3 cli/doc_scraper.py --config configs/react.json --async --workers 8
-# Time: ~15 minutes (3x faster!)
-# Pages/sec: ~55
-# Memory: ~40 MB (66% less)
+# 时间：约 15 分钟 (快 3 倍！)
+# 页/秒：约 55
+# 内存：约 40 MB (减少 66%)
 ```
 
 ---
 
-## ⚠️ Important Notes
+## ⚠️ 重要说明
 
-### When to Use Async
+### 何时使用异步模式
 
-✅ **Use async when:**
-- Scraping 500+ pages
-- Using 4+ workers
-- Network latency is high
-- Memory is constrained
+✅ **建议使用异步模式的情况：**
+- 抓取 500 页以上
+- 使用 4 个以上的 worker
+- 网络延迟高
+- 内存受限
 
-❌ **Don't use async when:**
-- Scraping < 100 pages (overhead not worth it)
-- workers = 1 (no parallelism benefit)
-- Testing/debugging (sync is simpler)
+❌ **不建议使用异步模式的情况：**
+- 抓取少于 100 页（开销不划算）
+- worker = 1 (没有并行优势)
+- 测试/调试（同步模式更简单）
 
-### Rate Limiting
+### 速率限制
 
-Async mode respects rate limits just like sync mode:
+异步模式和同步模式一样遵循速率限制：
 ```bash
-# 0.5 second delay between requests (default)
+# 请求之间延迟 0.5 秒 (默认)
 --async --workers 8 --rate-limit 0.5
 
-# No rate limiting (use carefully!)
+# 无速率限制 (请谨慎使用！)
 --async --workers 8 --no-rate-limit
 ```
 
-### Checkpoints
+### 检查点
 
-Async mode supports checkpoints for resuming interrupted scrapes:
+异步模式支持检查点，可用于恢复中断的抓取：
 ```json
 {
   "async_mode": true,
@@ -160,133 +160,133 @@ Async mode supports checkpoints for resuming interrupted scrapes:
 
 ---
 
-## 🧪 Testing
+## 🧪 测试
 
-Async mode includes comprehensive tests:
+异步模式包含全面的测试：
 
 ```bash
-# Run async-specific tests
+# 运行异步相关的特定测试
 python -m pytest tests/test_async_scraping.py -v
 
-# Run all tests
+# 运行所有测试
 python cli/run_tests.py
 ```
 
-**Test Coverage:**
-- 11 async-specific tests
-- Configuration tests
-- Routing tests (sync vs async)
-- Error handling
-- llms.txt integration
+**测试覆盖范围：**
+- 11 个异步相关的特定测试
+- 配置测试
+- 路由测试（同步 vs 异步）
+- 错误处理
+- llms.txt 集成
 
 ---
 
-## 🐛 Troubleshooting
+## 🐛 故障排除
 
-### "Too many open files" error
+### "打开文件过多" 错误
 
-Reduce worker count:
+减少 worker 数量：
 ```bash
---async --workers 4  # Instead of 8
+--async --workers 4  # 而不是 8
 ```
 
-### Async mode slower than sync
+### 异步模式比同步模式慢
 
-This can happen with:
-- Very low worker count (use >= 4)
-- Very fast local network (async overhead not worth it)
-- Small documentation (< 100 pages)
+这可能发生在以下情况：
+- worker 数量非常少（建议使用 >= 4）
+- 本地网络非常快（异步开销不划算）
+- 文档规模小（< 100 页）
 
-**Solution:** Use sync mode for small docs, async for large ones.
+**解决方案：** 对小型文档使用同步模式，对大型文档使用异步模式。
 
-### Memory usage still high
+### 内存使用仍然很高
 
-Async reduces memory per worker, but:
-- BeautifulSoup parsing is still memory-intensive
-- More workers = more memory
+异步模式减少了每个 worker 的内存，但是：
+- BeautifulSoup 解析仍然是内存密集型操作
+- 更多的 worker = 更多的内存
 
-**Solution:** Use 4-6 workers instead of 8-10.
+**解决方案：** 使用 4-6 个 worker，而不是 8-10 个。
 
 ---
 
-## 📚 Examples
+## 📚 示例
 
-### Example 1: Fast scraping with async
+### 示例 1：使用异步模式快速抓取
 
 ```bash
-# Godot documentation (~1,600 pages)
-python3 cli/doc_scraper.py \\
-  --config configs/godot.json \\
-  --async \\
-  --workers 8 \\
+# Godot 文档 (约 1,600 页)
+python3 cli/doc_scraper.py \
+  --config configs/godot.json \
+  --async \
+  --workers 8 \
   --rate-limit 0.3
 
-# Result: ~12 minutes (vs 40 minutes sync)
+# 结果：约 12 分钟 (同步模式约 40 分钟)
 ```
 
-### Example 2: Respectful scraping with async
+### 示例 2：使用异步模式进行礼貌性抓取
 
 ```bash
-# Django documentation with polite rate limiting
-python3 cli/doc_scraper.py \\
-  --config configs/django.json \\
-  --async \\
-  --workers 4 \\
+# Django 文档，使用礼貌的速率限制
+python3 cli/doc_scraper.py \
+  --config configs/django.json \
+  --async \
+  --workers 4 \
   --rate-limit 1.0
 
-# Still faster than sync, but respectful to server
+# 仍然比同步模式快，但对服务器友好
 ```
 
-### Example 3: Testing async mode
+### 示例 3：测试异步模式
 
 ```bash
-# Dry run to test async without actual scraping
-python3 cli/doc_scraper.py \\
-  --config configs/react.json \\
-  --async \\
-  --workers 8 \\
+# 测试性运行以测试异步模式，不进行实际抓取
+python3 cli/doc_scraper.py \
+  --config configs/react.json \
+  --async \
+  --workers 8 \
   --dry-run
 
-# Preview URLs, test configuration
+# 预览 URL，测试配置
 ```
 
 ---
 
-## 🔮 Future Enhancements
+## 🔮 未来增强
 
-Planned improvements for async mode:
+计划对异步模式进行的改进：
 
-- [ ] Adaptive worker scaling based on server response time
-- [ ] Connection pooling optimization
-- [ ] Progress bars for async scraping
-- [ ] Real-time performance metrics
-- [ ] Automatic retry with backoff for failed requests
-
----
-
-## 💡 Best Practices
-
-1. **Start with 4 workers** - Test, then increase if needed
-2. **Use --dry-run first** - Verify configuration before scraping
-3. **Respect rate limits** - Don't disable unless necessary
-4. **Monitor memory** - Reduce workers if memory usage is high
-5. **Use checkpoints** - Enable for large scrapes (>1000 pages)
+- [ ] 基于服务器响应时间的自适应 worker 扩展
+- [ ] 连接池优化
+- [ ] 异步抓取的进度条
+- [ ] 实时性能指标
+- [ ] 失败请求的自动重试与退避策略
 
 ---
 
-## 📖 Additional Resources
+## 💡 最佳实践
 
-- **Main README**: [README.md](README.md)
-- **Technical Docs**: [docs/CLAUDE.md](docs/CLAUDE.md)
-- **Test Suite**: [tests/test_async_scraping.py](tests/test_async_scraping.py)
-- **Configuration Guide**: See `configs/` directory for examples
+1. **从 4 个 worker 开始** - 先测试，如果需要再增加
+2. **首先使用 --dry-run** - 在抓取前验证配置
+3. **遵守速率限制** - 除非必要，否则不要禁用
+4. **监控内存** - 如果内存使用率高，则减少 worker
+5. **使用检查点** - 对大型抓取（>1000 页）启用
 
 ---
 
-## ✅ Version Information
+## 📖 其他资源
 
-- **Feature**: Async Support
-- **Version**: Added in current release
-- **Status**: Production-ready
-- **Test Coverage**: 11 async-specific tests, all passing
-- **Backwards Compatible**: Yes (opt-in feature)
+- **主 README**: [README.md](README.md)
+- **技术文档**: [docs/CLAUDE.md](docs/CLAUDE.md)
+- **测试套件**: [tests/test_async_scraping.py](tests/test_async_scraping.py)
+- **配置指南**: 请参阅 `configs/` 目录中的示例
+
+---
+
+## ✅ 版本信息
+
+- **功能**: 异步支持
+- **版本**: 在当前版本中添加
+- **状态**: 生产就绪
+- **测试覆盖范围**: 11 个异步相关的特定测试，全部通过
+- **向后兼容**: 是（可选功能）
